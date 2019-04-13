@@ -3,12 +3,12 @@
 	<classpathentry kind="src" path="client"/>
 	<classpathentry kind="src" path="server"/>
 	<classpathentry kind="src" path="test_Demo"/>
-	<classpathentry kind="lib" path="/Users/johanlindeborg/git/GeoGo-Game/API_Filer/jxmaps-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/johanlindeborg/git/GeoGo-Game/API_Filer/jxmaps-linux32-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/johanlindeborg/git/GeoGo-Game/API_Filer/jxmaps-linux64-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/johanlindeborg/git/GeoGo-Game/API_Filer/jxmaps-mac-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/johanlindeborg/git/GeoGo-Game/API_Filer/jxmaps-win-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/johanlindeborg/git/GeoGo-Game/API_Filer/license.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/Java 8"/>
+	<classpathentry kind="lib" path="C:/Users/h_o_l/JxMaps/lib/jxmaps-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/h_o_l/JxMaps/lib/jxmaps-linux32-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/h_o_l/JxMaps/lib/jxmaps-linux64-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/h_o_l/JxMaps/lib/jxmaps-mac-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/h_o_l/JxMaps/lib/jxmaps-win-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/h_o_l/JxMaps/lib/license.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
