@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class WorkerThread extends Thread {
+public class ClientHandler extends Thread {
 
 	private Socket clientSocket;
 	
@@ -13,7 +13,7 @@ public class WorkerThread extends Thread {
 	private ObjectOutputStream oos;
 	
 	
-	public WorkerThread(Socket clientSocket) {
+	public ClientHandler(Socket clientSocket) {
 		this.clientSocket = clientSocket;
 		
 		try {
