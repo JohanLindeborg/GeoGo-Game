@@ -67,10 +67,13 @@ public class ClientHandler extends Thread {
 		}
     }
 	
-	public void sendMessageTo() {
+	public void sendMessageTo(ObjectOutputStream receiverOOS) {
 		
 	}
-	
+	/*
+	 * This method creates a new ObjectOutputStream for communication between
+	 * this "client" and the other player "client".
+	 */
 	public void setOtherPlayerSocket(Socket otherPlayerSocket) {
 		try {
 			this.otherPlayerOOS = new ObjectOutputStream(otherPlayerSocket.getOutputStream());
@@ -81,7 +84,9 @@ public class ClientHandler extends Thread {
 
 		}
 	}
-	
+	/*
+	 * This method returns the socket of this clienthandler, 
+	 */
 	public Socket getSocket() {
 		return this.clientSocket;
 	}
