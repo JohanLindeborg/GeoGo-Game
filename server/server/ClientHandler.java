@@ -17,6 +17,7 @@ public class ClientHandler extends Thread {
 	/*
 	 * ObjectOutputStream for communication with the
 	 * other player (client).
+	 * 
 	 */
 	
 	private ObjectOutputStream otherPlayerOOS;
