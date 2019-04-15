@@ -7,6 +7,10 @@ import java.net.Socket;
 
 import sharedFiles.Message;
 
+/*
+ * This class represents the connection between a client and the server
+ * it has methods for communication between this client and other clients.
+ */
 public class ClientHandler extends Thread {
 
 	private Socket clientSocket;
@@ -14,13 +18,13 @@ public class ClientHandler extends Thread {
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 	
+	private boolean isInGame = false;
+	
 	/*
 	 * ObjectOutputStream for communication with the
 	 * other player (client).
-	 * fsfsefsfe
 	 */
-	
-	private ObjectOutputStream otherPlayerOOS;
+	private ObjectOutputStream otherClientOOS = null;
 	
 	
 	public ClientHandler(Socket clientSocket) {
@@ -31,8 +35,10 @@ public class ClientHandler extends Thread {
 			this.oos = new ObjectOutputStream(clientSocket.getOutputStream());
 
 		} catch (IOException e) {
+			System.out.println("IO Exception:");
 			e.printStackTrace();
 		}
+		start();	
 	}
 	
 	/*
@@ -67,29 +73,43 @@ public class ClientHandler extends Thread {
 			}
 		}
     }
-	
-	public void sendMessageTo(ObjectOutputStream receiverOOS) {
+	/**
+	 * This method will be used for communication to all clients, to send a message
+	 * to the client connected through this ClientHandler, use: OOS as parameter,
+	 * otherwise use the otherPlayerOOS for communication to the current opposing player.
+	 * @param receiverOOS The ObjectOutputStream to be used
+	 * @param message The message to be sent
+	 */
+	public void sendMessageToClient(ObjectOutputStream receiverOOS, Message message) {
 		
-	}
-	/*
-	 * This method creates a new ObjectOutputStream for communication between
-	 * this "client" and the other player "client".
-	 */
-	public void setOtherPlayerSocket(Socket otherPlayerSocket) {
 		try {
-			this.otherPlayerOOS = new ObjectOutputStream(otherPlayerSocket.getOutputStream());
-		}
-		catch(IOException e) {
-        	System.out.println("IO exception, when getting other player outputstream");
-            e.printStackTrace();
-
+			if(receiverOOS == null) {
+				System.out.println("ObjectOutputStream = null");
+				throw new IOException();
+			}
+			receiverOOS.writeObject(message);
+			
+		} catch (IOException e) {
+			System.out.println("IO Exception");
+			e.printStackTrace();
 		}
 	}
 	/*
-	 * This method returns the socket of this clienthandler, 
+	 * setter for the objectoutputstream to be used when communicating
+	 * to other client "player
 	 */
-	public Socket getSocket() {
-		return this.clientSocket;
+	public void setOtherPlayerOOS(ObjectOutputStream otherPlayerOOS) {
+		this.otherClientOOS = otherPlayerOOS;
 	}
+	/*
+	 * getter method for the ObjectOutputStream used by this 
+	 * clienthandler
+	 */
+	public ObjectOutputStream getOOS() {
+		return oos;
+	}
+	
+	
+	
 	
 }
