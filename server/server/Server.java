@@ -5,55 +5,48 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
-public class Server {
+public class Server extends Thread {
 	
 	//Hashmap to store usernames (key) and their associated threads.
 	private HashMap<String, ClientHandler> clientMap;
 	
 	
-	private ConnectionAccepter connectionAccepter;
+	
+	private ServerSocket serverSocket;
+	private int serverPort = 4242;
 		
 	public Server() {
 		
 		
-		connectionAccepter = new ConnectionAccepter();
+		try {
+			serverSocket = new ServerSocket(serverPort);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		start();
+
 		
-		connectionAccepter.start();
+	}
+	public void run() {
+		while(this.isAlive()){
+	       
+			Socket clientSocket = null;
+	        try {
+	            clientSocket = this.serverSocket.accept();
+	        } catch (IOException e) {
+	            if(this.isAlive() != true) {
+	                System.out.println("Server Stopped.") ;
+	                return;
+	            }
+	            throw new RuntimeException(
+	                "Error accepting client connection", e);
+	        }
+	        new ClientHandler(clientSocket, this).start();
+	    }
 	}
 	
-	
-	private class ConnectionAccepter extends Thread{
-		private ServerSocket serverSocket;
-		private int serverPort = 4242;
-		
-		public ConnectionAccepter() {
-			
-			try {
-				serverSocket = new ServerSocket(serverPort);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			
-		}
-		
-		public void run() {
-			while(this.isAlive()){
-		       
-				Socket clientSocket = null;
-		        try {
-		            clientSocket = this.serverSocket.accept();
-		        } catch (IOException e) {
-		            if(this.isAlive() != true) {
-		                System.out.println("Server Stopped.") ;
-		                return;
-		            }
-		            throw new RuntimeException(
-		                "Error accepting client connection", e);
-		        }
-		        new ClientHandler(clientSocket).start();
-		    }
-		}
+	public void addClientToServerList(String key, ClientHandler clienthandler) {
+		clientMap.put(key, client);
 	}
-
+	
 }

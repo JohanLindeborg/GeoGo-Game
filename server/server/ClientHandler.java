@@ -5,6 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import com.teamdev.jxmaps.MapViewOptions;
+import com.teamdev.jxmaps.swing.MapView;
+
+import demo.HelloWorld;
+import sharedFiles.ConnectMessage;
+import sharedFiles.MapMessage;
 import sharedFiles.Message;
 
 /*
@@ -20,6 +26,8 @@ public class ClientHandler extends Thread {
 	
 	private boolean isInGame = false;
 	
+	private Server server;
+	
 	/*
 	 * ObjectOutputStream for communication with the
 	 * other player (client).
@@ -27,8 +35,9 @@ public class ClientHandler extends Thread {
 	private ObjectOutputStream otherClientOOS = null;
 	
 	
-	public ClientHandler(Socket clientSocket) {
+	public ClientHandler(Socket clientSocket, Server server) {
 		this.clientSocket = clientSocket;
+		this.server = server;
 		
 		try {
 			this.ois = new ObjectInputStream(clientSocket.getInputStream());    
@@ -61,11 +70,19 @@ public class ClientHandler extends Thread {
 	        	System.out.println("IO exception");
 	            e.printStackTrace();
 	        }
-			if(message instanceof Message ) {
+			if(message instanceof ConnectMessage ) {
 				
+				server.addClientToServerList(((ConnectMessage) message).getUsername(), this);
 			}
-			else if(message instanceof Message) {
+			else if(message instanceof MapMessage) {
+	
+				MapView requestedMap =  ((MapMessage) message).getMapView();
 				
+				MapViewOptions options = new MapViewOptions();
+				
+				options.importPlaces();
+		        options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
+		        final HelloWorld mapView = new HelloWorld(options);
 			}
 			else if(message instanceof Message) {
 				
