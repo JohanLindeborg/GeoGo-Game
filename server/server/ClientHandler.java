@@ -60,7 +60,8 @@ public class ClientHandler extends Thread {
 		while(this.isAlive()) {
 			try {
 				message = (Message) ois.readObject();
-				
+			       System.out.println("Clienthandler read object ( "+message+" ).");
+
 	            
 	        	
 	        }catch(ClassNotFoundException e) {
@@ -74,10 +75,12 @@ public class ClientHandler extends Thread {
 			if(message instanceof ConnectMessage ) {
 				
 				server.addClientToServerList(((ConnectMessage) message).getUsername(), this);
+			    System.out.println("Clienthandler added to serverlist with key: "+((ConnectMessage) message).getUsername());
+
 			}
 			else if(message instanceof RequestMapMessage) {
 	
-				
+
 				MapViewOptions options = new MapViewOptions();
 				
 				options.importPlaces();
@@ -86,6 +89,8 @@ public class ClientHandler extends Thread {
 		        
 		        MapMessage mapmessage = new MapMessage(mapView);
 		        
+			    System.out.println("Requestmap received, sending map to client...");
+
 		        sendMessageToClient(oos,mapmessage);
 			}
 			else if(message instanceof Message) {

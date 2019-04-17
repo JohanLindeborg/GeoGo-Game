@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Server extends Thread {
 	
 	//Hashmap to store usernames (key) and their associated threads.
-	private HashMap<String, ClientHandler> clientMap;
+	private HashMap<String, ClientHandler> clientMap = new HashMap<String, ClientHandler>();
 	
 	
 	
@@ -29,7 +29,7 @@ public class Server extends Thread {
 	}
 	public void run() {
 		while(this.isAlive()){
-	       
+	       System.out.println("Server listening for new connections...");
 			Socket clientSocket = null;
 	        try {
 	            clientSocket = this.serverSocket.accept();
@@ -42,6 +42,8 @@ public class Server extends Thread {
 	                "Error accepting client connection", e);
 	        }
 	        new ClientHandler(clientSocket, this).start();
+		      System.out.println("connection accepted new clienthandler started.");
+
 	    }
 	}
 	

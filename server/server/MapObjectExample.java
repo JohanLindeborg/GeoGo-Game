@@ -1,5 +1,7 @@
 package server;
 
+import java.io.Serializable;
+
 import com.teamdev.jxmaps.GeocoderCallback;
 import com.teamdev.jxmaps.GeocoderRequest;
 import com.teamdev.jxmaps.GeocoderResult;
@@ -12,7 +14,12 @@ import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.swing.MapView;
 
-public class MapObjectExample extends MapView {
+public class MapObjectExample extends MapView implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public MapObjectExample(MapViewOptions options) {
         super(options);
