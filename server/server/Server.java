@@ -46,7 +46,7 @@ public class Server extends Thread {
 	}
 	
 	public void addClientToServerList(String key, ClientHandler clienthandler) {
-		clientMap.put(key, client);
+		clientMap.put(key, clienthandler);
 	}
 	
 }

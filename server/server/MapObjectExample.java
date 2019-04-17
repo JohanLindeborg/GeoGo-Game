@@ -1,4 +1,4 @@
-package client;
+package server;
 
 import com.teamdev.jxmaps.GeocoderCallback;
 import com.teamdev.jxmaps.GeocoderRequest;

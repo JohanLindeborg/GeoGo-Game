@@ -12,6 +12,7 @@ import demo.HelloWorld;
 import sharedFiles.ConnectMessage;
 import sharedFiles.MapMessage;
 import sharedFiles.Message;
+import sharedFiles.RequestMapMessage;
 
 /*
  * This class represents the connection between a client and the server
@@ -74,15 +75,18 @@ public class ClientHandler extends Thread {
 				
 				server.addClientToServerList(((ConnectMessage) message).getUsername(), this);
 			}
-			else if(message instanceof MapMessage) {
+			else if(message instanceof RequestMapMessage) {
 	
-				MapView requestedMap =  ((MapMessage) message).getMapView();
 				
 				MapViewOptions options = new MapViewOptions();
 				
 				options.importPlaces();
 		        options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
-		        final HelloWorld mapView = new HelloWorld(options);
+		        final MapObjectExample mapView = new MapObjectExample(options);
+		        
+		        MapMessage mapmessage = new MapMessage(mapView);
+		        
+		        sendMessageToClient(oos,mapmessage);
 			}
 			else if(message instanceof Message) {
 				

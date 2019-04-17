@@ -6,7 +6,7 @@ public class MapMessage extends Message {
 
 	private MapView map;
 	
-	public void MapMessage(MapView map) {
+	public MapMessage(MapView map) {
 		this.map = map;
 		
 	}
