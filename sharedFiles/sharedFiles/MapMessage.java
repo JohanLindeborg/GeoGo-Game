@@ -1,21 +1,27 @@
 package sharedFiles;
 
+import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
 public class MapMessage extends Message {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private MapView map;
 	
-	public MapMessage(MapView map) {
-		this.map = map;
+	
+	private LatLng mapCenter;
+	private double zoomLevel;
+	
+	public MapMessage(LatLng mapCenter, double zoomLevel) {
+		this.mapCenter = mapCenter;
+		this.zoomLevel = zoomLevel;
 		
 	}
 	
-	public MapView getMapView() {
-		return map;
+	public LatLng getMapCenter() {
+		return mapCenter;
+	}
+	
+	public double getZoomLevel() {
+		return zoomLevel;
 	}
 }
