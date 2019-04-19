@@ -51,4 +51,8 @@ public class Server extends Thread {
 		clientMap.put(key, clienthandler);
 	}
 	
+	public HashMap<String, ClientHandler> getClientMap(){
+		return clientMap;
+	}
+	
 }

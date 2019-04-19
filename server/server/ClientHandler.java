@@ -4,15 +4,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.swing.MapView;
 
 import demo.HelloWorld;
-import sharedFiles.ConnectMessage;
+import sharedFiles.AddToServerListMessage;
 import sharedFiles.MapMessage;
 import sharedFiles.Message;
-import sharedFiles.RequestMapMessage;
+import sharedFiles.RequestGameMessage;
 
 /*
  * This class represents the connection between a client and the server
@@ -26,6 +27,7 @@ public class ClientHandler extends Thread {
 	private ObjectOutputStream oos;
 	
 	private boolean isInGame = false;
+	private Boolean listeningForMessages = true;
 	
 	private Server server;
 	
@@ -57,10 +59,10 @@ public class ClientHandler extends Thread {
 	public void run() {
 		Message message = null;
         
-		while(this.isAlive()) {
+		while(listeningForMessages) {
 			try {
 				message = (Message) ois.readObject();
-			       System.out.println("Clienthandler read object ( "+message+" ).");
+			    System.out.println("Clienthandler read object ( "+message+" ).");
 
 	            
 	        	
@@ -72,26 +74,27 @@ public class ClientHandler extends Thread {
 	        	System.out.println("IO exception");
 	            e.printStackTrace();
 	        }
-			if(message instanceof ConnectMessage ) {
+			if(message instanceof AddToServerListMessage ) {
 				
-				server.addClientToServerList(((ConnectMessage) message).getUsername(), this);
-			    System.out.println("Clienthandler added to serverlist with key: "+((ConnectMessage) message).getUsername());
+				server.addClientToServerList(((AddToServerListMessage) message).getUsername(), this);
+			    System.out.println("Clienthandler added to serverlist with key: "+((AddToServerListMessage) message).getUsername());
 
 			}
-			else if(message instanceof RequestMapMessage) {
-	
+			else if(message instanceof RequestGameMessage) {
+	        	System.out.println("CH: requestGameMessage received");
 
-				MapViewOptions options = new MapViewOptions();
+				RequestGameMessage requestMessage = (RequestGameMessage) message;
 				
-				options.importPlaces();
-		        options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
-		        final MapObjectExample mapView = new MapObjectExample(options);
-		        
-		        MapMessage mapmessage = new MapMessage(mapView);
-		        
-			    System.out.println("Requestmap received, sending map to client...");
+				HashMap<String, ClientHandler> clientMap = server.getClientMap();
+				
+				ClientHandler otherClient = clientMap.get(requestMessage.getOtherClientName());
+				
+				
+	        	System.out.println("Starting GameHandler");
+				new GameHandler(this, otherClient).start();
+	        	System.out.println("GameHandler started");
 
-		        sendMessageToClient(oos,mapmessage);
+				
 			}
 			else if(message instanceof Message) {
 				
@@ -99,41 +102,42 @@ public class ClientHandler extends Thread {
 		}
     }
 	/**
-	 * This method will be used for communication to all clients, to send a message
-	 * to the client connected through this ClientHandler, use: OOS as parameter,
-	 * otherwise use the otherPlayerOOS for communication to the current opposing player.
-	 * @param receiverOOS The ObjectOutputStream to be used
+	 * This method will be used for communication to the client, to send a message
+	 * to the client connected through this ClientHandler.
 	 * @param message The message to be sent
 	 */
-	public void sendMessageToClient(ObjectOutputStream receiverOOS, Message message) {
+	public void sendMessage(Message message) {
 		
 		try {
-			if(receiverOOS == null) {
-				System.out.println("ObjectOutputStream = null");
-				throw new IOException();
-			}
-			receiverOOS.writeObject(message);
+			
+			oos.writeObject(message);
 			
 		} catch (IOException e) {
 			System.out.println("IO Exception");
 			e.printStackTrace();
 		}
 	}
-	/*
-	 * setter for the objectoutputstream to be used when communicating
-	 * to other client "player
-	 */
-	public void setOtherPlayerOOS(ObjectOutputStream otherPlayerOOS) {
-		this.otherClientOOS = otherPlayerOOS;
-	}
-	/*
-	 * getter method for the ObjectOutputStream used by this 
-	 * clienthandler
-	 */
+	
 	public ObjectOutputStream getOOS() {
 		return oos;
 	}
 	
+	public ObjectInputStream getOIS() {
+		return ois;
+	}
+	
+	public Socket getClientSocket() {
+		return clientSocket;
+	}
+	
+	
+	public void setListeningForMessages(boolean listening) {
+		listeningForMessages = listening;
+	}
+	
+	public void SetIsInGame(boolean inGame) {
+		isInGame = inGame;
+	}
 	
 	
 	

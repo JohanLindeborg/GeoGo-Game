@@ -1,13 +1,13 @@
 package sharedFiles;
 
-public class ConnectMessage extends Message{
+public class AddToServerListMessage extends Message{
 
 	private static final long serialVersionUID = 1L;
 	
 	
 	private String username;
 	
-	public ConnectMessage(String username) {
+	public AddToServerListMessage(String username) {
 		this.username = username;
 	}
 	

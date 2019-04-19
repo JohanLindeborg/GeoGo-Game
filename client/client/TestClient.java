@@ -10,12 +10,13 @@ import java.net.UnknownHostException;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
-import sharedFiles.ConnectMessage;
+import sharedFiles.AddToServerListMessage;
 import sharedFiles.MapMessage;
 import sharedFiles.Message;
-import sharedFiles.RequestMapMessage;
+import sharedFiles.RequestGameMessage;
 
 public class TestClient extends Thread{
 	
@@ -24,6 +25,8 @@ public class TestClient extends Thread{
 	
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	
+	private CreateMap map;
 	
 	
 	public TestClient() {
@@ -66,49 +69,55 @@ public class TestClient extends Thread{
 			
 			
 			if(message instanceof MapMessage) {
-				initializeMap(((MapMessage) message).getMapView());
+				MapMessage mapMessage = (MapMessage) message;
+				
+				map = new CreateMap(mapMessage.getZoomLevel(), mapMessage.getMapCenter());
+				
+				displayMap(map.getMap());
+				
 			}
 		}
 	}
 	
-	public void initializeMap(MapView map) {
-		
-		JFrame frame = new JFrame("JxMaps - Hello, World!");
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(map, BorderLayout.CENTER);
-        frame.setSize(700, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-	}
 	
-	public void connectToServer() {
+	
+	public void connectToServer(String userName) {
 		
 		try {
-			oos.writeObject(new ConnectMessage("testKlient"));
+			oos.writeObject(new AddToServerListMessage(userName));
 		} catch (IOException e) {
 			System.out.println("IO Exception:");
 			e.printStackTrace();
 		}
 	}
 	
-	public void requestMap() {
+	public void StartGameHandler(String playWithUser) {
 			
 			try {
-				oos.writeObject(new RequestMapMessage());
+				oos.writeObject(new RequestGameMessage(playWithUser));
 			} catch (IOException e) {
 				System.out.println("IO Exception:");
 				e.printStackTrace();
 			}
 		}
-	
-	
-	
-	public static void main(String[] args) {
-		TestClient test = new TestClient();
+	public void sendMapMessage(LatLng mapCenter, double zoomLevel) {
+		MapMessage mapMessage = new MapMessage(mapCenter, zoomLevel);
 		
-		test.connectToServer();
-		test.requestMap();
+		try {
+			oos.writeObject(mapMessage);
+		} catch (IOException e) {
+			System.out.println("IO Exception:");
+			e.printStackTrace();
+		}
+	}
 	
+	public void displayMap(MapView map) {
+		JFrame frame = new JFrame("ClientMap");
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.add(map, BorderLayout.CENTER);
+        frame.setSize(700, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 	}
 }
