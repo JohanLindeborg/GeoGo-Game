@@ -1,4 +1,4 @@
-package demo;
+package jxMaps_Demo;
 
 import com.teamdev.jxmaps.*;
 import com.teamdev.jxmaps.swing.MapView;

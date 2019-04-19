@@ -9,7 +9,7 @@ import java.util.HashMap;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.swing.MapView;
 
-import demo.HelloWorld;
+import jxMaps_Demo.HelloWorld;
 import sharedFiles.AddToServerListMessage;
 import sharedFiles.MapMessage;
 import sharedFiles.Message;
