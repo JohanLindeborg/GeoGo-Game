@@ -1,4 +1,4 @@
-package client;
+package Demo;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -11,13 +11,15 @@ import javax.swing.JPanel;
 
 import com.teamdev.jxmaps.LatLng;
 
+import client.CreateMap;
+
 public class CreateMapTest extends JFrame {
 	
 	private JButton africaBtn = new JButton("Africa");
 	private JButton europeBtn = new JButton("Europe");
-	private BtnListener listener = new BtnListener();
+	private BtnListener listener = new BtnListener(this);
 	
-	JPanel mapPnl = new JPanel();
+	JPanel btnPnl = new JPanel();
 
 	
 	private CreateMap map;
@@ -26,22 +28,17 @@ public class CreateMapTest extends JFrame {
 		
 		this.setTitle("API Map Test");
 		
-		JPanel mainPnl = new JPanel();
-		JPanel btnPnl = new JPanel();
+		this.setLayout(new BorderLayout());
 		
-		mainPnl.setLayout(new BorderLayout());
-		btnPnl.setLayout(new FlowLayout());
+		this.add(btnPnl, BorderLayout.SOUTH);
 		
+		CreateMap baseMap = new CreateMap(3.0 ,new LatLng(2.37 ,16.06));
+		this.add(baseMap.getMap(), BorderLayout.CENTER);
 		
-		btnPnl.add(africaBtn);
-		btnPnl.add(europeBtn);
-		
-		mainPnl.add(mapPnl, BorderLayout.CENTER);
-		mainPnl.add(btnPnl, BorderLayout.SOUTH);
-		this.add(mainPnl);
+		this.pack();
 		
 		this.setVisible(true);
-		this.setSize(400, 600);
+		this.setSize(600, 600);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		africaBtn.addActionListener(listener);
@@ -51,18 +48,22 @@ public class CreateMapTest extends JFrame {
 	
 	
 	private class BtnListener implements ActionListener{
-
+		
+		private JFrame frame;
+		public BtnListener(JFrame frame) {
+			this.frame = frame;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			
 			if(e.getSource() == africaBtn) {
 				map = new CreateMap(3.0 ,new LatLng(2.37 ,16.06));
-				mapPnl.add(map.getMap());
+				frame.add(map.getMap(),BorderLayout.CENTER);
 			}
 			else if (e.getSource() == europeBtn) {
 				map = new CreateMap( 3.0,new LatLng(53.3439,23.0622));
-				mapPnl.add(map.getMap());
+				frame.add(map.getMap(), BorderLayout.CENTER);
 			}
 		}
 		
