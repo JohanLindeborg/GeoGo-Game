@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Server server = new Server();
+		GameServer server = new GameServer();
 	}
 
 }

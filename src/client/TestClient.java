@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,11 +15,14 @@ import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
 import sharedFiles.AddToServerListMessage;
+import sharedFiles.GameData;
 import sharedFiles.MapMessage;
 import sharedFiles.Message;
 import sharedFiles.RequestGameMessage;
 
 public class TestClient extends Thread{
+	
+	private String userName;
 	
 	private Socket socket;
 	private int port;
@@ -28,9 +32,13 @@ public class TestClient extends Thread{
 	
 	private CreateMap map;
 	
+	private GameData currentGame;
+	private boolean inGame = false;
 	
-	public TestClient() {
+	
+	public TestClient(String userName) {
 		
+		this.userName = userName;
 		this.port = 4242;
 		
 		try {
@@ -51,13 +59,14 @@ public class TestClient extends Thread{
 	}
 	
 	public void run() {
-		Message message = null;
+		Object obj = null;
 		
 		while(true) {
 			try {
 			
 				
-				message = (Message) ois.readObject();
+				obj = ois.readObject();
+				System.out.println("Client "+userName+" received object");
 				
 			}catch(ClassNotFoundException e) {
 				System.out.println("Class Not Found Exception:");
@@ -68,20 +77,27 @@ public class TestClient extends Thread{
 			}
 			
 			
-			if(message instanceof MapMessage) {
-				MapMessage mapMessage = (MapMessage) message;
+			if(obj instanceof GameData) {
+				currentGame = (GameData) obj;
+				System.out.println("Client "+userName+" received GameData");
 				
-				map = new CreateMap(mapMessage.getZoomLevel(), mapMessage.getMapCenter());
-				
-				displayMap(map.getMap());
-				
+				if( !inGame) {
+					Point point = currentGame.getMapCenter();
+					LatLng latlng = new LatLng(point.getX(),point.getY());
+					
+					map = new CreateMap(currentGame.getZoomLevel(), latlng);
+					System.out.println("Client "+userName+" created map");
+					displayMap(map.getMap());
+					
+					inGame = true;
+				}
 			}
 		}
 	}
 	
 	
 	
-	public void connectToServer(String userName) {
+	public void connectToServer() {
 		
 		try {
 			oos.writeObject(new AddToServerListMessage(userName));
@@ -91,16 +107,18 @@ public class TestClient extends Thread{
 		}
 	}
 	
-	public void StartGameHandler(String playWithUser) {
-			
-			try {
-				oos.writeObject(new RequestGameMessage(playWithUser));
-			} catch (IOException e) {
-				System.out.println("IO Exception:");
-				e.printStackTrace();
-			}
+	public void startNewGame(Point mapCenter, double zoomLevel, String otherplayer) {
+		RequestGameMessage msg = new RequestGameMessage( mapCenter,  zoomLevel, otherplayer);
+		
+		try {
+			oos.writeObject(msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	public void sendMapMessage(LatLng mapCenter, double zoomLevel) {
+	}
+	
+	public void sendMapMessage(Point mapCenter, double zoomLevel) {
 		MapMessage mapMessage = new MapMessage(mapCenter, zoomLevel);
 		
 		try {
@@ -120,4 +138,5 @@ public class TestClient extends Thread{
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
+	
 }

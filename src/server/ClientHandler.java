@@ -4,22 +4,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
 
-import com.teamdev.jxmaps.MapViewOptions;
-import com.teamdev.jxmaps.swing.MapView;
-
-import jxMaps_Demo.HelloWorld;
-import sharedFiles.AddToServerListMessage;
-import sharedFiles.MapMessage;
 import sharedFiles.Message;
-import sharedFiles.RequestGameMessage;
+
 
 /*
  * This class represents the connection between a client and the server
  * it has methods for communication between this client and other clients.
  */
-public class ClientHandler extends Thread {
+public class ClientHandler extends Thread{
+
+	/**
+	 * 
+	 */
 
 	private Socket clientSocket;
 	
@@ -29,16 +26,15 @@ public class ClientHandler extends Thread {
 	private boolean isInGame = false;
 	private Boolean listeningForMessages = true;
 	
-	private Server server;
+	private GameServer server;
 	
 	/*
 	 * ObjectOutputStream for communication with the
 	 * other player (client).
 	 */
-	private ObjectOutputStream otherClientOOS = null;
 	
 	
-	public ClientHandler(Socket clientSocket, Server server) {
+	public ClientHandler(Socket clientSocket, GameServer server) {
 		this.clientSocket = clientSocket;
 		this.server = server;
 		
@@ -73,32 +69,8 @@ public class ClientHandler extends Thread {
 			catch (IOException e) {
 	        	System.out.println("IO exception");
 	            e.printStackTrace();
-	        }
-			if(message instanceof AddToServerListMessage ) {
-				
-				server.addClientToServerList(((AddToServerListMessage) message).getUsername(), this);
-			    System.out.println("Clienthandler added to serverlist with key: "+((AddToServerListMessage) message).getUsername());
-
 			}
-			else if(message instanceof RequestGameMessage) {
-	        	System.out.println("CH: requestGameMessage received");
-
-				RequestGameMessage requestMessage = (RequestGameMessage) message;
-				
-				HashMap<String, ClientHandler> clientMap = server.getClientMap();
-				
-				ClientHandler otherClient = clientMap.get(requestMessage.getOtherClientName());
-				
-				
-	        	System.out.println("Starting GameHandler");
-				new GameHandler(this, otherClient).start();
-	        	System.out.println("GameHandler started");
-
-				
-			}
-			else if(message instanceof Message) {
-				
-			}
+			server.processDataFromClient(message, this);
 		}
     }
 	/**
@@ -106,30 +78,17 @@ public class ClientHandler extends Thread {
 	 * to the client connected through this ClientHandler.
 	 * @param message The message to be sent
 	 */
-	public void sendMessage(Message message) {
+	public void sendToClient(Object obj) {
 		
 		try {
 			
-			oos.writeObject(message);
+			oos.writeObject(obj);
 			
 		} catch (IOException e) {
 			System.out.println("IO Exception");
 			e.printStackTrace();
 		}
 	}
-	
-	public ObjectOutputStream getOOS() {
-		return oos;
-	}
-	
-	public ObjectInputStream getOIS() {
-		return ois;
-	}
-	
-	public Socket getClientSocket() {
-		return clientSocket;
-	}
-	
 	
 	public void setListeningForMessages(boolean listening) {
 		listeningForMessages = listening;

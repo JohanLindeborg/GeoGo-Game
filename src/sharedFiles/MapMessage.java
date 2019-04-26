@@ -1,5 +1,7 @@
 package sharedFiles;
 
+import java.awt.Point;
+
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
@@ -8,16 +10,16 @@ public class MapMessage extends Message {
 	private static final long serialVersionUID = 1L;
 	
 	
-	private LatLng mapCenter;
+	private Point mapCenter;
 	private double zoomLevel;
 	
-	public MapMessage(LatLng mapCenter, double zoomLevel) {
+	public MapMessage(Point mapCenter, double zoomLevel) {
 		this.mapCenter = mapCenter;
 		this.zoomLevel = zoomLevel;
 		
 	}
 	
-	public LatLng getMapCenter() {
+	public Point getMapCenter() {
 		return mapCenter;
 	}
 	
