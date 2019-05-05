@@ -9,6 +9,8 @@ import com.sun.javafx.collections.MappingChange.Map;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.javafx.MapView;
+
+import client.City;
 /**
  * Used for handling game logic, contains methods used by every client to update the map and get map information 
  * @author Adam
