@@ -63,8 +63,6 @@ public class TestClient extends Thread{
 		
 		while(true) {
 			try {
-			
-				
 				obj = ois.readObject();
 				System.out.println("Client "+userName+" received object");
 				
