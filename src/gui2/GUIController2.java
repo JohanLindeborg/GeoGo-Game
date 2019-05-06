@@ -1,4 +1,4 @@
-package client;
+package gui2;
 
 public class GUIController {
 

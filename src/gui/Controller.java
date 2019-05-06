@@ -1,4 +1,4 @@
-package client;
+package gui;
 
 import java.util.LinkedList;
 import shared.*;

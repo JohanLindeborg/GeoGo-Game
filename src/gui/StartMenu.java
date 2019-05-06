@@ -1,4 +1,4 @@
-package client;
+package gui;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
