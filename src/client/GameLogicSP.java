@@ -45,7 +45,7 @@ public class GameLogicSP {
 		return currentCity;
 	}
 	//Updates the map with a marker
-	public void onMapClick(LatLng latlong) {
+	public void setMarker(LatLng latlong) {
 //		final Map map = getMap();
 		final Marker marker = new Marker((com.teamdev.jxmaps.Map) map);
 		marker.setPosition(latlong);

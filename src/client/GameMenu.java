@@ -33,8 +33,7 @@ public class GameMenu extends JPanel implements ActionListener {
 	//private JComboBox<User> cmbChooseUser = new JComboBox<User>();
 	
 	CreateMap createMap;
-	GameWindow gameWindow;
-	GameInfoWindow gameInfoWindow;
+	GameControllerSP gameControllerSP;
 	
 	public GameMenu() {
 		btnStart.setBounds(380, 300, 120, 23);
@@ -77,8 +76,7 @@ public class GameMenu extends JPanel implements ActionListener {
 				LatLng latlng = new LatLng(46.4534, 2.2404);
 				createMap = new CreateMap(5.7,latlng);
 				
-				gameWindow = new GameWindow(createMap.getMap());
-				gameInfoWindow = new GameInfoWindow();
+				gameControllerSP = new GameControllerSP(createMap);
 			}
 		}
 	}

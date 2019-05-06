@@ -1,4 +1,4 @@
-package client;
+package serverClient_Test;
 
 import java.awt.Point;
 

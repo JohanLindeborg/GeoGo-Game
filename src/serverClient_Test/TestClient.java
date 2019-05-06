@@ -1,4 +1,4 @@
-package client;
+package serverClient_Test;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -14,6 +14,7 @@ import javax.swing.WindowConstants;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
+import client.CreateMap;
 import sharedFiles.AddToServerListMessage;
 import sharedFiles.GameData;
 import sharedFiles.MapMessage;
