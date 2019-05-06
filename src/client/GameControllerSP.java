@@ -8,17 +8,18 @@ public class GameControllerSP {
 	private GameWindow gameWindow;
 	private GameInfoWindow gameInfoWindow;
 	private GameLogicSP gameLogic;
-	private MapView map;
+	private MapView gameMapView;
 	
-	
+	//Lägg in städer i GameLogic, gärna beroende på val
+	//av karta, lägg till lyssnare
 	public GameControllerSP(CreateMap createMap) {
 		
 		this.createMap = createMap;
-		map = createMap.getMap();
+		gameMapView = createMap.getMap();
 		
-		gameLogic = new GameLogic();
+		gameLogic = new GameLogicSP(gameMapView,);
 		
-		gameWindow = new GameWindow(map);
+		gameWindow = new GameWindow(gameMapView);
 		gameInfoWindow = new GameInfoWindow();
 		
 	}

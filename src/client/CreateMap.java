@@ -19,7 +19,7 @@ import com.teamdev.jxmaps.swing.MapView;
 public class CreateMap{
 	
 	private MapViewOptions options;
-	private Map map;
+	private GameMapView gameMapView;
 	
 	public CreateMap(double zoomLevel, LatLng mapCenter) {
 		
@@ -27,20 +27,20 @@ public class CreateMap{
 		//options.importPlaces();
     	options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
     	
-    	map = new Map(options, mapCenter, zoomLevel);
+    	gameMapView = new GameMapView(options, mapCenter, zoomLevel);
     
 		
 	}
 	
 	public MapView getMap() {
-		return map;
+		return gameMapView;
 	}
 
 	
-	private class Map extends MapView{
+	private class GameMapView extends MapView{
 		
 		
-		public Map(MapViewOptions options,LatLng mapCenter, double zoomLevel) {
+		public GameMapView(MapViewOptions options,LatLng mapCenter, double zoomLevel) {
 			super(options);
 	        setOnMapReadyHandler(new MapReadyHandler() {
 	            @Override

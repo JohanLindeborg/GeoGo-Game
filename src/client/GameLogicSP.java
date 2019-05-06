@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-import com.sun.javafx.collections.MappingChange.Map;
 import com.teamdev.jxmaps.LatLng;
+import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.javafx.MapView;
 
@@ -17,16 +17,19 @@ import client.City;
  *
  */
 public class GameLogicSP {
-	private MapView gameMap;
+	
+	private MapView mapView;
 	private Map map;
+	
 	private City currentCity;
+	private LinkedList<City> cities = new LinkedList<City>();
 //	private ArrayList<City> cities = new ArrayList<City>();
 //	private City[] cityArray = new City[]; 
-	private LinkedList<City> cities = new LinkedList<City>();
 	
-	public GameLogicSP(MapView gameMap,Map map, LinkedList <City> cities ) {
-		this.gameMap = gameMap;
-		this.map = map;
+	public GameLogicSP(MapView mapView, LinkedList <City> cities ) {
+		
+		this.mapView = mapView;
+		this.map =  mapView.getMap();
 		this.cities = cities;
 	}
 	
@@ -47,7 +50,7 @@ public class GameLogicSP {
 	//Updates the map with a marker
 	public void setMarker(LatLng latlong) {
 //		final Map map = getMap();
-		final Marker marker = new Marker((com.teamdev.jxmaps.Map) map);
+		final Marker marker = new Marker(map);
 		marker.setPosition(latlong);
 	}
 	
