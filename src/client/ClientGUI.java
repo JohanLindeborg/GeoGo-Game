@@ -12,7 +12,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import shared.*;
+//import shared.*;
 
 public class ClientGUI extends JPanel implements ActionListener {
 	private Controller controller;
@@ -80,23 +80,23 @@ public class ClientGUI extends JPanel implements ActionListener {
 	}
 
 	// Add new local user
-	public void addNewUser(String name) {
+	/*public void addNewUser(String name) {
 //		String name = "";
 		while (name.equals(""))
 			name = JOptionPane.showInputDialog("Enter username:");
 		setUserSelected(name);
 //		setUserMenu();
-	}
-
+	} /*
+/*
 	void selectUser(ActionEvent e) { // Select a user from the menu to connect with
 		JRadioButtonMenuItem mi = (JRadioButtonMenuItem) e.getSource();
 		setUserSelected(mi.getText());
-	}
-
+	} */
+/*
 	public void setUserSelected(String sUser) { // What to do when a user has been selected from the menu
 		controller.setLocalUser(sUser);
 	}
-
+*/
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -113,7 +113,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 //			 set the currently visible component.
 //		     cl = (CardLayout)(cards.getLayout());
 			cl.show(cards, STARTGAMEPANEL); // Error: wrong parent, why?
-			StartMenu2 start = new StartMenu2();
+			StartMenu start = new StartMenu();
 			start.showUI();
 //			"deck" you want to use as the first parameter, then a "card" from that deck as the second parameter.
 		} // Vad händer här?

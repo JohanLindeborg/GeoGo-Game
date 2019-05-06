@@ -2,9 +2,6 @@ package sharedFiles;
 
 import java.awt.Point;
 
-import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.swing.MapView;
-
 public class MapMessage extends Message {
 
 	private static final long serialVersionUID = 1L;

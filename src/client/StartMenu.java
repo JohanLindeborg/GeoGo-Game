@@ -21,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import shared.User;
 
 public class StartMenu extends JPanel implements ActionListener {
 	private JButton bnSingle = new JButton("Singleplayer");
@@ -90,7 +89,7 @@ public class StartMenu extends JPanel implements ActionListener {
 
 	public void singlePlayer() {
 		String name = JOptionPane.showInputDialog(null, "Create a user");
-		GameMenu2 game = new GameMenu2();
+		GameMenu game = new GameMenu();
 		game.showUI();
 //			gui.addNewUser(name);
 //			gui.showUI();

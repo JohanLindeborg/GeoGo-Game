@@ -1,23 +1,22 @@
-package gui;
+package client;
 
 import java.util.LinkedList;
-import shared.*;
 
 public class Controller {
-	private LinkedList<User> usersOnline = new LinkedList<User>();
-	private LinkedList<User> usersLocal = new LinkedList<User>(); 
-    private User userLocal;
+	//private LinkedList<User> usersOnline = new LinkedList<User>();
+	//private LinkedList<User> usersLocal = new LinkedList<User>(); 
+   // private User userLocal;
     private ClientGUI gui;
-    private ClientConnection cc;
+    //private ClientConnection cc;
     
     public Controller() {
     }
     
-    public void setGUI(ClientGUI ui) { //varför är GUIt kopplat här?
+    public void setGUI(ClientGUI ui) { //varfï¿½r ï¿½r GUIt kopplat hï¿½r?
         this.gui = gui;
     }
 
-    public void addLocalUser(String name) {
+    /*public void addLocalUser(String name) {
         User newUser = new User(name);
         System.out.println("Adding user " + newUser);
         if (usersLocal.contains(newUser)) {
@@ -29,7 +28,7 @@ public class Controller {
             System.out.println("User doesn't exist");
             usersLocal.add(newUser);
         }
-    }
+    } 
 
     public LinkedList<User> getLocalUsers() {
         return usersLocal;
@@ -49,11 +48,11 @@ public class Controller {
     // Get list of online users
     public LinkedList<User> getUserlist() {
     	LinkedList<User> users = new LinkedList<User> ();
-        for (User u : usersOnline)//kan använda bättre metod här, använde rinte u
+        for (User u : usersOnline)//kan anvï¿½nda bï¿½ttre metod hï¿½r, anvï¿½nde rinte u
         System.out.println("Online size: " + usersOnline.size() + ", " + usersOnline);
         users.addAll(usersOnline);
         return users;
-    }
+    } */
 //Kan ta bort dessa nedan?
 //    public void connect(String ip, int port) {
 //        cc = new ClientConnection(this, ip, port);
@@ -65,7 +64,7 @@ public class Controller {
 //            cc.sendPacket(new DisconnectMessage(userLocal));
 //    }
 
-    public void sendPacket(Message message) {
+   /* public void sendPacket(Message message) {
         cc.sendPacket(message);
     }
 
@@ -102,7 +101,7 @@ public class Controller {
         }
     }
 
-
+*/
     public static void main(String[] args) {
         //System.setProperty("sun.java2d.uiScale", "1.0");
         System.setProperty("apple.laf.useScreenMenuBar", "true");
