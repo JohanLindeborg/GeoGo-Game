@@ -23,13 +23,13 @@ import javax.swing.JPanel;
 
 import shared.User;
 
-public class StartMenu2 extends JPanel implements ActionListener {
+public class StartMenu extends JPanel implements ActionListener {
 	private JButton bnSingle = new JButton("Singleplayer");
 	private JButton bnMulti = new JButton("Multiplayer");
 	private JButton bnRules = new JButton("Game rules");
 	private Image image;
 
-	public StartMenu2() {
+	public StartMenu() {
 		this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(600, 400)); // The games outer panel
 		this.getLayout();
