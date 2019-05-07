@@ -84,9 +84,9 @@ public class TestClient extends Thread{
 					Point point = currentGame.getMapCenter();
 					LatLng latlng = new LatLng(point.getX(),point.getY());
 					
-					map = new CreateMap(currentGame.getZoomLevel(), latlng);
+					map = new CreateMap(currentGame.getZoomLevel(), latlng, "test");
 					System.out.println("Client "+userName+" created map");
-					displayMap(map.getMap());
+					displayMap(map.getMapView());
 					
 					inGame = true;
 				}

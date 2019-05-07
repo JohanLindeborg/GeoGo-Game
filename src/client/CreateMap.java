@@ -7,6 +7,7 @@ import com.teamdev.jxmaps.GeocoderStatus;
 import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
+import com.teamdev.jxmaps.MapMouseEvent;
 import com.teamdev.jxmaps.MapOptions;
 import com.teamdev.jxmaps.MapReadyHandler;
 import com.teamdev.jxmaps.MapStatus;
@@ -14,10 +15,10 @@ import com.teamdev.jxmaps.MapTypeControlOptions;
 import com.teamdev.jxmaps.MapTypeId;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
+import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
 public class CreateMap{
-	
 	private MapViewOptions options;
 	private GameMapView gameMapView;
 	private String mapName;
@@ -33,13 +34,17 @@ public class CreateMap{
 		
 	}
 	
-	public MapView getMap() {
+	public MapView getMapView() {
 		return gameMapView;
+	}
+	public void placeMarker(LatLng latlong) {
+		final Marker marker = new Marker(gameMapView.getMap());
+		marker.setPosition(latlong);
+		
 	}
 
 	
 	private class GameMapView extends MapView{
-		
 		
 		public GameMapView(MapViewOptions options,LatLng mapCenter, double zoomLevel) {
 			super(options);
@@ -63,11 +68,21 @@ public class CreateMap{
 	                   map.setCenter(mapCenter);
 	                   map.setZoom(zoomLevel);
 	                   
+	                   map.addEventListener("click", new MapMouseEvent(){
+
+						@Override
+						public void onEvent(MouseEvent mouseEvent) {
+							System.out.println("Clicked on map");
+							placeMarker(mouseEvent.latLng());
+						}
+	                   });
 	                   
 	                }
 	            }
 	        });
 	    }
+		
+		
 	}
 
 	
