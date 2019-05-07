@@ -23,6 +23,8 @@ public class GameInfoWindow extends JFrame {
 	private JLabel distanceLbl;
 	private JPanel northPnl;
 	
+	private String currentCity;
+	
 	public GameInfoWindow() {
 		
 		// sets the size according to screen size
@@ -48,7 +50,7 @@ public class GameInfoWindow extends JFrame {
 		northPnl = new JPanel();
 		timerLbl = new JLabel("timer goes here");
 		clickOnCityLbl = new JLabel("Click on: ");
-		distanceLbl = new JLabel("latest distance goes here");
+		distanceLbl = new JLabel("");
 		
 		//this.add(northPnl, BorderLayout.NORTH);
 		
@@ -61,9 +63,15 @@ public class GameInfoWindow extends JFrame {
 		//northPnl.add(clickOnCityLbl);
 		this.add(timerLbl, BorderLayout.NORTH);
 		this.add(clickOnCityLbl, BorderLayout.CENTER);
+		this.add(distanceLbl, BorderLayout.SOUTH);
 	}
 	
 	public void setClickCityLbl(String cityName) {
+		currentCity = cityName;
 		clickOnCityLbl.setText("Click on: "+cityName);
+	}
+	
+	public void setDistanceLbl(String distance) {
+		distanceLbl.setText("Distance from "+currentCity+": "+distance);
 	}
 }

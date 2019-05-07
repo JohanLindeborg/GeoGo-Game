@@ -67,7 +67,7 @@ public class CitiesData {
 			
 			City city = new City(cityName, cityLatLng);
 			mapCities.add(city);
-			System.out.println("added: "+city.getName()+", "+city.getCoordinates().toString());
+			System.out.println("added: "+city.getName()+", "+city.getLatLng().toString());
 		}
 	}
 	

@@ -17,7 +17,7 @@ public class City {
 		this.latlng = latlng;
 	}
 
-	public LatLng getCoordinates() {
+	public LatLng getLatLng() {
 		return latlng;
 	}
 	

@@ -37,6 +37,7 @@ public class GameLogicSP {
 //		for(City c : cityArray) {
 //			cities.add(c);
 //		}
+	/*
 	public City getRandomCity() {
 		if(cities.size()== 0) {
 			System.out.println("CityList Empty");
@@ -47,6 +48,8 @@ public class GameLogicSP {
 		currentCity = cities.remove(index);
 		return currentCity;
 	}
+	*/
+	
 	//Updates the map with a marker
 	/*public void setMarker(LatLng latlong) {
 //		final Map map = getMap();
@@ -55,7 +58,7 @@ public class GameLogicSP {
 	}
 	*/
 	//returns distance in km
-	public double getDistance(LatLng latlong1, LatLng latlong2) {
+/*	public double getDistance(LatLng latlong1, LatLng latlong2) {
 		double lat1 = latlong1.getLat();
 		double lon1 = latlong1.getLng();
 		
@@ -65,6 +68,7 @@ public class GameLogicSP {
 		double theta = lon1 - lon2;
 		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
 		dist = Math.acos(dist);
+		
 		dist = rad2deg(dist);
 		dist = dist * 60 * 1.1515;
 		// Distance in km
@@ -73,12 +77,37 @@ public class GameLogicSP {
 		return (dist);
 		
 	}
-	private double deg2rad(double deg) {
+	
+	*/
+	private double degToRad(double deg) {
 		return (deg * Math.PI / 180.0);
 	}
-	private double rad2deg(double rad) {
+	private double radToDeg(double rad) {
 		return (rad * 180.0 / Math.PI);
 	}
+	
+	//Returns distance in km between two coordinates
+	public double getDistance(LatLng latlong1, LatLng latlong2) {
+		double lat1 = latlong1.getLat();
+		double lng1 = latlong1.getLng();
+		
+		double lat2 = latlong2.getLat();
+		double lng2 = latlong2.getLng();
+		
+		double theta = lng1 - lng2;
+		double dist = Math.sin(degToRad(lat1)) * Math.sin(degToRad(lat2)) + Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * Math.cos(degToRad(theta));
+		dist = Math.acos(dist);
+		
+		dist = radToDeg(dist);
+		dist = dist * 60 * 1.1515;
+		// Distance in km
+		dist = dist * 1.609344;
+		
+		return (dist);
+		
+	}
+	
+	
 	
 	
 }

@@ -15,16 +15,19 @@ import com.teamdev.jxmaps.MapTypeControlOptions;
 import com.teamdev.jxmaps.MapTypeId;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
+import com.teamdev.jxmaps.MarkerOptions;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
 public class CreateMap{
+	private GameControllerSP gameController;
+	
 	private MapViewOptions options;
 	private GameMapView gameMapView;
 	private String mapName;
 	
-	public CreateMap(double zoomLevel, LatLng mapCenter, String mapName) {
-		
+	public CreateMap(double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
+		gameController = gc;
 		options = new MapViewOptions();
 		//options.importPlaces();
     	options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
@@ -37,10 +40,16 @@ public class CreateMap{
 	public MapView getMapView() {
 		return gameMapView;
 	}
-	public void placeMarker(LatLng latlong) {
+	private void placeMarker(LatLng latlong) {
+		final Marker marker = new Marker(gameMapView.getMap());
+		marker.setPosition(latlong);
+		
+	}
+	private void placeCityPos(LatLng latlong,String cityName) {
 		final Marker marker = new Marker(gameMapView.getMap());
 		MarkerOptions markeropt = new MarkerOptions();
-		marker.setOptions();
+		markeropt.setLabelString(cityName);
+		marker.setOptions(markeropt);
 		marker.setPosition(latlong);
 		
 	}
@@ -75,7 +84,12 @@ public class CreateMap{
 						@Override
 						public void onEvent(MouseEvent mouseEvent) {
 							System.out.println("Clicked on map");
-							placeMarker(mouseEvent.latLng());
+							LatLng clickLatLng = mouseEvent.latLng();
+							
+							placeMarker(clickLatLng);
+							
+							City city = gameController.onMapClick(clickLatLng);
+							placeCityPos(city.getLatLng(),city.getName());
 						}
 	                   });
 	                   

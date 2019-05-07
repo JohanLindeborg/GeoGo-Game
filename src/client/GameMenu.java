@@ -74,9 +74,8 @@ public class GameMenu extends JPanel implements ActionListener {
 			
 			if(cmbChooseMap.getSelectedItem() == "France") {
 				LatLng latlng = new LatLng(46.4534, 2.2404);
-				createMap = new CreateMap(5.7,latlng, "France");
 				
-				gameControllerSP = new GameControllerSP(createMap, "France");
+				gameControllerSP = new GameControllerSP(5.7,latlng, "France");
 			}
 		}
 	}
