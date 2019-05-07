@@ -20,13 +20,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.JRadioButtonMenuItem;
 
 public class StartMenu extends JPanel implements ActionListener {
 	private JButton bnSingle = new JButton("Singleplayer");
 	private JButton bnMulti = new JButton("Multiplayer");
 	private JButton bnRules = new JButton("Game rules");
 	private Image image;
+	private JFrame frame;
+	private ControllerGUI controller;
 
 	public StartMenu() {
 		this.setLayout(new BorderLayout());
@@ -56,7 +58,7 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	void showUI() {
-		JFrame frame = new JFrame("GeoGo-mapLocator");
+		frame = new JFrame("GeoGo-mapLocator");
 //			setUserMenu();
 //	      setUserList();
 		frame.setLayout(new BorderLayout());
@@ -69,34 +71,36 @@ public class StartMenu extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object input = e.getSource();
 		if (input.equals(bnSingle)) {
-				singlePlayer();
+			singlePlayer();
+			dispose();
 		} else if (input.equals(bnMulti)) {
 //				multiPlayer();
+			dispose();
 		} else if (input.equals(bnRules)) {
 			gameRules();
+			dispose();
 		}
 	}
 
-//		public LinkedList<User> multiPlayer() {
-//			String name = JOptionPane.showInputDialog(null, "Create a user");
-//			// har lagt till enny användare
-//			gui.addNewUser(name);
-//			// ska uppdatera listan nånstans och sen göra om den till toArray(new User[0]); (dvs User array)
-	//
-//			list.toArray(new User[0]);
-//			return list;
-//		}
+	public void dispose() {
+		frame.dispose();
+	}
 
 	public void singlePlayer() {
-		String name = JOptionPane.showInputDialog(null, "Create a user");
+		String name = JOptionPane.showInputDialog("Create a user"); // inte ha null h�r?
+		controller.addLocalUser(name);
+		controller.getLocalUsers();
+//		controller.setUserMenu();?
 		GameMenu game = new GameMenu();
 		game.showUI();
-//			gui.addNewUser(name);
-//			gui.showUI();
 	}
 
 	public void gameRules() {
 		System.out.println("Add what happens when pressed button Game Rules");
-		JOptionPane.showMessageDialog(null, "Game rules..");
+		JOptionPane.showMessageDialog(null, "The task of a player of GeoGo is to estimate the locations of different cities on a worldmap. "
+				+ "\n"
+				+ "A score is then given the player as a result of the difference in distance between the estimated spot and the actual location."
+				+ "\n" + "Players can choose what part of the world him or her wishes to play in." + "\n" + "\n" + "Upgrade your geographical knowledge now!");
 	}
+
 }

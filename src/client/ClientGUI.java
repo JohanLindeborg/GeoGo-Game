@@ -12,19 +12,20 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-//import shared.*;
 
 public class ClientGUI extends JPanel implements ActionListener {
-	private Controller controller;
+	private ControllerGUI controller;
 	private Image image;
 	private JButton bnStart = new JButton("Start Game");
 	private StartMenu startMenu = new StartMenu(); // This is one of my JPanels
 	private JPanel cards; // Parent for cardlayout
 	private CardLayout cl;
 	private JLabel geoGo;
+	private JFrame frame;
 //	To add a component to a container that a CardLayout object manages, specify a string that identifies the component being added. 
 	final static String STARTGAMEPANEL = "Start Game";
 
+	
 	public ClientGUI() {
 		setPreferredSize(new Dimension(600, 400)); // The games outer panel
 		// Adding button
@@ -46,8 +47,8 @@ public class ClientGUI extends JPanel implements ActionListener {
 		// Create the panel that contains the "cards":
 		this.setLayout(cl); // Put the cardlayout on the panel
 		cards = new JPanel(new CardLayout()); // Create the panel(parent?) that contains the "cards".
-		cl = (CardLayout) (cards.getLayout());// N√∂dv√§ndig? Ja annars nullpointer, m√•ste ha getlayout
-		cards.add(startMenu, STARTGAMEPANEL); // l√§gger denna till startmenu med namnet startgamepanel? VIKTIG??!!
+		cl = (CardLayout) (cards.getLayout());// Nˆdv‰ndig? Ja annars nullpointer, mÂste ha getlayout
+		cards.add(startMenu, STARTGAMEPANEL); // l‰gger denna till startmenu med namnet startgamepanel? VIKTIG??!!
 
 		// How to set JPanel to class StartMenu
 
@@ -59,10 +60,12 @@ public class ClientGUI extends JPanel implements ActionListener {
 		} catch (IOException ex) {
 			System.out.print("Image exception" + ex);
 		}
+		
+//		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(StartMenu.class.getResource("images/globe")));
 	}
 
 	void showUI() {
-		JFrame frame = new JFrame("GeoGo-mapLocator");
+		 frame = new JFrame("GeoGo-mapLocator");
 //		setUserMenu();
 //      setUserList();
 		frame.setLayout(new BorderLayout());
@@ -74,49 +77,37 @@ public class ClientGUI extends JPanel implements ActionListener {
 		frame.setVisible(true);
 
 //		The first argument in the show method is the container the CardLayout controls 
-//		‚Äî that is, the container of the components the CardLayout manages. 
+//		ó that is, the container of the components the CardLayout manages. 
 //		The second argument is the string that identifies the component to show.
 //		This string is the same string that was used when adding the component to the container.
 	}
 
-	// Add new local user
-	/*public void addNewUser(String name) {
-//		String name = "";
-		while (name.equals(""))
-			name = JOptionPane.showInputDialog("Enter username:");
-		setUserSelected(name);
-//		setUserMenu();
-	} /*
-/*
-	void selectUser(ActionEvent e) { // Select a user from the menu to connect with
-		JRadioButtonMenuItem mi = (JRadioButtonMenuItem) e.getSource();
-		setUserSelected(mi.getText());
-	} */
-/*
-	public void setUserSelected(String sUser) { // What to do when a user has been selected from the menu
-		controller.setLocalUser(sUser);
-	}
-*/
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, this);
 	}
+	
+	public void dispose() {
+		frame.dispose();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object input = e.getSource();
-		if (input.equals(bnStart)) { // Use CardLayout h√§r?
+		if (input.equals(bnStart)) { // Use CardLayout h‰r?
 //			CardLayout cl = (CardLayout) (cards.getLayout()); // Create a cardlayout with our JPanel cards. Have i added
 			// cards to my panel? above
 //			cl.show(startMenu, "hej"); // Add our JPanel to the cardlayout.
 //			 set the currently visible component.
 //		     cl = (CardLayout)(cards.getLayout());
-			cl.show(cards, STARTGAMEPANEL); // Error: wrong parent, why?
+//			cl.show(cards, STARTGAMEPANEL); // Error: wrong parent, why?
 			StartMenu start = new StartMenu();
 			start.showUI();
+			dispose();
 //			"deck" you want to use as the first parameter, then a "card" from that deck as the second parameter.
-		} // Vad h√§nder h√§r?
+		} // Vad h‰nder h‰r?
 	}
 
 	public static void main(String[] args) {

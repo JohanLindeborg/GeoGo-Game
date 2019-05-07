@@ -42,7 +42,7 @@ public class TestClient extends Thread{
 		this.port = 4242;
 		
 		try {
-			this.socket = new Socket("localhost", 4242);
+			this.socket = new Socket("localhost", port);
 			
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
@@ -92,7 +92,6 @@ public class TestClient extends Thread{
 			}
 		}
 	}
-	
 	
 	
 	public void connectToServer() {

@@ -29,7 +29,6 @@ public class CreateMap{
     	
     	map = new Map(options, mapCenter, zoomLevel);
     
-		
 	}
 	
 	public MapView getMap() {
