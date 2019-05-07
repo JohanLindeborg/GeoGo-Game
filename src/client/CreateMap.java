@@ -26,6 +26,10 @@ public class CreateMap{
 	private GameMapView gameMapView;
 	private String mapName;
 	
+	private boolean clickedThisRound = false;
+	private Marker cityMarker;
+	private Marker clickMarker;
+	
 	public CreateMap(double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
 		gameController = gc;
 		options = new MapViewOptions();
@@ -41,16 +45,16 @@ public class CreateMap{
 		return gameMapView;
 	}
 	private void placeMarker(LatLng latlong) {
-		final Marker marker = new Marker(gameMapView.getMap());
-		marker.setPosition(latlong);
+		clickMarker = new Marker(gameMapView.getMap());
+		clickMarker.setPosition(latlong);
 		
 	}
 	private void placeCityPos(LatLng latlong,String cityName) {
-		final Marker marker = new Marker(gameMapView.getMap());
+		cityMarker = new Marker(gameMapView.getMap());
 		MarkerOptions markeropt = new MarkerOptions();
 		markeropt.setLabelString(cityName);
-		marker.setOptions(markeropt);
-		marker.setPosition(latlong);
+		cityMarker.setOptions(markeropt);
+		cityMarker.setPosition(latlong);
 		
 	}
 
@@ -83,13 +87,24 @@ public class CreateMap{
 
 						@Override
 						public void onEvent(MouseEvent mouseEvent) {
-							System.out.println("Clicked on map");
-							LatLng clickLatLng = mouseEvent.latLng();
 							
-							placeMarker(clickLatLng);
+							if(clickedThisRound == false) {
+								clickedThisRound = true;
+								
+								System.out.println("Clicked on map");
+								LatLng clickLatLng = mouseEvent.latLng();
 							
-							City city = gameController.onMapClick(clickLatLng);
-							placeCityPos(city.getLatLng(),city.getName());
+								placeMarker(clickLatLng);
+							
+								City city = gameController.onMapClick(clickLatLng);
+								placeCityPos(city.getLatLng(),city.getName());
+							}
+							else {
+								clickedThisRound = false;
+								cityMarker.remove();
+								clickMarker.remove();
+								gameController.startNewRound();
+							}
 						}
 	                   });
 	                   

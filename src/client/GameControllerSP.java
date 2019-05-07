@@ -38,7 +38,7 @@ public class GameControllerSP  {
 		gameInfoWindow = new GameInfoWindow();
 		
 		//gameLogic = new GameLogicSP(gameMapView,citiesForMap);
-		initGame();
+		startNewRound();
 	}
 	
 	//what the controller should do when user has clicked on the map of "createMap" class
@@ -51,7 +51,7 @@ public class GameControllerSP  {
 		return currentCity;
 	}
 	
-	private void initGame() {
+	public void startNewRound() {
 		currentCity = citiesData.getRandomCity();
 		gameInfoWindow.setClickCityLbl(currentCity.getName());
 	}
