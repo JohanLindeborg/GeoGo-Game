@@ -43,9 +43,11 @@ public class GameControllerSP  {
 	
 	//what the controller should do when user has clicked on the map of "createMap" class
 	public City onMapClick(LatLng clickLatLng) {
+		
 		double distance = getDistance(clickLatLng, currentCity.getLatLng());
 		gameInfoWindow.setDistanceLbl(Double.toString(distance));
 		
+		gameInfoWindow.showContinueLbl();
 		
 		//returns the "target city" to the map
 		return currentCity;
@@ -54,6 +56,11 @@ public class GameControllerSP  {
 	public void startNewRound() {
 		currentCity = citiesData.getRandomCity();
 		gameInfoWindow.setClickCityLbl(currentCity.getName());
+	}
+	
+	//Temporary method, should be replaced, allows access to change gui from CreateMap
+	public void rmvContinueLblInInfo() {
+		gameInfoWindow.removeContinueLbl();
 	}
 	
 	

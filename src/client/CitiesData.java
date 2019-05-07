@@ -50,9 +50,9 @@ public class CitiesData {
 	
 	private void readCitiesFileAndStore(String filePath) {
 		try {
-			
-			System.out.println("-------------"+new File(filePath).canRead()+"-------------------");
 			scanner = new Scanner(new File(filePath));
+			System.out.println("-----------------Read from file-------------------");
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,6 +69,8 @@ public class CitiesData {
 			mapCities.add(city);
 			System.out.println("added: "+city.getName()+", "+city.getLatLng().toString());
 		}
+		System.out.println("-----------------------------------------------");
+
 	}
 	
 	

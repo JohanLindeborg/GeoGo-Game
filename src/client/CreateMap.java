@@ -75,9 +75,12 @@ public class CreateMap{
 	                   
 	                   map.setMapTypeId(MapTypeId.SATELLITE);
 	                   
+	                   
+	                   
 	                   mapOptions.setDraggable(false);
 	                   mapOptions.setDisableDoubleClickZoom(true);
 	                   mapOptions.setDisableDefaultUI(true);
+	                   
 	                  
 	                   map.setOptions(mapOptions);
 	                   map.setCenter(mapCenter);
@@ -103,6 +106,10 @@ public class CreateMap{
 								clickedThisRound = false;
 								cityMarker.remove();
 								clickMarker.remove();
+								
+								//Should be replaced
+								gameController.rmvContinueLblInInfo();
+								
 								gameController.startNewRound();
 							}
 						}

@@ -2,12 +2,14 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
@@ -21,7 +23,8 @@ public class GameInfoWindow extends JFrame {
     private JLabel clickOnCityLbl;
 	private JLabel timerLbl;
 	private JLabel distanceLbl;
-	private JPanel northPnl;
+	private JLabel clickToContinueLbl;
+	private JPanel southPnl;
 	
 	private String currentCity;
 	
@@ -47,23 +50,35 @@ public class GameInfoWindow extends JFrame {
 	private void initWindow() {
 		this.setLayout(new BorderLayout());
 		
-		northPnl = new JPanel();
+		southPnl = new JPanel();
+		southPnl.setLayout(new FlowLayout());
+		
+		this.add(southPnl, BorderLayout.SOUTH);
+		
 		timerLbl = new JLabel("timer goes here");
 		clickOnCityLbl = new JLabel("Click on: ");
 		distanceLbl = new JLabel("");
+		clickToContinueLbl = new JLabel("Click on the map to continue");
 		
+		//Esthetical settings
+		timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		clickOnCityLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		//distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		//distanceLbl.setVerticalAlignment(SwingConstants.CENTER);
+		//clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
+		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		//this.add(northPnl, BorderLayout.NORTH);
 		
-		FlowLayout fl = new FlowLayout();
-		fl.setAlignment(FlowLayout.LEFT);
-		
-		northPnl.setLayout(fl);
 		
 		//northPnl.add(timerLbl);
 		//northPnl.add(clickOnCityLbl);
 		this.add(timerLbl, BorderLayout.NORTH);
 		this.add(clickOnCityLbl, BorderLayout.CENTER);
-		this.add(distanceLbl, BorderLayout.SOUTH);
+		southPnl.add(distanceLbl, BorderLayout.SOUTH);
 	}
 	
 	public void setClickCityLbl(String cityName) {
@@ -72,6 +87,14 @@ public class GameInfoWindow extends JFrame {
 	}
 	
 	public void setDistanceLbl(String distance) {
-		distanceLbl.setText("Distance from "+currentCity+": "+distance);
+		distanceLbl.setText(distance+" km from "+currentCity);
+
+	}
+	public void showContinueLbl() {
+		southPnl.add(clickToContinueLbl, BorderLayout.SOUTH);
+	}
+	
+	public void removeContinueLbl() {
+		southPnl.remove(clickToContinueLbl);
 	}
 }
