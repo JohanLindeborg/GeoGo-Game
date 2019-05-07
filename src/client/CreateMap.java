@@ -39,6 +39,8 @@ public class CreateMap{
 	}
 	public void placeMarker(LatLng latlong) {
 		final Marker marker = new Marker(gameMapView.getMap());
+		MarkerOptions markeropt = new MarkerOptions();
+		marker.setOptions();
 		marker.setPosition(latlong);
 		
 	}

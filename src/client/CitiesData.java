@@ -7,15 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.teamdev.jxmaps.LatLng;
 
 public class CitiesData {
 	
-	//Lists of cities used by the game, format: "cities-Country name".
-	private LinkedList<City> citiesFr = new LinkedList<City>();
-	private BufferedReader br;
+	private LinkedList<City> mapCities = new LinkedList<City>();
 	private Scanner scanner;
 	private String mapName;
 	
@@ -26,16 +25,14 @@ public class CitiesData {
 		
 	}
 	
-	public LinkedList<City> getCitiesList(){
-		
-		if(mapName.equals("France")){
-			return citiesFr;
-		}
-		else {
-			System.out.println("CitiesData: City list not found");
+	public City getRandomCity() {
+		if(mapCities.size()== 0) {
+			System.out.println("CityList Empty");
 			return null;
 		}
-		
+		Random rand = new Random();
+		int index = rand.nextInt(mapCities.size());
+		return mapCities.remove(index);
 	}
 	
 	private void getCitiesForMap(String mapName) {
@@ -50,16 +47,6 @@ public class CitiesData {
 		
 		
 	}
-	/*
-	private void createFileReader(String filePath) {
-		try {
-			br = new BufferedReader(new FileReader(filePath));
-		} catch (FileNotFoundException e) {
-			System.out.println("CitiesData: file: "+filePath+" not found");
-			e.printStackTrace();
-		}
-	}
-	*/
 	
 	private void readCitiesFileAndStore(String filePath) {
 		try {
@@ -79,7 +66,7 @@ public class CitiesData {
 			LatLng cityLatLng = new LatLng(lat,lng);
 			
 			City city = new City(cityName, cityLatLng);
-			citiesFr.add(city);
+			mapCities.add(city);
 			System.out.println("added: "+city.getName()+", "+city.getCoordinates().toString());
 		}
 	}

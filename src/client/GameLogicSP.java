@@ -48,12 +48,12 @@ public class GameLogicSP {
 		return currentCity;
 	}
 	//Updates the map with a marker
-	public void setMarker(LatLng latlong) {
+	/*public void setMarker(LatLng latlong) {
 //		final Map map = getMap();
 		final Marker marker = new Marker(map);
 		marker.setPosition(latlong);
 	}
-	
+	*/
 	//returns distance in km
 	public double getDistance(LatLng latlong1, LatLng latlong2) {
 		double lat1 = latlong1.getLat();
