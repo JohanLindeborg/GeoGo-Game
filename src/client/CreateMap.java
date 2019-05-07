@@ -20,15 +20,16 @@ public class CreateMap{
 	
 	private MapViewOptions options;
 	private GameMapView gameMapView;
+	private String mapName;
 	
-	public CreateMap(double zoomLevel, LatLng mapCenter) {
+	public CreateMap(double zoomLevel, LatLng mapCenter, String mapName) {
 		
 		options = new MapViewOptions();
 		//options.importPlaces();
     	options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
     	
     	gameMapView = new GameMapView(options, mapCenter, zoomLevel);
-    
+    	this.mapName = mapName;
 		
 	}
 	

@@ -1,6 +1,7 @@
 package client;
 
 import com.sun.javafx.scene.paint.GradientUtils.Point;
+import com.teamdev.jxmaps.LatLng;
 /**
  * Simple class that represents a city with a name and a location
  * @author Adam
@@ -9,15 +10,15 @@ import com.sun.javafx.scene.paint.GradientUtils.Point;
 public class City {
 	
 	private String name; 
-	private Point coordinates;
+	private LatLng latlng;
 	
-	public City(String name, Point coordinates) {
+	public City(String name, LatLng latlng) {
 		this.name = name;
-		this.coordinates = coordinates;
+		this.latlng = latlng;
 	}
 
-	public Point getCoordinates() {
-		return coordinates;
+	public LatLng getCoordinates() {
+		return latlng;
 	}
 	
 	public String getName() {

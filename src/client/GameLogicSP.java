@@ -18,7 +18,7 @@ import client.City;
  */
 public class GameLogicSP {
 	
-	private MapView mapView;
+	private com.teamdev.jxmaps.swing.MapView mapView;
 	private Map map;
 	
 	private City currentCity;
@@ -26,10 +26,10 @@ public class GameLogicSP {
 //	private ArrayList<City> cities = new ArrayList<City>();
 //	private City[] cityArray = new City[]; 
 	
-	public GameLogicSP(MapView mapView, LinkedList <City> cities ) {
+	public GameLogicSP(com.teamdev.jxmaps.swing.MapView gameMapView, LinkedList <City> cities ) {
 		
-		this.mapView = mapView;
-		this.map =  mapView.getMap();
+		this.mapView = gameMapView;
+		this.map =  gameMapView.getMap();
 		this.cities = cities;
 	}
 	
