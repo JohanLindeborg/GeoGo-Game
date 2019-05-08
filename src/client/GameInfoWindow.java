@@ -66,7 +66,7 @@ public class GameInfoWindow extends JPanel {
 		//bfImage.getGraphics().drawImage(image, 0, 0, null);
 		
         
-        this.setSize(width-100, 200);
+        this.setSize(width-100, height/4);
         
 		this.setName("Info Panel");
         //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -124,7 +124,11 @@ public class GameInfoWindow extends JPanel {
 	private void showUI() {
 		JFrame frame = new JFrame("Info Panel");
 		frame.setSize(new Dimension(width-100, 200));
-		frame.setLocation(0,height-150);
+		
+		
+		
+		frame.setLocation(0,(height/4)*3);
+		
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
