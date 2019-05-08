@@ -1,18 +1,8 @@
 package client;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
 
 //implements ControllerListener
 public class ControllerGUI {
@@ -29,7 +19,7 @@ public class ControllerGUI {
 		if (!foData.exists()) {
 			foData.mkdir();
 		}
-//skanner läser in hur lång filen är
+
 		// Read list of local users
 		if (fiUsers.exists()) {
 			System.out.println("Reading file users.dat...");
@@ -56,12 +46,7 @@ public class ControllerGUI {
 	}
 
 	public void setListener(ControllerListener listener) {
-		listenerList.add(listener);// lägger till listener men bara de metoder som controllerlistener implementerar
-	}
-
-	public void actionPerformed(ActionEvent e) {
-//		updateUsers(usersLocal);
-
+		listenerList.add(listener);
 	}
 
 	// Get list of local users
@@ -69,11 +54,6 @@ public class ControllerGUI {
 		System.out.println(usersLocal);
 		return usersLocal;
 	}
-
-	// Behövs ej ännu?
-//	public User getLocalUser() {
-//		return userLocal;
-//	}
 
 	// Get list of online users
 	public HashSet<User> getOnlinelist() {
@@ -84,42 +64,28 @@ public class ControllerGUI {
 		return users;
 	}
 
-	private void showPlayer() {
-
-	}
-
-//Nedan är för multiplayer:
-
-	// Select a user from the menu to connect with
-	void selectUser(ActionEvent e) {
-		JRadioButtonMenuItem mi = (JRadioButtonMenuItem) e.getSource();
-		setUserSelected(mi.getText());
-	}
+	/* Nedan är för multiplayer **/
 
 	// What to do when a user has been selected from the combobox
-	public void setUserSelected(String sUser) {
-		setLocalUser(sUser);
-	}
-
-	// Select which user to log in with
-	public void setLocalUser(String name) {
-		for (User u : usersLocal)
-			if (name.equals(u.toString()))
-				userLocal = u;
-	}
-
+//	public void setUserSelected(String sUser) {
+//		setLocalUser(sUser);
+//	}
+//
+//	// Select which user to log in with
+//	public void setLocalUser(String name) {
+//		for (User u : usersLocal)
+//			if (name.equals(u.toString()))
+//				userLocal = u;
+//	}
+//
 // 		public LinkedList<User> multiPlayer() {
 // 			String name = JOptionPane.showInputDialog(null, "Create a user");
-// 			// har lagt till enny användare
 // 			gui.addNewUser(name);
-// 			// ska uppdatera listan nånstans och sen göra om den till toArray(new User[0]); (dvs User array)
-	//
 // 			list.toArray(new User[0]);
 // 			return list;
 // 		}
 
 	public static void main(String[] args) {
-		// System.setProperty("sun.java2d.uiScale", "1.0");
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		ControllerGUI controller = new ControllerGUI();
 		ClientGUI gui = new ClientGUI(controller);

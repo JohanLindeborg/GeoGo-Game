@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -21,12 +20,11 @@ import javax.swing.JPanel;
 public class GameMenu extends JPanel implements ActionListener, ControllerListener {
 	private JButton btnStart = new JButton("Start Playing");// Start game
 	private Image image;
-	// Alternatives for choosing map and gametype
-//	private JLabel lblMap; // Choose map
-//	private JLabel lblGameType; // Choose gametype
+	// Alternatives for choosing map
 	private String[] options = { "Choose country", "France", "Sweden", "Italy", "Germany", "Greece" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 
+	// Lists for users (online and local)
 	private HashSet<User> usersOnline = new HashSet<User>();
 	private JComboBox<User> cmbChooseUser = new JComboBox<User>();
 
@@ -37,7 +35,6 @@ public class GameMenu extends JPanel implements ActionListener, ControllerListen
 	public GameMenu(ControllerGUI controller) {
 		this.controller = controller;
 		controller.setListener(this);
-		// The games outer panel
 		this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(600, 400));
 		this.getLayout();
@@ -48,7 +45,7 @@ public class GameMenu extends JPanel implements ActionListener, ControllerListen
 		this.add(btnBack);
 		cmbChooseMap.setBounds(130, 145, 140, 40);
 		this.add(cmbChooseMap);
-		cmbChooseUser.setBounds(230, 230, 120, 23);
+		cmbChooseUser.setBounds(240, 240, 120, 23);
 		add(cmbChooseUser);
 
 		btnStart.addActionListener(this);
@@ -76,15 +73,14 @@ public class GameMenu extends JPanel implements ActionListener, ControllerListen
 		frame.setVisible(true);
 	}
 
-	public void updateUsers(HashSet<User> usersLocal) { // vill använda denna metod i controllerGUI?nej
+	public void updateUsers(HashSet<User> usersLocal) { 
 		cmbChooseUser.removeAllItems();
 		System.out.println(usersLocal.size());
-		for (User u : usersLocal) {//tomlista?
+		for (User u : usersLocal) {
 			cmbChooseUser.addItem(u);
 System.out.println(u);
 		}
 	}
-	// Controller vet inte vilka lyssnare
 
 	public void dispose() {
 		frame.dispose();
