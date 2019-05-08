@@ -73,6 +73,7 @@ public class GameControllerSP  {
 	
 	public void startNewRound() {
 		currentCity = citiesData.getRandomCity();
+
 		gameInfoWindow.setClickCityLbl(currentCity.getName());
 		gameInfoWindow.removeContinueLbl();
 

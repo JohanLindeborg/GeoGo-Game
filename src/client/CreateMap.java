@@ -49,7 +49,6 @@ public class CreateMap{
 	
 	public void updateTimer(int cntDown) {
 		countDown = cntDown;
-		System.out.println("cntDown: "+countDown);
 	}
 	
 	private void placeMarker(LatLng latlong) {
@@ -93,16 +92,16 @@ public class CreateMap{
 	                   map.setOptions(mapOptions);
 	                   map.setCenter(mapCenter);
 	                   map.setZoom(zoomLevel);
-	                   
+	                   	                   
 	                   map.addEventListener("click", new MapMouseEvent(){
 
 						@Override
 						public void onEvent(MouseEvent mouseEvent) {
 							
+
 							if(clickedThisRound == false && countDown > 0) {
 								clickedThisRound = true;
 								
-								System.out.println("Clicked on map");
 								LatLng clickLatLng = mouseEvent.latLng();
 							
 								placeMarker(clickLatLng);
@@ -118,12 +117,15 @@ public class CreateMap{
 								placeCityPos(city.getLatLng(),city.getName());
 							}
 							else {
+
 								clickedThisRound = false;
+
 								cityMarker.remove();
-								clickMarker.remove();
-								
-								//Should be replaced
-								
+
+								if(clickMarker != null) {
+									clickMarker.remove();
+								}
+															
 								gameController.startNewRound();
 							}
 						}
