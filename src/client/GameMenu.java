@@ -31,8 +31,8 @@ public class GameMenu extends JPanel implements ActionListener {
 	// Alternatives for choosing map and gametype
 	private JLabel lblMap; // Choose map
 	private JLabel lblGameType; // Choose gametype
-	private JTextField nbrOfRounds = new JTextField();
-	private JLabel roundsLbl = new JLabel("Number of rounds:");
+	private JTextField roundsTxtFld = new JTextField();
+	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
 	private String[] options = { "Choose map", "France","Sweden","Italy","Germany", "Greece" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 //	private JComboBox cmbGameType; // Choose game type combo box
@@ -50,8 +50,8 @@ public class GameMenu extends JPanel implements ActionListener {
 		
 		add(roundsLbl);
 		
-		nbrOfRounds.setColumns(3);
-		add(nbrOfRounds);
+		roundsTxtFld.setColumns(3);
+		add(roundsTxtFld);
 		
 		btnStart.setBounds(380, 300, 120, 23);
 		add(btnStart);
@@ -72,7 +72,7 @@ public class GameMenu extends JPanel implements ActionListener {
 		}
 	}
 
-	private void showUI() {
+	public void showUI() {
 		JFrame frame = new JFrame("GeoGo-mapLocator");
 //		setUserMenu();
 //      setUserList();
@@ -88,40 +88,41 @@ public class GameMenu extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnStart) {
 			
-			if(cmbChooseMap.getSelectedItem()== "Choose map") {
-				JOptionPane.showMessageDialog(null,"Error: Please select a map", "Error Message", JOptionPane.ERROR_MESSAGE);
-
-			}
-			else {
-			
-				if(checkOkValue(nbrOfRounds.getText())) {
+			if(checkRounds(roundsTxtFld.getText())) {
 				
-					if(cmbChooseMap.getSelectedItem() == "France") {
-						LatLng latlng = new LatLng(46.4534, 2.2404);
+				if(cmbChooseMap.getSelectedItem() == "Choose map") {
+					JOptionPane.showMessageDialog(null,"Error: Please select a map", "Error Message", JOptionPane.ERROR_MESSAGE);
+
+				}
+				else if(cmbChooseMap.getSelectedItem() == "France") {
 					
-						gameControllerSP = new GameControllerSP(5.7,latlng, "France");
-					}
+					LatLng latlng = new LatLng(46.4534, 2.2404);
+					gameControllerSP = new GameControllerSP(5.7,latlng, "France", rounds);
 				}
 			}
+			
 		}
 	}
 	
-	private boolean checkOkValue(String str) {
-	    try {  
-		    rounds = Integer.parseInt(str); 
+	private boolean checkRounds(String str) {
+		int val;
+		try {  
+		    val = Integer.parseInt(str); 
 		    
-		    if (Integer.parseInt(nbrOfRounds.getText())<=0){
-			       JOptionPane.showMessageDialog(null,"Error: Please enter number bigger than 0", "Error Message", JOptionPane.ERROR_MESSAGE);
-			       
-			       return true;
-		    }
+		    if (val > 20 || val <= 0){
+				JOptionPane.showMessageDialog(null,"Error: Please enter number from 1 to 20", "Error Message", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		    
+			rounds = val;
+			return true;
 		    
 		} 
 		catch(NumberFormatException e){
 		    JOptionPane.showMessageDialog(null,"Error: Please enter a integer", "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 		return false;
-	    
+		
 	}
 	
 	public static void main(String[] args) {

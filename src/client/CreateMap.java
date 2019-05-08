@@ -30,12 +30,14 @@ public class CreateMap{
 	private Marker cityMarker;
 	private Marker clickMarker;
 	
+	private int totalRounds;
 	private int countDown;
 	
-	public CreateMap(double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
+	public CreateMap(int totalRounds,double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
+		
+		this.totalRounds = totalRounds;
 		gameController = gc;
 		options = new MapViewOptions();
-		//options.importPlaces();
     	options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
     	
     	gameMapView = new GameMapView(options, mapCenter, zoomLevel);
@@ -125,8 +127,13 @@ public class CreateMap{
 								if(clickMarker != null) {
 									clickMarker.remove();
 								}
-															
-								gameController.startNewRound();
+								int round = gameController.getCurrentRound();
+								
+								if(round < totalRounds) {
+									gameController.startNewRound();
+								}
+								
+								
 							}
 						}
 	                   });

@@ -17,32 +17,46 @@ import com.teamdev.jxmaps.swing.MapView;
 public class GameControllerSP  {
 	
 	private CreateMap createMap;
+	
 	private GameWindow gameWindow;
 	private GameInfoWindow gameInfoWindow;
+	private WindowListenerSP windowListener;
+	
 	private MapView gameMapView;
 	private Map map;
 	private CitiesData citiesData;
 	private City currentCity;
-	private int rounds;
+	private int totalRounds;
+	private int currentRound;
 	
 	private String currentMap;
 	
 	private CountDownTimer countDownTimer;
 		
 	
-	public GameControllerSP(double zoomLvl, LatLng latlng, String currentMap) {
+	public GameControllerSP(double zoomLvl, LatLng latlng, String currentMap, int totalRounds) {
 		
+		windowListener = new WindowListenerSP(this);
+		
+		currentRound = 0;
 		this.countDownTimer = new CountDownTimer(this);
 		
+		this.totalRounds = totalRounds;
 		this.currentMap = currentMap;		
-		this.createMap = new CreateMap(zoomLvl, latlng, currentMap, this);
+		this.createMap = new CreateMap(totalRounds, zoomLvl, latlng, currentMap, this);
 		gameMapView = createMap.getMapView();
 		map = gameMapView.getMap();
 		
 		citiesData = new CitiesData(currentMap);
 		
 		gameWindow = new GameWindow(gameMapView);
-		gameInfoWindow = new GameInfoWindow();
+		gameInfoWindow = new GameInfoWindow(totalRounds, this);
+		
+		//Sets this window as the "active" one
+		gameWindow.requestFocus();
+		
+		gameWindow.addWindowListener(windowListener);
+		gameInfoWindow.getFrame().addWindowListener(windowListener);
 		
 		
 		startNewRound();
@@ -55,8 +69,12 @@ public class GameControllerSP  {
 		double distance = getDistance(clickLatLng, currentCity.getLatLng());
 		gameInfoWindow.setDistanceLbl(Double.toString(distance));
 		
-		gameInfoWindow.showContinueLbl();
-		
+		if(currentRound < totalRounds) {
+			gameInfoWindow.showContinueLbl("Click on map to continue");
+		}
+		else {
+			gameInfoWindow.showContinueLbl("Game Finished, close window to continue");
+		}		
 		//returns the "target city" to the map
 		return currentCity;
 	}
@@ -64,13 +82,20 @@ public class GameControllerSP  {
 	public City onMapClickOutOfTime() {
 		countDownTimer.stopTimer();
 		
-		gameInfoWindow.showContinueLbl();
-		
+		if(currentRound < totalRounds) {
+			gameInfoWindow.showContinueLbl("Click on map to continue");
+		}
+		else {
+			gameInfoWindow.showContinueLbl("Game Finished, close window to continue");
+		}
 		//returns the "target city" to the map
 		return currentCity;
 	}
 	
 	public void startNewRound() {
+		currentRound ++;
+		gameInfoWindow.setCurrentRound(currentRound);
+		
 		currentCity = citiesData.getRandomCity();
 
 		gameInfoWindow.setClickCityLbl(currentCity.getName());
@@ -80,13 +105,17 @@ public class GameControllerSP  {
 		countDownTimer.startTimer();
 	}
 	
+	
+	public void exitGame() {		
+		gameWindow.dispose();
+		gameInfoWindow.getFrame().dispose();
+		
+		new GameMenu().showUI();
+	}
+	
 	//Temporary method, should be replaced, allows access to change gui from CreateMap
 	public void rmvContinueLblInInfo() {
 		gameInfoWindow.removeContinueLbl();
-	}
-	
-	public void showContinueLbl() {
-		gameInfoWindow.showContinueLbl();
 	}
 	
 	public void updateCountDown(int cntDown) {
@@ -94,6 +123,12 @@ public class GameControllerSP  {
 		createMap.updateTimer(cntDown);
 		
 	}
+	
+	public int getCurrentRound() {
+		return currentRound;
+	}
+	
+	
 	
 	
 	

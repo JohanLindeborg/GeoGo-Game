@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -25,10 +26,15 @@ import com.teamdev.jxmaps.swing.MapView;
 
 public class GameInfoWindow extends JPanel {
 	
+	private GameControllerSP gameController;
+	
+	private JFrame windowFrame;
+	
     private GraphicsEnvironment ge;
     private int width;
     private int height;
     
+	private JLabel roundsLbl;
     private JLabel clickOnCityLbl;
 	private JLabel timerLbl;
 	private JLabel distanceLbl;
@@ -40,7 +46,16 @@ public class GameInfoWindow extends JPanel {
 	
 	private String currentCity;
 	
-	public GameInfoWindow() {
+	private int totalRounds;
+	private int currentRound;
+	
+	
+	public GameInfoWindow(int totalRounds, GameControllerSP gameController) {
+				
+		this.gameController = gameController;
+		this.totalRounds = totalRounds;
+		
+		roundsLbl = new JLabel("Round 1 of "+ totalRounds);
 		
 		// sets the size according to screen size
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -59,17 +74,14 @@ public class GameInfoWindow extends JPanel {
 		imageLbl.setBounds(0, 0, width-100, 200);
 		
 		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
-		System.out.println(new ImageIcon(dimg).getIconWidth());
 		
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		this.add(imageLbl);
-		//bfImage.getGraphics().drawImage(image, 0, 0, null);
 		
         
         this.setSize(width-100, height/4);
         
 		this.setName("Info Panel");
-        //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         
 		//Initializes buttons and panels.
@@ -81,7 +93,7 @@ public class GameInfoWindow extends JPanel {
 	
 	private void initWindow() {
 		//this.setLayout(new BorderLayout());
-		imageLbl.setLayout(new BorderLayout());
+		imageLbl.setLayout(new GridLayout(2,3));
 		
 		southPnl = new JPanel();
 		southPnl.setLayout(new FlowLayout());
@@ -92,48 +104,45 @@ public class GameInfoWindow extends JPanel {
 		distanceLbl = new JLabel("");
 		clickToContinueLbl = new JLabel("Click on the map to continue");
 		
-		//Esthetical settings
+		//Label Alignment
 		timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		clickOnCityLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		//distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		//distanceLbl.setVerticalAlignment(SwingConstants.CENTER);
-		//clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		roundsLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		roundsLbl.setVerticalAlignment(SwingConstants.TOP);
+		clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
 		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
-		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
-		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
-		//this.add(northPnl, BorderLayout.NORTH);
+		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+	
 		
-		
-		//northPnl.add(timerLbl);
-		//northPnl.add(clickOnCityLbl);
-		//this.add(southPnl, BorderLayout.SOUTH);
-		//this.add(timerLbl, BorderLayout.NORTH);
-		//this.add(clickOnCityLbl, BorderLayout.CENTER);
-		//southPnl.add(distanceLbl, BorderLayout.SOUTH);
-		//southPnl.add(clickToContinueLbl, BorderLayout.SOUTH);
-		
-		imageLbl.add(timerLbl, BorderLayout.NORTH);
-		imageLbl.add(clickOnCityLbl, BorderLayout.CENTER);
-		imageLbl.add(distanceLbl, BorderLayout.EAST);
-		imageLbl.add(clickToContinueLbl, BorderLayout.WEST);
+		imageLbl.add(timerLbl);
+		imageLbl.add(clickOnCityLbl);
+		imageLbl.add(roundsLbl);
+		imageLbl.add(clickToContinueLbl);
+		imageLbl.add(distanceLbl);
 
 	}
 	
 	private void showUI() {
-		JFrame frame = new JFrame("Info Panel");
-		frame.setSize(new Dimension(width-100, 200));
+		windowFrame = new JFrame("Info Panel");
+		windowFrame.setSize(new Dimension(width-100, 200));
 		
 		
 		
-		frame.setLocation(0,(height/4)*3);
+		windowFrame.setLocation(0,(height/4)*3);
 		
-		frame.setLayout(new BorderLayout());
-		frame.add(this, BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
+		windowFrame.setLayout(new BorderLayout());
+		windowFrame.add(this, BorderLayout.CENTER);
+		windowFrame.pack();
+		windowFrame.setVisible(true);
+	}
+	
+	public JFrame getFrame() {
+		return windowFrame;
 	}
 	
 	public void setClickCityLbl(String cityName) {
@@ -145,6 +154,9 @@ public class GameInfoWindow extends JPanel {
 		distanceLbl.setText(distance+" km from "+currentCity);
 
 	}
+	public void setCurrentRound(int round) {
+		roundsLbl.setText("Round "+round+" of "+totalRounds);
+	}
 	
 	public void removeDistanceLbl() {
 		distanceLbl.setText("");
@@ -154,8 +166,8 @@ public class GameInfoWindow extends JPanel {
 		timerLbl.setText(cntDown+" Sek");
 	}
 	
-	public void showContinueLbl() {
-		clickToContinueLbl.setText("Click on map to continue");
+	public void showContinueLbl(String txt) {
+		clickToContinueLbl.setText(txt);		
 	}
 	
 	public void removeContinueLbl() {

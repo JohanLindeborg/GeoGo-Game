@@ -22,7 +22,6 @@ public class CitiesData {
 		
 			this.mapName = mapName;
 			getCitiesForMap(mapName);
-		
 	}
 	
 	public City getRandomCity() {
@@ -38,14 +37,8 @@ public class CitiesData {
 	private void getCitiesForMap(String mapName) {
 		
 		if(mapName.equals("France")) {
-			//createFileReader("/GeoGo-Game/citiesList/citiesFr");
 			readCitiesFileAndStore("citiesList/citiesFr.txt");
-			
-				
-			}
-			
-		
-		
+		}
 	}
 	
 	private void readCitiesFileAndStore(String filePath) {

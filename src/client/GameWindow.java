@@ -28,7 +28,6 @@ public class GameWindow extends JFrame{
         
 		this.setTitle("GameWindow");
 		
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(map, BorderLayout.CENTER);
         this.setVisible(true);
 	}
@@ -36,5 +35,6 @@ public class GameWindow extends JFrame{
 	public Rectangle getWindowBounds() {
 		return windowBounds;
 	}
+	
 
 }
