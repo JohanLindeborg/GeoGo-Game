@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -17,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GameMenu extends JPanel implements ActionListener {
+public class GameMenu extends JPanel implements ActionListener, ControllerListener {
 	private JButton btnStart = new JButton("Start Playing");// Start game
 	private Image image;
 	// Alternatives for choosing map and gametype
@@ -25,11 +26,17 @@ public class GameMenu extends JPanel implements ActionListener {
 //	private JLabel lblGameType; // Choose gametype
 	private String[] options = { "Choose country", "France", "Sweden", "Italy", "Germany", "Greece" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
-	private LinkedList<User> usersOnline = new LinkedList<User>();
-	private JComboBox<User> cmbChooseUser = new JComboBox<User>();
-	private JFrame frame;
 
-	public GameMenu() {
+	private HashSet<User> usersOnline = new HashSet<User>();
+	private JComboBox<User> cmbChooseUser = new JComboBox<User>();
+
+	private JFrame frame;
+	private JButton btnBack = new JButton("Go back");// Start game
+	private ControllerGUI controller;
+
+	public GameMenu(ControllerGUI controller) {
+		this.controller = controller;
+		controller.setListener(this);
 		// The games outer panel
 		this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(600, 400));
@@ -37,14 +44,19 @@ public class GameMenu extends JPanel implements ActionListener {
 
 		btnStart.setBounds(330, 145, 140, 40);
 		this.add(btnStart);
+		btnBack.setBounds(30, 30, 80, 20);
+		this.add(btnBack);
 		cmbChooseMap.setBounds(130, 145, 140, 40);
 		this.add(cmbChooseMap);
-		cmbChooseUser.setBounds(380, 100, 120, 23);
+		cmbChooseUser.setBounds(230, 230, 120, 23);
 		add(cmbChooseUser);
 
 		btnStart.addActionListener(this);
+		btnBack.addActionListener(this);
+
 		cmbChooseMap.addActionListener(this);
 		cmbChooseUser.addActionListener(this);
+
 		try {
 			image = ImageIO.read(new File("images/worldmap2.jpg"));
 			JLabel label = new JLabel(new ImageIcon(image));
@@ -57,14 +69,22 @@ public class GameMenu extends JPanel implements ActionListener {
 
 	void showUI() {
 		frame = new JFrame("GeoGo-mapLocator");
-//		setUserMenu();
-//      setUserList();
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
 	}
+
+	public void updateUsers(HashSet<User> usersLocal) { // vill använda denna metod i controllerGUI?nej
+		cmbChooseUser.removeAllItems();
+		System.out.println(usersLocal.size());
+		for (User u : usersLocal) {//tomlista?
+			cmbChooseUser.addItem(u);
+System.out.println(u);
+		}
+	}
+	// Controller vet inte vilka lyssnare
 
 	public void dispose() {
 		frame.dispose();
@@ -76,6 +96,10 @@ public class GameMenu extends JPanel implements ActionListener {
 		if (input.equals(cmbChooseMap)) {
 			dispose();
 		} else if (input.equals(btnStart)) {
+			dispose();
+		} else if (input.equals(btnBack)) {
+			ClientGUI gui = new ClientGUI(controller);
+			gui.showUI();
 			dispose();
 		}
 

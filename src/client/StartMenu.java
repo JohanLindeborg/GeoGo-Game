@@ -29,8 +29,11 @@ public class StartMenu extends JPanel implements ActionListener {
 	private Image image;
 	private JFrame frame;
 	private ControllerGUI controller;
+	private JButton btnBack = new JButton("Go back");// Start game
+	private GameMenu game;
 
-	public StartMenu() {
+	public StartMenu(ControllerGUI controller) {
+		this.controller=controller;
 		this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(600, 400)); // The games outer panel
 		this.getLayout();
@@ -38,6 +41,8 @@ public class StartMenu extends JPanel implements ActionListener {
 		// Add buttons to this panel
 		bnSingle.setBounds(240, 80, 130, 30);// GridbagLayout, dynamiska layouter
 		add(bnSingle);
+		btnBack.setBounds(30, 30, 80, 20);
+		this.add(btnBack);
 		bnMulti.setBounds(240, 160, 130, 30);
 		add(bnMulti);
 		bnRules.setBounds(240, 240, 130, 30);
@@ -45,6 +50,8 @@ public class StartMenu extends JPanel implements ActionListener {
 
 		// Add actionelisteners
 		bnSingle.addActionListener(this);
+		btnBack.addActionListener(this);
+
 		bnMulti.addActionListener(this);
 		bnRules.addActionListener(this);
 		try {
@@ -79,6 +86,10 @@ public class StartMenu extends JPanel implements ActionListener {
 		} else if (input.equals(bnRules)) {
 			gameRules();
 			dispose();
+		} else if (input.equals(btnBack)) {
+			gameRules();
+			dispose();
+
 		}
 	}
 
@@ -87,20 +98,22 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	public void singlePlayer() {
-		String name = JOptionPane.showInputDialog("Create a user"); // inte ha null här?
+		 game = new GameMenu(controller);
+
+		String name = JOptionPane.showInputDialog("Create a user"); 
 		controller.addLocalUser(name);
 		controller.getLocalUsers();
 //		controller.setUserMenu();?
-		GameMenu game = new GameMenu();
 		game.showUI();
 	}
 
 	public void gameRules() {
 		System.out.println("Add what happens when pressed button Game Rules");
-		JOptionPane.showMessageDialog(null, "The task of a player of GeoGo is to estimate the locations of different cities on a worldmap. "
-				+ "\n"
-				+ "A score is then given the player as a result of the difference in distance between the estimated spot and the actual location."
-				+ "\n" + "Players can choose what part of the world him or her wishes to play in." + "\n" + "\n" + "Upgrade your geographical knowledge now!");
+		JOptionPane.showMessageDialog(null,
+				"The task of a player of GeoGo is to estimate the locations of different cities on a worldmap. " + "\n"
+						+ "A score is then given the player as a result of the difference in distance between the estimated spot and the actual location."
+						+ "\n" + "Players can choose what part of the world him or her wishes to play in." + "\n" + "\n"
+						+ "Upgrade your geographical knowledge now!");
 	}
 
 }
