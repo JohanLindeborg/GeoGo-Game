@@ -75,10 +75,8 @@ public class GameMenu extends JPanel implements ActionListener, ControllerListen
 
 	public void updateUsers(HashSet<User> usersLocal) { 
 		cmbChooseUser.removeAllItems();
-		System.out.println(usersLocal.size());
 		for (User u : usersLocal) {
 			cmbChooseUser.addItem(u);
-System.out.println(u);
 		}
 	}
 

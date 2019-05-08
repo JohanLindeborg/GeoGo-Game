@@ -96,7 +96,6 @@ public class StartMenu extends JPanel implements ActionListener {
 
 		String name = JOptionPane.showInputDialog("Create a user"); 
 		controller.addLocalUser(name);
-		controller.getLocalUsers();
 		game.showUI();
 	}
 

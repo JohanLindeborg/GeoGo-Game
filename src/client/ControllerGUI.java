@@ -40,7 +40,6 @@ public class ControllerGUI {
 			usersLocal.add(newUser);
 			for (ControllerListener listener : listenerList) {
 				listener.updateUsers(usersLocal);
-				System.out.println(usersLocal + "addLocalUser");
 			}
 		}
 	}
@@ -51,7 +50,6 @@ public class ControllerGUI {
 
 	// Get list of local users
 	public HashSet<User> getLocalUsers() {
-		System.out.println(usersLocal);
 		return usersLocal;
 	}
 
