@@ -1,11 +1,20 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,7 +23,7 @@ import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
 
-public class GameInfoWindow extends JFrame {
+public class GameInfoWindow extends JPanel {
 	
     private GraphicsEnvironment ge;
     private int width;
@@ -26,6 +35,9 @@ public class GameInfoWindow extends JFrame {
 	private JLabel clickToContinueLbl;
 	private JPanel southPnl;
 	
+	private BufferedImage bfImage;
+	private JLabel imageLbl;
+	
 	private String currentCity;
 	
 	public GameInfoWindow() {
@@ -36,26 +48,46 @@ public class GameInfoWindow extends JFrame {
         width = (int) windowBounds.getWidth();
         height = (int) windowBounds.getHeight();
         
+        BufferedImage image = null;
+		try {
+		    image = ImageIO.read(new File("images/InfoWindowImage.jpg"));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+		imageLbl = new JLabel();
+		imageLbl.setBounds(0, 0, width-100, 200);
+		
+		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
+		System.out.println(new ImageIcon(dimg).getIconWidth());
+		
+		imageLbl.setIcon((new ImageIcon(dimg)));
+		this.add(imageLbl);
+		//bfImage.getGraphics().drawImage(image, 0, 0, null);
+		
+        
         this.setSize(width-100, 200);
         
-		this.setTitle("Info Panel");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setName("Info Panel");
+        //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
+        
+		//Initializes buttons and panels.
         initWindow();
         
-        this.setLocation(0,height-150);
         this.setVisible(true);
+        showUI();
 	}
 	
 	private void initWindow() {
-		this.setLayout(new BorderLayout());
+		//this.setLayout(new BorderLayout());
+		imageLbl.setLayout(new BorderLayout());
 		
 		southPnl = new JPanel();
 		southPnl.setLayout(new FlowLayout());
 		
-		this.add(southPnl, BorderLayout.SOUTH);
 		
-		timerLbl = new JLabel("timer goes here");
+		timerLbl = new JLabel("10 sek");
 		clickOnCityLbl = new JLabel("Click on: ");
 		distanceLbl = new JLabel("");
 		clickToContinueLbl = new JLabel("Click on the map to continue");
@@ -76,9 +108,28 @@ public class GameInfoWindow extends JFrame {
 		
 		//northPnl.add(timerLbl);
 		//northPnl.add(clickOnCityLbl);
-		this.add(timerLbl, BorderLayout.NORTH);
-		this.add(clickOnCityLbl, BorderLayout.CENTER);
-		southPnl.add(distanceLbl, BorderLayout.SOUTH);
+		//this.add(southPnl, BorderLayout.SOUTH);
+		//this.add(timerLbl, BorderLayout.NORTH);
+		//this.add(clickOnCityLbl, BorderLayout.CENTER);
+		//southPnl.add(distanceLbl, BorderLayout.SOUTH);
+		//southPnl.add(clickToContinueLbl, BorderLayout.SOUTH);
+		
+		imageLbl.add(timerLbl, BorderLayout.NORTH);
+		imageLbl.add(clickOnCityLbl, BorderLayout.CENTER);
+		imageLbl.add(distanceLbl, BorderLayout.EAST);
+		imageLbl.add(clickToContinueLbl, BorderLayout.WEST);
+
+	}
+	
+	private void showUI() {
+		JFrame frame = new JFrame("Info Panel");
+		frame.setSize(new Dimension(width-100, 200));
+		frame.setLocation(0,height-150);
+		frame.setLayout(new BorderLayout());
+		frame.add(this, BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	public void setClickCityLbl(String cityName) {
@@ -90,11 +141,19 @@ public class GameInfoWindow extends JFrame {
 		distanceLbl.setText(distance+" km from "+currentCity);
 
 	}
+	
+	public void setTimerLbl(String cntDown) {
+		timerLbl.setText(cntDown+" Sek");
+	}
+	
 	public void showContinueLbl() {
-		southPnl.add(clickToContinueLbl, BorderLayout.SOUTH);
+		clickToContinueLbl.setText("Click on map to continue");
 	}
 	
 	public void removeContinueLbl() {
-		southPnl.remove(clickToContinueLbl);
+		clickToContinueLbl.setText("");
 	}
+	
+  
+	
 }

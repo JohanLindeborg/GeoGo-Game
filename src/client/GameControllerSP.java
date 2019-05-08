@@ -2,10 +2,13 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
@@ -23,11 +26,15 @@ public class GameControllerSP  {
 	private City currentCity;
 	
 	private String currentMap;
+	
+	private CountDownTimer countDownTimer;
 		
 	
 	public GameControllerSP(double zoomLvl, LatLng latlng, String currentMap) {
 		
-		this.currentMap = currentMap;
+		this.countDownTimer = new CountDownTimer(this);
+		
+		this.currentMap = currentMap;		
 		this.createMap = new CreateMap(zoomLvl, latlng, currentMap, this);
 		gameMapView = createMap.getMapView();
 		map = gameMapView.getMap();
@@ -38,14 +45,25 @@ public class GameControllerSP  {
 		gameInfoWindow = new GameInfoWindow();
 		
 		//gameLogic = new GameLogicSP(gameMapView,citiesForMap);
+		
 		startNewRound();
 	}
 	
-	//what the controller should do when user has clicked on the map of "createMap" class
-	public City onMapClick(LatLng clickLatLng) {
+	//what the controller should do when user has clicked on the map within timerLimit
+	public City onMapClickInTime(LatLng clickLatLng) {
+		countDownTimer.stopTimer();
 		
 		double distance = getDistance(clickLatLng, currentCity.getLatLng());
 		gameInfoWindow.setDistanceLbl(Double.toString(distance));
+		
+		gameInfoWindow.showContinueLbl();
+		
+		//returns the "target city" to the map
+		return currentCity;
+	}
+	//what the controller should do when user has clicked on the map when timerLimit = 0
+	public City onMapClickOutOfTime() {
+		countDownTimer.stopTimer();
 		
 		gameInfoWindow.showContinueLbl();
 		
@@ -56,11 +74,24 @@ public class GameControllerSP  {
 	public void startNewRound() {
 		currentCity = citiesData.getRandomCity();
 		gameInfoWindow.setClickCityLbl(currentCity.getName());
+		gameInfoWindow.removeContinueLbl();
+
+		countDownTimer.startTimer();
 	}
 	
 	//Temporary method, should be replaced, allows access to change gui from CreateMap
 	public void rmvContinueLblInInfo() {
 		gameInfoWindow.removeContinueLbl();
+	}
+	
+	public void showContinueLbl() {
+		gameInfoWindow.showContinueLbl();
+	}
+	
+	public void updateCountDown(int cntDown) {
+		gameInfoWindow.setTimerLbl(Integer.toString(cntDown));
+		createMap.updateTimer(cntDown);
+		
 	}
 	
 	
@@ -94,9 +125,13 @@ public class GameControllerSP  {
 	}
 	
 	
+		
+		
+		
+}
 	
 	
 	
 	
 
-}
+

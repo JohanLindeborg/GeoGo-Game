@@ -1,9 +1,9 @@
 package client;
 
 import java.awt.*;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -24,13 +24,18 @@ public class ClientGUI extends JPanel implements ActionListener {
 	private JLabel geoGo;
 //	To add a component to a container that a CardLayout object manages, specify a string that identifies the component being added. 
 	final static String STARTGAMEPANEL = "Start Game";
+	private GraphicsEnvironment ge;
+
 
 	public ClientGUI() {
-		setPreferredSize(new Dimension(600, 400)); // The games outer panel
+		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = ge.getMaximumWindowBounds();
+		
+		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
 		// Adding button
 		bnStart.addActionListener(this);
 		this.add(bnStart);
-		bnStart.setBounds(240, 150, 140, 40);
+		bnStart.setBounds((bounds.width/2)-70, (bounds.height/2)-20, 140, 40);
 
 		// Add header(JLabel)
 		geoGo = new JLabel("GeoGo");
@@ -48,17 +53,25 @@ public class ClientGUI extends JPanel implements ActionListener {
 		cards = new JPanel(new CardLayout()); // Create the panel(parent?) that contains the "cards".
 		cl = (CardLayout) (cards.getLayout());// Nödvändig? Ja annars nullpointer, måste ha getlayout
 		cards.add(startMenu, STARTGAMEPANEL); // lägger denna till startmenu med namnet startgamepanel? VIKTIG??!!
-
+		
 		// How to set JPanel to class StartMenu
 
+		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("images/worldmap2.jpg"));
-			JLabel label = new JLabel(new ImageIcon(image));
-			this.add(label);
-
-		} catch (IOException ex) {
-			System.out.print("Image exception" + ex);
+		    image = ImageIO.read(new File("images/world.jpg"));
+		} catch (IOException e) {
+		    e.printStackTrace();
 		}
+		
+		JLabel imageLbl = new JLabel();
+		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
+		System.out.println(bounds.width);
+		
+		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
+		System.out.println(new ImageIcon(dimg).getIconWidth());
+		
+		imageLbl.setIcon((new ImageIcon(dimg)));
+		this.add(imageLbl);
 	}
 
 	void showUI() {
