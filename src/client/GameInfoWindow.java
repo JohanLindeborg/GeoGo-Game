@@ -99,7 +99,7 @@ public class GameInfoWindow extends JPanel {
 		//distanceLbl.setVerticalAlignment(SwingConstants.CENTER);
 		//clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
 		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
 		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
@@ -144,6 +144,10 @@ public class GameInfoWindow extends JPanel {
 	public void setDistanceLbl(String distance) {
 		distanceLbl.setText(distance+" km from "+currentCity);
 
+	}
+	
+	public void removeDistanceLbl() {
+		distanceLbl.setText("");
 	}
 	
 	public void setTimerLbl(String cntDown) {

@@ -19,11 +19,11 @@ public class GameControllerSP  {
 	private CreateMap createMap;
 	private GameWindow gameWindow;
 	private GameInfoWindow gameInfoWindow;
-	//private GameLogicSP gameLogic;
 	private MapView gameMapView;
 	private Map map;
 	private CitiesData citiesData;
 	private City currentCity;
+	private int rounds;
 	
 	private String currentMap;
 	
@@ -44,7 +44,6 @@ public class GameControllerSP  {
 		gameWindow = new GameWindow(gameMapView);
 		gameInfoWindow = new GameInfoWindow();
 		
-		//gameLogic = new GameLogicSP(gameMapView,citiesForMap);
 		
 		startNewRound();
 	}
@@ -76,6 +75,7 @@ public class GameControllerSP  {
 
 		gameInfoWindow.setClickCityLbl(currentCity.getName());
 		gameInfoWindow.removeContinueLbl();
+		gameInfoWindow.removeDistanceLbl();
 
 		countDownTimer.startTimer();
 	}
