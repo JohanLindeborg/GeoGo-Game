@@ -18,18 +18,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameMenu extends JPanel implements ActionListener, ControllerListener {
-	private JButton btnStart = new JButton("Start Playing");// Start game
+	private JButton btnStart = new JButton("Start Playing");
 	private Image image;
-	// Alternatives for choosing map
 	private String[] options = { "Choose country", "France", "Sweden", "Italy", "Germany", "Greece" };
-	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
+	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); 
 
 	// Lists for users (online and local)
 	private HashSet<User> usersOnline = new HashSet<User>();
 	private JComboBox<User> cmbChooseUser = new JComboBox<User>();
 
 	private JFrame frame;
-	private JButton btnBack = new JButton("Go back");// Start game
+	private JButton btnBack = new JButton("Go back");
 	private ControllerGUI controller;
 
 	public GameMenu(ControllerGUI controller) {
@@ -92,7 +91,7 @@ public class GameMenu extends JPanel implements ActionListener, ControllerListen
 		} else if (input.equals(btnStart)) {
 			dispose();
 		} else if (input.equals(btnBack)) {
-			ClientGUI gui = new ClientGUI(controller);
+			StartMenu gui = new StartMenu(controller);
 			gui.showUI();
 			dispose();
 		}

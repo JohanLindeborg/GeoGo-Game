@@ -26,12 +26,13 @@ public class StartMenu extends JPanel implements ActionListener {
 	private ControllerGUI controller;
 	private JButton btnBack = new JButton("Go back");// Start game
 	private GameMenu game;
+	private ClientGUI client;
 
 	public StartMenu(ControllerGUI controller) {
 		// The games outer panel
-		this.controller=controller;
+		this.controller = controller;
 		this.setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(600, 400)); 
+		setPreferredSize(new Dimension(600, 400));
 		this.getLayout();
 
 		// Add buttons to this panel
@@ -79,11 +80,10 @@ public class StartMenu extends JPanel implements ActionListener {
 			dispose();
 		} else if (input.equals(bnRules)) {
 			gameRules();
-			dispose();
 		} else if (input.equals(btnBack)) {
-			gameRules();
+			client = new ClientGUI(controller);
+			client.showUI();
 			dispose();
-
 		}
 	}
 
@@ -92,9 +92,9 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	public void singlePlayer() {
-		 game = new GameMenu(controller);
+		game = new GameMenu(controller);
 
-		String name = JOptionPane.showInputDialog("Create a user"); 
+		String name = JOptionPane.showInputDialog("Create a user");
 		controller.addLocalUser(name);
 		game.showUI();
 	}
