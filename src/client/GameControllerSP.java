@@ -110,7 +110,6 @@ public class GameControllerSP  {
 		gameWindow.dispose();
 		gameInfoWindow.getFrame().dispose();
 		
-		new GameMenu().showUI();
 	}
 	
 	//Temporary method, should be replaced, allows access to change gui from CreateMap

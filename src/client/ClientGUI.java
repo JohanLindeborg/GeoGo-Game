@@ -18,10 +18,13 @@ public class ClientGUI extends JPanel implements ActionListener {
 	private Controller controller;
 	private Image image;
 	private JButton bnStart = new JButton("Start Game");
+	private JButton bnExit = new JButton("Exit Game");
 	private StartMenu startMenu = new StartMenu(); // This is one of my JPanels
 	private JPanel cards; // Parent for cardlayout
 	private CardLayout cl;
 	private JLabel geoGo;
+	
+	private JFrame frame;
 //	To add a component to a container that a CardLayout object manages, specify a string that identifies the component being added. 
 	final static String STARTGAMEPANEL = "Start Game";
 	private GraphicsEnvironment ge;
@@ -34,8 +37,11 @@ public class ClientGUI extends JPanel implements ActionListener {
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
 		// Adding button
 		bnStart.addActionListener(this);
+		bnExit.addActionListener(this);
 		this.add(bnStart);
+		this.add(bnExit);
 		bnStart.setBounds((bounds.width/2)-70, (bounds.height/2)-20, 140, 40);
+		bnExit.setBounds((bounds.width/2)-70, (bounds.height/2)+40, 140, 40);
 
 		// Add header(JLabel)
 		geoGo = new JLabel("GeoGo");
@@ -65,17 +71,15 @@ public class ClientGUI extends JPanel implements ActionListener {
 		
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
-		System.out.println(bounds.width);
 		
 		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
-		System.out.println(new ImageIcon(dimg).getIconWidth());
 		
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		this.add(imageLbl);
 	}
 
 	void showUI() {
-		JFrame frame = new JFrame("GeoGo-mapLocator");
+		frame = new JFrame("GeoGo-mapLocator");
 //		setUserMenu();
 //      setUserList();
 		frame.setLayout(new BorderLayout());
@@ -128,8 +132,12 @@ public class ClientGUI extends JPanel implements ActionListener {
 			cl.show(cards, STARTGAMEPANEL); // Error: wrong parent, why?
 			StartMenu start = new StartMenu();
 			start.showUI();
+			frame.dispose();
 //			"deck" you want to use as the first parameter, then a "card" from that deck as the second parameter.
 		} // Vad händer här?
+		else if(input.equals(bnExit)) {
+			frame.dispose();
+		}
 	}
 
 	public static void main(String[] args) {

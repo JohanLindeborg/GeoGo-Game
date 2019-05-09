@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -25,7 +27,7 @@ import com.teamdev.jxmaps.LatLng;
 
 //import shared.User;
 
-public class GameMenu extends JPanel implements ActionListener {
+public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	private JButton btnStart = new JButton("Start");// Start game
 	private Image image;
 	// Alternatives for choosing map and gametype
@@ -35,15 +37,20 @@ public class GameMenu extends JPanel implements ActionListener {
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
 	private String[] options = { "Choose map", "France","Sweden","Italy","Germany", "Greece" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
+	private JButton goBackBtn = new JButton("Go Back");
 //	private JComboBox cmbGameType; // Choose game type combo box
 	//private LinkedList<User> usersOnline = new LinkedList<User>();
 	//private JComboBox<User> cmbChooseUser = new JComboBox<User>();
+	
+	private JFrame frame;
 	
 	CreateMap createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
 	
 	public GameMenu() {
+		
+		add(goBackBtn);
 		
 		cmbChooseMap.setBounds(110, 100, 120, 23);
 		add(cmbChooseMap);
@@ -61,6 +68,7 @@ public class GameMenu extends JPanel implements ActionListener {
 
 		btnStart.addActionListener(this);
 		cmbChooseMap.addActionListener(this);
+		goBackBtn.addActionListener(this);
 		//cmbChooseUser.addActionListener(this);
 		try {
 			image = ImageIO.read(new File("images/worldmap2.jpg"));
@@ -73,13 +81,13 @@ public class GameMenu extends JPanel implements ActionListener {
 	}
 
 	public void showUI() {
-		JFrame frame = new JFrame("GeoGo-mapLocator");
+		frame = new JFrame("GeoGo-mapLocator");
+		frame.addWindowListener(this);
 //		setUserMenu();
 //      setUserList();
 		frame.setLayout(new BorderLayout());
 
 		frame.add(this, BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -95,12 +103,16 @@ public class GameMenu extends JPanel implements ActionListener {
 
 				}
 				else if(cmbChooseMap.getSelectedItem() == "France") {
+					frame.dispose();
 					
 					LatLng latlng = new LatLng(46.4534, 2.2404);
 					gameControllerSP = new GameControllerSP(5.7,latlng, "France", rounds);
 				}
 			}
 			
+		}
+		else if(e.getSource() == goBackBtn) {
+			frame.dispose();
 		}
 	}
 	
@@ -128,6 +140,47 @@ public class GameMenu extends JPanel implements ActionListener {
 	public static void main(String[] args) {
 		GameMenu test = new GameMenu();
 		test.showUI();
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		frame.dispose();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

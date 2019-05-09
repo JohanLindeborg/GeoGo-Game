@@ -29,9 +29,12 @@ import javax.swing.JPanel;
 public class StartMenu extends JPanel implements ActionListener {
 	private JButton bnSingle = new JButton("Singleplayer");
 	private JButton bnMulti = new JButton("Multiplayer");
-	private JButton bnRules = new JButton("Game rules");
+	private JButton bnRules = new JButton("Game Instructions");
 	private Image image;
 	private GraphicsEnvironment ge;
+	private JFrame frame;
+	
+	private JButton goBackBtn = new JButton("Exit Game");
 
 	
 	public StartMenu() {
@@ -48,11 +51,13 @@ public class StartMenu extends JPanel implements ActionListener {
 		add(bnMulti);
 		bnRules.setBounds(bounds.width/2, (bounds.height/2)+160, 130, 30);
 		add(bnRules);
+		add(goBackBtn);
 
 		// Add actionelisteners
 		bnSingle.addActionListener(this);
 		bnMulti.addActionListener(this);
 		bnRules.addActionListener(this);
+		goBackBtn.addActionListener(this);
 		
 		BufferedImage image = null;
 		try {
@@ -63,10 +68,8 @@ public class StartMenu extends JPanel implements ActionListener {
 		
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
-		System.out.println(bounds.width);
 		
 		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
-		System.out.println(new ImageIcon(dimg).getIconWidth());
 		
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		this.add(imageLbl);
@@ -85,7 +88,7 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	void showUI() {
-		JFrame frame = new JFrame("GeoGo-mapLocator");
+		frame = new JFrame("GeoGo-mapLocator");
 //			setUserMenu();
 //	      setUserList();
 		frame.setLayout(new BorderLayout());
@@ -103,6 +106,9 @@ public class StartMenu extends JPanel implements ActionListener {
 //				multiPlayer();
 		} else if (input.equals(bnRules)) {
 			gameRules();
+		}
+		else if(input.equals(goBackBtn)) {
+			frame.dispose();
 		}
 	}
 
@@ -125,7 +131,8 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	public void gameRules() {
-		System.out.println("Add what happens when pressed button Game Rules");
-		JOptionPane.showMessageDialog(null, "Game rules..");
+		JOptionPane.showMessageDialog(null, "The task of a player of GeoGo is to estimate the locations of different cities on a worldmap. "+ "\n" 
+								+ "A score is then given the player as a result of the difference in distance between the estimated spot and the actual location."+"\n" + 
+								"Players can choose what part of the world him or her wishes to play in."+"\n"+"\n"+"Upgrade your geographical knowledge now!");
 	}
 }
