@@ -49,7 +49,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 		}
 	}
 
-	void showUI() {
+	public void showUI() {
 		frame = new JFrame("GeoGo-mapLocator");
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);

@@ -63,7 +63,7 @@ public class GameMenu extends JPanel implements ActionListener, ControllerListen
 		}
 	}
 
-	void showUI() {
+	public void showUI() {
 		frame = new JFrame("GeoGo-mapLocator");
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);

@@ -25,8 +25,6 @@ public class StartMenu extends JPanel implements ActionListener {
 	private JFrame frame;
 	private ControllerGUI controller;
 	private JButton btnBack = new JButton("Go back");// Start game
-	private GameMenu game;
-	private ClientGUI client;
 
 	public StartMenu(ControllerGUI controller) {
 		// The games outer panel
@@ -61,7 +59,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		}
 	}
 
-	void showUI() {
+	public void showUI() {
 		frame = new JFrame("GeoGo-mapLocator");
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
@@ -81,7 +79,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		} else if (input.equals(bnRules)) {
 			gameRules();
 		} else if (input.equals(btnBack)) {
-			client = new ClientGUI(controller);
+			ClientGUI client = new ClientGUI(controller);
 			client.showUI();
 			dispose();
 		}
@@ -92,7 +90,7 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	public void singlePlayer() {
-		game = new GameMenu(controller);
+		GameMenu game = new GameMenu(controller);
 
 		String name = JOptionPane.showInputDialog("Create a user");
 		controller.addLocalUser(name);
