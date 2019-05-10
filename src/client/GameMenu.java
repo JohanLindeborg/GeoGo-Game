@@ -35,8 +35,10 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	private JLabel lblGameType; // Choose gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	private String[] options = { "Choose map", "France","Sweden","Italy","Germany", "Greece" };
+	private String[] options = { "Choose map", "France","Sweden","Italy","Germany", "Greece" , "Africa" };
+	private String[] options1 = {"Choose Continent", "Africa", "Europe"};
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
+	private JComboBox<String> cmbChooseContinent = new JComboBox<String>(options1);
 	private JButton goBackBtn = new JButton("Go Back");
 //	private JComboBox cmbGameType; // Choose game type combo box
 	//private LinkedList<User> usersOnline = new LinkedList<User>();
@@ -51,9 +53,12 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	public GameMenu() {
 		
 		add(goBackBtn);
-		
+		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
 		add(cmbChooseMap);
+		//used for choosing between continents
+		cmbChooseContinent.setBounds(110,75,120,23);
+		add(cmbChooseContinent);
 		
 		add(roundsLbl);
 		
@@ -68,6 +73,7 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 
 		btnStart.addActionListener(this);
 		cmbChooseMap.addActionListener(this);
+		cmbChooseContinent.addActionListener(this);
 		goBackBtn.addActionListener(this);
 		//cmbChooseUser.addActionListener(this);
 		try {
@@ -97,11 +103,19 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 		if(e.getSource() == btnStart) {
 			
 			if(checkRounds(roundsTxtFld.getText())) {
-				
-				if(cmbChooseMap.getSelectedItem() == "Choose map") {
+				/**
+				 * Villkor för att användaren måste välja en karta för att kunna spela
+				 */
+				if(cmbChooseMap.getSelectedItem() == "Choose map" && cmbChooseContinent.getSelectedItem() == "Choose Continent") {
 					JOptionPane.showMessageDialog(null,"Error: Please select a map", "Error Message", JOptionPane.ERROR_MESSAGE);
-
 				}
+				/**
+				 * Villkor för att användaren endast kan välja en karta för att kunna spela
+				 * jag har gjort något logiskt fel så fixa gärna det om det är uppenbart.
+				 */
+//				else if(cmbChooseMap.getSelectedItem() != "Choose map" && cmbChooseContinent.getSelectedItem() !="Choose Contintent") {
+//				 JOptionPane.showMessageDialog(null,"Error: You can only choose one map", "Error Message", JOptionPane.ERROR_MESSAGE);
+//				}
 				else if(cmbChooseMap.getSelectedItem() == "France") {
 					frame.dispose();
 					
@@ -131,6 +145,20 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 					
 					LatLng latlng = new LatLng(37.983810, 23.727539);
 					gameControllerSP = new GameControllerSP(5.5,latlng, "Greece", rounds);
+				}
+				else if(cmbChooseContinent.getSelectedItem() == "Africa") {
+					frame.dispose();
+					/**
+					 * Center of Africa
+					 */
+					LatLng latlng = new LatLng(5.65, 26.17); 
+					gameControllerSP = new GameControllerSP(3.0,latlng, "Africa", rounds);
+				}
+				else if(cmbChooseContinent.getSelectedItem() == "Europe") {
+					frame.dispose();
+					
+					LatLng latlng = new LatLng(53.5775, 23.106111);
+					gameControllerSP = new GameControllerSP(3.5, latlng, "Europe", rounds);
 				}
 			}
 			

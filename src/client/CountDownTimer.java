@@ -18,11 +18,11 @@ public class CountDownTimer{
 		
 		timerListener = new TimerListener();
 		countDownTimer = new Timer(1000, timerListener);
-		countdown = 10;
+		countdown = 15;
 	}
 	
 	public void startTimer(){
-		countdown = 10;
+		countdown = 15;
 		countDownTimer.restart();
 	}
 	public void stopTimer() {
