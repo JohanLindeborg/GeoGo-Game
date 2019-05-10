@@ -108,6 +108,30 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 					LatLng latlng = new LatLng(46.4534, 2.2404);
 					gameControllerSP = new GameControllerSP(5.7,latlng, "France", rounds);
 				}
+				else if(cmbChooseMap.getSelectedItem() == "Sweden") {
+					frame.dispose();
+					
+					LatLng latlng = new LatLng(62.00, 15.00);
+					gameControllerSP = new GameControllerSP(4.7,latlng, "Sweden", rounds);
+				}
+				else if(cmbChooseMap.getSelectedItem() == "Italy") {
+					frame.dispose();
+					
+					LatLng latlng = new LatLng(42.50, 12.50);
+					gameControllerSP = new GameControllerSP(5.4,latlng, "Italy", rounds);
+				}
+				else if(cmbChooseMap.getSelectedItem() == "Germany") {
+					frame.dispose();
+					
+					LatLng latlng = new LatLng(51.133481, 10.018343);
+					gameControllerSP = new GameControllerSP(5.5,latlng, "Germany", rounds);
+				}
+				else if(cmbChooseMap.getSelectedItem() == "Greece") {
+					frame.dispose();
+					
+					LatLng latlng = new LatLng(37.983810, 23.727539);
+					gameControllerSP = new GameControllerSP(5.5,latlng, "Greece", rounds);
+				}
 			}
 			
 		}
