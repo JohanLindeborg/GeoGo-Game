@@ -25,100 +25,95 @@ import javax.swing.WindowConstants;
 import com.teamdev.jxmaps.swing.MapView;
 
 public class GameInfoWindow extends JPanel {
-	
+
 	private GameControllerSP gameController;
-	
+
 	private JFrame windowFrame;
-	
-    private GraphicsEnvironment ge;
-    private int width;
-    private int height;
-    
+
+	private GraphicsEnvironment ge;
+	private int width;
+	private int height;
+
 	private JLabel roundsLbl;
-    private JLabel clickOnCityLbl;
+	private JLabel clickOnCityLbl;
 	private JLabel timerLbl;
 	private JLabel distanceLbl;
 	private JLabel clickToContinueLbl;
 	private JPanel southPnl;
-	
+
 	private BufferedImage bfImage;
 	private JLabel imageLbl;
-	
+
 	private String currentCity;
-	
+
 	private int totalRounds;
 	private int currentRound;
-	
-	
+
 	public GameInfoWindow(int totalRounds, GameControllerSP gameController) {
-				
+
 		this.gameController = gameController;
 		this.totalRounds = totalRounds;
-		
-		roundsLbl = new JLabel("Round 1 of "+ totalRounds);
-		
+
+		roundsLbl = new JLabel("Round 1 of " + totalRounds);
+
 		// sets the size according to screen size
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle windowBounds = ge.getMaximumWindowBounds();
-        width = (int) windowBounds.getWidth();
-        height = (int) windowBounds.getHeight();
-        
-        BufferedImage image = null;
+		width = (int) windowBounds.getWidth();
+		height = (int) windowBounds.getHeight();
+
+		BufferedImage image = null;
 		try {
-		    image = ImageIO.read(new File("images/InfoWindowImage.jpg"));
+			image = ImageIO.read(new File("images/InfoWindowImage.jpg"));
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-		
+
 		imageLbl = new JLabel();
-		imageLbl.setBounds(0, 0, width-100, 200);
-		
-		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
-		
+		imageLbl.setBounds(0, 0, width - 100, 200);
+
+		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
+
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		this.add(imageLbl);
-		
-        
-        this.setSize(width-100, height/4);
-        
+
+		this.setSize(width - 100, height / 4);
+
 		this.setName("Info Panel");
-        
-        
-		//Initializes buttons and panels.
-        initWindow();
-        
-        this.setVisible(true);
-        showUI();
+
+		// Initializes buttons and panels.
+		initWindow();
+
+		this.setVisible(true);
+		showUI();
 	}
-	
+
 	private void initWindow() {
-		//this.setLayout(new BorderLayout());
-		imageLbl.setLayout(new GridLayout(2,3));
-		
+		// this.setLayout(new BorderLayout());
+		imageLbl.setLayout(new GridLayout(2, 3));
+
 		southPnl = new JPanel();
 		southPnl.setLayout(new FlowLayout());
-		
-		
+
 		timerLbl = new JLabel("10 sek");
 		clickOnCityLbl = new JLabel("Click on: ");
 		distanceLbl = new JLabel("");
 		clickToContinueLbl = new JLabel("Click on the map to continue");
-		
-		//Label Alignment
+
+		// Label Alignment
 		timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		clickOnCityLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		roundsLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		roundsLbl.setVerticalAlignment(SwingConstants.TOP);
 		clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
 		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
 		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
 		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
 		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
-	
-		
+
 		imageLbl.add(timerLbl);
 		imageLbl.add(clickOnCityLbl);
 		imageLbl.add(roundsLbl);
@@ -126,54 +121,53 @@ public class GameInfoWindow extends JPanel {
 		imageLbl.add(distanceLbl);
 
 	}
-	
+
 	private void showUI() {
 		windowFrame = new JFrame("Info Panel");
-		windowFrame.setSize(new Dimension(width-100, 200));
-		
-		windowFrame.setUndecorated(true); 
-		
-		windowFrame.setLocation(0,(height/4)*3);
-		
+		windowFrame.setSize(new Dimension(width - 100, 200));
+
+		windowFrame.setUndecorated(true);
+
+		windowFrame.setLocation(0, (height / 4) * 3);
+
 		windowFrame.setLayout(new BorderLayout());
 		windowFrame.add(this, BorderLayout.CENTER);
 		windowFrame.pack();
 		windowFrame.setVisible(true);
 	}
-	
+
 	public JFrame getFrame() {
 		return windowFrame;
 	}
-	
+
 	public void setClickCityLbl(String cityName) {
 		currentCity = cityName;
-		clickOnCityLbl.setText("Click on: "+cityName);
+		clickOnCityLbl.setText("Click on: " + cityName);
 	}
-	
+
 	public void setDistanceLbl(String distance) {
-		distanceLbl.setText(distance+" km from "+currentCity);
+		distanceLbl.setText(distance + " km from " + currentCity);
 
 	}
+
 	public void setCurrentRound(int round) {
-		roundsLbl.setText("Round "+round+" of "+totalRounds);
+		roundsLbl.setText("Round " + round + " of " + totalRounds);
 	}
-	
+
 	public void removeDistanceLbl() {
 		distanceLbl.setText("");
 	}
-	
+
 	public void setTimerLbl(String cntDown) {
-		timerLbl.setText(cntDown+" Sek");
+		timerLbl.setText(cntDown + " Sek");
 	}
-	
+
 	public void showContinueLbl(String txt) {
-		clickToContinueLbl.setText(txt);		
+		clickToContinueLbl.setText(txt);
 	}
-	
+
 	public void removeContinueLbl() {
 		clickToContinueLbl.setText("");
 	}
-	
-  
-	
+
 }

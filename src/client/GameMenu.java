@@ -95,6 +95,7 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 
 		frame.add(this, BorderLayout.CENTER);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
