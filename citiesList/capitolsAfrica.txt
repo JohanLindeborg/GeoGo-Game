@@ -1,0 +1,132 @@
+Algeriet: Algiers
+36.75
+3.05
+Angola: Luanda
+-8.833333333
+13.216667
+Porto Novo
+6.483333333
+2.616667
+Botswana: Gaborone
+-24.63333333
+25.9
+Burkina Faso: Ouagadougou
+12.36666667
+-1.516667
+Burundi: Bujumbura
+-3.366666667
+29.35
+Camerun: Yaounde
+3.866666667
+11.516667
+Cap Verde: Praia
+14.91666667
+-23.516667
+Central Afrikanska Republiken: Bangui
+4.366666667
+18.583333
+Chad: N'Djamena
+12.1
+15.033333
+Comoros: Moroni
+-11.7
+43.233333
+Elfenbenskusten: Yamoussoukro
+6.816666667
+-5.266667
+Demokratiska Republiken Kongo: Kinshasa
+-4.316666667
+15.3
+Djibouti: Djibouti
+11.58333333
+43.15
+Egypten: Kairo
+30.05
+31.25
+Ekvatorialguniea: Malabo
+3.75
+8.783333
+Eritrea: Asmara
+15.33333333
+38.933333
+Etiopen: Addis Abeba
+9.033333333
+38.7
+Gabon: Libreville
+0.383333333
+9.45
+Ghana: Accra
+5.55
+-0.216667
+Guinea: Conakry
+9.5
+-13.7
+Guinea-Bissau: Bissau
+11.85
+-15.583333
+Kenya: Nairobi
+-1.283333333
+36.816667
+Lesotho: Maseru
+-29.31666667
+27.483333
+Liberia: Monrovia
+6.3
+-10.8
+Libyen: Tripoli
+32.88333333
+13.166667
+Madagaskar: Antananarivo
+-18.91666667
+47.516667
+Malawi: Lilongwe
+-13.96666667
+33.783333
+Mali: Bamako
+12.65
+-8
+Mauritanien: Nouakchott
+18.06666667
+-15.966667
+Mauritius: Port Louis
+-20.15
+57.483333
+Morocco: Rabat
+34.01666667
+-6.816667
+Mozambique: Maputo
+-25.95
+32.583333
+Namibia: Windhoek
+-22.56666667
+17.083333
+Niger: Niamey	
+13.51666667	
+2.116667
+Nigeria: Abuja	
+9.083333333
+7.533333
+Republiken Kongo: Brazzaville
+-4.25
+15.283333
+Rwanda: Kigali
+-1.95
+30.05
+Saint Helena: Jamestown	
+-15.93333333
+-5.716667
+Sao Tome & Principe: Sao Tome'
+0.333333333
+6.733333
+Senegal: Dakar
+14.73333333
+-17.633333
+Seychelles: Victoria	
+-4.616666667	
+55.45
+Sierra Leone: Freetown	
+8.483333333
+-13.233333
+Somalien: Mogadishu
+2.066666667
+45.333333
