@@ -131,7 +131,7 @@ public class GameInfoWindow extends JPanel {
 		windowFrame = new JFrame("Info Panel");
 		windowFrame.setSize(new Dimension(width-100, 200));
 		
-		
+		windowFrame.setUndecorated(true); 
 		
 		windowFrame.setLocation(0,(height/4)*3);
 		
