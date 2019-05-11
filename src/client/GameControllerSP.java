@@ -118,7 +118,7 @@ public class GameControllerSP  {
 	}
 	
 	public void updateCountDown(int cntDown) {
-		gameInfoWindow.setTimerLbl(Integer.toString(cntDown));
+		gameInfoWindow.setTimerLbl(cntDown);
 		createMap.updateTimer(cntDown);
 		
 	}

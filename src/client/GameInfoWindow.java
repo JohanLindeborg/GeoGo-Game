@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -95,7 +96,7 @@ public class GameInfoWindow extends JPanel {
 		southPnl = new JPanel();
 		southPnl.setLayout(new FlowLayout());
 
-		timerLbl = new JLabel("10 sek");
+		timerLbl = new JLabel("15 seconds");
 		clickOnCityLbl = new JLabel("Click on: ");
 		distanceLbl = new JLabel("");
 		clickToContinueLbl = new JLabel("Click on the map to continue");
@@ -108,18 +109,21 @@ public class GameInfoWindow extends JPanel {
 		clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
 
-		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
-		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
-		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
-		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
-		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		
+		// Sets label font
+		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+		timerLbl.setForeground(Color.GREEN.darker());
+		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
 
+		// Add labels
 		imageLbl.add(timerLbl);
 		imageLbl.add(clickOnCityLbl);
 		imageLbl.add(roundsLbl);
 		imageLbl.add(clickToContinueLbl);
 		imageLbl.add(distanceLbl);
-
 	}
 
 	private void showUI() {
@@ -127,9 +131,7 @@ public class GameInfoWindow extends JPanel {
 		windowFrame.setSize(new Dimension(width - 100, 200));
 
 		windowFrame.setUndecorated(true);
-
 		windowFrame.setLocation(0, (height / 4) * 3);
-
 		windowFrame.setLayout(new BorderLayout());
 		windowFrame.add(this, BorderLayout.CENTER);
 		windowFrame.pack();
@@ -147,7 +149,6 @@ public class GameInfoWindow extends JPanel {
 
 	public void setDistanceLbl(String distance) {
 		distanceLbl.setText(distance + " km from " + currentCity);
-
 	}
 
 	public void setCurrentRound(int round) {
@@ -158,8 +159,15 @@ public class GameInfoWindow extends JPanel {
 		distanceLbl.setText("");
 	}
 
-	public void setTimerLbl(String cntDown) {
-		timerLbl.setText(cntDown + " Sek");
+	public void setTimerLbl(int cntDown) {
+		timerLbl.setText(cntDown + " seconds");
+
+		if (cntDown == 3) {
+			timerLbl.setForeground(Color.RED);
+
+		} else if (cntDown == 0) {
+			timerLbl.setText("Times up!");
+		}
 	}
 
 	public void showContinueLbl(String txt) {
@@ -169,5 +177,4 @@ public class GameInfoWindow extends JPanel {
 	public void removeContinueLbl() {
 		clickToContinueLbl.setText("");
 	}
-
 }
