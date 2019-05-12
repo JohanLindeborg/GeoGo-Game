@@ -27,23 +27,17 @@ import com.teamdev.jxmaps.LatLng;
 
 //import shared.User;
 
-public class GameMenu extends JPanel implements ActionListener, WindowListener {
+public class CountriesGameMenu extends JPanel implements ActionListener, WindowListener {
 	private JButton btnStart = new JButton("Start");// Start game
 	private Image image;
 	// Alternatives for choosing map and gametype
-	private JLabel lblMap; // Choose map
-	private JLabel lblGameType; // Choose gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	private String[] options = { "Choose map", "France", "Sweden", "Italy", "Germany", "Greece" };
-	private String[] options1 = { "Choose Continent", "Europe", "Africa", "Asia", "North America", "South America",
-			"Oceania" };
+	private String[] options = { "Choose country", "France", "Sweden", "Italy", "Germany", "Greece" };
+	
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
-	private JComboBox<String> cmbChooseContinent = new JComboBox<String>(options1);
 	private JButton goBackBtn = new JButton("Go Back");
-//	private JComboBox cmbGameType; // Choose game type combo box
-	// private LinkedList<User> usersOnline = new LinkedList<User>();
-	// private JComboBox<User> cmbChooseUser = new JComboBox<User>();
+
 
 	private JFrame frame;
 
@@ -51,15 +45,12 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	GameControllerSP gameControllerSP;
 	private int rounds;
 
-	public GameMenu() {
+	public CountriesGameMenu() {
 
 		add(goBackBtn);
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
-		add(cmbChooseMap);
-		// used for choosing between continents
-		cmbChooseContinent.setBounds(110, 75, 120, 23);
-		add(cmbChooseContinent);
+		add(cmbChooseMap);		
 
 		add(roundsLbl);
 
@@ -74,7 +65,6 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 
 		btnStart.addActionListener(this);
 		cmbChooseMap.addActionListener(this);
-		cmbChooseContinent.addActionListener(this);
 		goBackBtn.addActionListener(this);
 		// cmbChooseUser.addActionListener(this);
 		try {
@@ -105,21 +95,12 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 		if (e.getSource() == btnStart) {
 
 			if (checkRounds(roundsTxtFld.getText())) {
-				/**
-				 * Villkor för att användaren måste välja en karta för att kunna spela
-				 */
-				if (cmbChooseMap.getSelectedItem() == "Choose map"
-						&& cmbChooseContinent.getSelectedItem() == "Choose Continent") {
-					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
-							JOptionPane.ERROR_MESSAGE);
+				
+				
+				if (cmbChooseMap.getSelectedItem() == "Choose country") {
+					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",JOptionPane.ERROR_MESSAGE);
 				}
-				/**
-				 * Villkor för att användaren endast kan välja en karta för att kunna spela jag
-				 * har gjort något logiskt fel så fixa gärna det om det är uppenbart.
-				 */
-//				else if(cmbChooseMap.getSelectedItem() != "Choose map" && cmbChooseContinent.getSelectedItem() !="Choose Contintent") {
-//				 JOptionPane.showMessageDialog(null,"Error: You can only choose one map", "Error Message", JOptionPane.ERROR_MESSAGE);
-//				}
+				
 				else if (cmbChooseMap.getSelectedItem() == "France") {
 					frame.dispose();
 
@@ -145,46 +126,7 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 
 					LatLng latlng = new LatLng(37.983810, 23.727539);
 					gameControllerSP = new GameControllerSP(6.0, latlng, "Greece", rounds);
-				} else if (cmbChooseContinent.getSelectedItem() == "Africa") {
-					frame.dispose();
-					/**
-					 * Center of Africa
-					 */
-					LatLng latlng = new LatLng(6.0, 18.0);
-					gameControllerSP = new GameControllerSP(3.5, latlng, "Africa", rounds);
-				} else if (cmbChooseContinent.getSelectedItem() == "Europe") {
-					frame.dispose();
-
-					LatLng latlng = new LatLng(53.5775, 23.106111);
-					gameControllerSP = new GameControllerSP(4.0, latlng, "Europe", rounds);
-
-				} else if (cmbChooseContinent.getSelectedItem() == "Asia") {
-					frame.dispose();
-
-					LatLng latlng = new LatLng(42.5775, 80.0);
-					gameControllerSP = new GameControllerSP(3.1, latlng, "Asia", rounds);
-				}
-
-				else if (cmbChooseContinent.getSelectedItem() == "North America") {
-					frame.dispose();
-
-					LatLng latlng = new LatLng(49.0, -103.0);
-					gameControllerSP = new GameControllerSP(3.3, latlng, "North America", rounds);
-				}
-
-				else if (cmbChooseContinent.getSelectedItem() == "South America") {
-					frame.dispose();
-
-					LatLng latlng = new LatLng(-22.0, -59.0);
-					gameControllerSP = new GameControllerSP(3.5, latlng, "South America", rounds);
-				}
-
-				else if (cmbChooseContinent.getSelectedItem() == "Oceania") {
-					frame.dispose();
-
-					LatLng latlng = new LatLng(-24.0, 134.0);
-					gameControllerSP = new GameControllerSP(4.0, latlng, "Oceania", rounds);
-				}
+				} 
 			}
 		} else if (e.getSource() == goBackBtn) {
 			frame.dispose();
@@ -214,14 +156,10 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	}
 
 	public static void main(String[] args) {
-		GameMenu test = new GameMenu();
+		CountriesGameMenu test = new CountriesGameMenu();
 		test.showUI();
 	}
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
@@ -229,27 +167,39 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	}
 
 	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
+
 }

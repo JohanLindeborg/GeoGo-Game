@@ -125,9 +125,8 @@ public class StartMenu extends JPanel implements ActionListener {
 //		}
 
 	public void singlePlayer() {
-		String name = JOptionPane.showInputDialog(null, "Create a user");
-		GameMenu game = new GameMenu();
-		game.showUI();
+		//String name = JOptionPane.showInputDialog(null, "Create a user");
+		new GameSetup();
 //			gui.addNewUser(name);
 //			gui.showUI();
 	}
