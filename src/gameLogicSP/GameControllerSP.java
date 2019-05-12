@@ -1,4 +1,4 @@
-package client;
+package gameLogicSP;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -14,9 +14,13 @@ import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.swing.MapView;
 
+import gui.GameInfoWindow;
+import gui.GameWindow;
+import gui.WindowListenerSP;
+
 public class GameControllerSP  {
 	
-	private CreateMap createMap;
+	private MapHolder createMap;
 	
 	private GameWindow gameWindow;
 	private GameInfoWindow gameInfoWindow;
@@ -43,7 +47,7 @@ public class GameControllerSP  {
 		
 		this.totalRounds = totalRounds;
 		this.currentMap = currentMap;		
-		this.createMap = new CreateMap(totalRounds, zoomLvl, latlng, currentMap, this);
+		this.createMap = new MapHolder(totalRounds, zoomLvl, latlng, currentMap, this);
 		gameMapView = createMap.getMapView();
 		map = gameMapView.getMap();
 		

@@ -1,4 +1,4 @@
-package client;
+package gameLogicSP;
 
 import com.teamdev.jxmaps.GeocoderCallback;
 import com.teamdev.jxmaps.GeocoderRequest;
@@ -19,7 +19,7 @@ import com.teamdev.jxmaps.MarkerOptions;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
-public class CreateMap{
+public class MapHolder{
 	private GameControllerSP gameController;
 	
 	private MapViewOptions options;
@@ -33,7 +33,7 @@ public class CreateMap{
 	private int totalRounds;
 	private int countDown;
 	
-	public CreateMap(int totalRounds,double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
+	public MapHolder(int totalRounds,double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
 		
 		this.totalRounds = totalRounds;
 		gameController = gc;

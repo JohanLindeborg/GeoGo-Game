@@ -14,7 +14,7 @@ import javax.swing.WindowConstants;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
-import client.CreateMap;
+import gameLogicSP.MapHolder;
 import sharedFiles.AddToServerListMessage;
 import sharedFiles.GameData;
 import sharedFiles.MapMessage;
@@ -31,7 +31,7 @@ public class TestClient extends Thread{
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
 	
-	private CreateMap map;
+	private MapHolder map;
 	
 	private GameData currentGame;
 	private boolean inGame = false;
@@ -84,9 +84,9 @@ public class TestClient extends Thread{
 					Point point = currentGame.getMapCenter();
 					LatLng latlng = new LatLng(point.getX(),point.getY());
 					
-					map = new CreateMap(currentGame.getZoomLevel(), latlng, "test");
+					//					map = new MapHolder(currentGame.getZoomLevel(), latlng, "test");
 					System.out.println("Client "+userName+" created map");
-					displayMap(map.getMapView());
+					//displayMap(map.getMapView());
 					
 					inGame = true;
 				}

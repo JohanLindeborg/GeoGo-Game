@@ -1,4 +1,4 @@
-package client;
+package gameLogicSP;
 
 import com.sun.javafx.scene.paint.GradientUtils.Point;
 import com.teamdev.jxmaps.LatLng;

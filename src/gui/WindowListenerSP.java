@@ -1,7 +1,9 @@
-package client;
+package gui;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+import gameLogicSP.GameControllerSP;
 
 public class WindowListenerSP implements WindowListener {
 

@@ -1,4 +1,4 @@
-package client;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -21,6 +21,9 @@ import javax.swing.JTextField;
 
 import com.teamdev.jxmaps.LatLng;
 
+import gameLogicSP.MapHolder;
+import gameLogicSP.GameControllerSP;
+
 //import shared.User;
 
 public class ContinentsGameMenu extends JPanel implements ActionListener, WindowListener {
@@ -39,7 +42,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 	private JFrame frame;
 
-	CreateMap createMap;
+	MapHolder createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
 

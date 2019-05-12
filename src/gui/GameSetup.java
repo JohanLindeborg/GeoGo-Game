@@ -1,4 +1,4 @@
-package client;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -88,19 +88,7 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 		}
         return new ImageIcon(scaledImage);	
     }
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

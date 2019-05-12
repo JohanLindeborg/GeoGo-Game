@@ -1,4 +1,4 @@
-package client;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -25,6 +25,9 @@ import javax.swing.event.DocumentListener;
 
 import com.teamdev.jxmaps.LatLng;
 
+import gameLogicSP.MapHolder;
+import gameLogicSP.GameControllerSP;
+
 //import shared.User;
 
 public class CountriesGameMenu extends JPanel implements ActionListener, WindowListener {
@@ -41,7 +44,7 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	private JFrame frame;
 
-	CreateMap createMap;
+	MapHolder createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
 
@@ -153,11 +156,6 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 		}
 
 		return false;
-	}
-
-	public static void main(String[] args) {
-		CountriesGameMenu test = new CountriesGameMenu();
-		test.showUI();
 	}
 
 

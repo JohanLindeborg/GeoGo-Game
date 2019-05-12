@@ -1,4 +1,4 @@
-package client;
+package gameLogicSP;
 
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -51,12 +51,12 @@ public class CitiesData {
 		else if(mapName.contentEquals("Greece")) {
 			readCitiesFileAndStore("citiesList/citiesGr.txt");
 		}
-		//Lagt in huvudstäder fram till Somalien i den här listan
+		//Lagt in huvudstï¿½der fram till Somalien i den hï¿½r listan
 		else if (mapName.equals("Africa")) {
 			readCitiesFileAndStore("citiesList/capitolsAfrica.txt");
 		}
 		else if(mapName.equals("Europe")) {
-			readCitiesFileAndStore("citiesList/capitolsEurope.txt");
+			readCitiesFileAndStore("citiesList/capitolsEurope1.txt");
 		}	
 	}
 	

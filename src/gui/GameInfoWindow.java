@@ -1,4 +1,4 @@
-package client;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,6 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
+
+import gameLogicSP.GameControllerSP;
 
 public class GameInfoWindow extends JPanel {
 
