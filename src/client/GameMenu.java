@@ -35,47 +35,48 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	private JLabel lblGameType; // Choose gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	private String[] options = { "Choose map", "France","Sweden","Italy","Germany", "Greece" , "Africa" };
-	private String[] options1 = {"Choose Continent", "Africa", "Europe"};
+	private String[] options = { "Choose map", "France", "Sweden", "Italy", "Germany", "Greece" };
+	private String[] options1 = { "Choose Continent", "Europe", "Africa", "Asia", "North America", "South America",
+			"Oceania" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 	private JComboBox<String> cmbChooseContinent = new JComboBox<String>(options1);
 	private JButton goBackBtn = new JButton("Go Back");
 //	private JComboBox cmbGameType; // Choose game type combo box
-	//private LinkedList<User> usersOnline = new LinkedList<User>();
-	//private JComboBox<User> cmbChooseUser = new JComboBox<User>();
-	
+	// private LinkedList<User> usersOnline = new LinkedList<User>();
+	// private JComboBox<User> cmbChooseUser = new JComboBox<User>();
+
 	private JFrame frame;
-	
+
 	CreateMap createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
-	
+
 	public GameMenu() {
-		
+
 		add(goBackBtn);
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
 		add(cmbChooseMap);
-		//used for choosing between continents
-		cmbChooseContinent.setBounds(110,75,120,23);
+		// used for choosing between continents
+		cmbChooseContinent.setBounds(110, 75, 120, 23);
 		add(cmbChooseContinent);
-		
+
 		add(roundsLbl);
-		
+
 		roundsTxtFld.setColumns(3);
 		add(roundsTxtFld);
-		
+
 		btnStart.setBounds(380, 300, 120, 23);
 		add(btnStart);
-		
-		//cmbChooseUser.setBounds(380, 100, 120, 23);
-		//add(cmbChooseUser);
+
+		// cmbChooseUser.setBounds(380, 100, 120, 23);
+		// add(cmbChooseUser);
 
 		btnStart.addActionListener(this);
 		cmbChooseMap.addActionListener(this);
 		cmbChooseContinent.addActionListener(this);
 		goBackBtn.addActionListener(this);
-		//cmbChooseUser.addActionListener(this);
+		// cmbChooseUser.addActionListener(this);
 		try {
 			image = ImageIO.read(new File("images/worldmap2.jpg"));
 			JLabel label = new JLabel(new ImageIcon(image));
@@ -101,95 +102,117 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnStart) {
-			
-			if(checkRounds(roundsTxtFld.getText())) {
+		if (e.getSource() == btnStart) {
+
+			if (checkRounds(roundsTxtFld.getText())) {
 				/**
 				 * Villkor för att användaren måste välja en karta för att kunna spela
 				 */
-				if(cmbChooseMap.getSelectedItem() == "Choose map" && cmbChooseContinent.getSelectedItem() == "Choose Continent") {
-					JOptionPane.showMessageDialog(null,"Error: Please select a map", "Error Message", JOptionPane.ERROR_MESSAGE);
+				if (cmbChooseMap.getSelectedItem() == "Choose map"
+						&& cmbChooseContinent.getSelectedItem() == "Choose Continent") {
+					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
+							JOptionPane.ERROR_MESSAGE);
 				}
 				/**
-				 * Villkor för att användaren endast kan välja en karta för att kunna spela
-				 * jag har gjort något logiskt fel så fixa gärna det om det är uppenbart.
+				 * Villkor för att användaren endast kan välja en karta för att kunna spela jag
+				 * har gjort något logiskt fel så fixa gärna det om det är uppenbart.
 				 */
 //				else if(cmbChooseMap.getSelectedItem() != "Choose map" && cmbChooseContinent.getSelectedItem() !="Choose Contintent") {
 //				 JOptionPane.showMessageDialog(null,"Error: You can only choose one map", "Error Message", JOptionPane.ERROR_MESSAGE);
 //				}
-				else if(cmbChooseMap.getSelectedItem() == "France") {
+				else if (cmbChooseMap.getSelectedItem() == "France") {
 					frame.dispose();
-					
+
 					LatLng latlng = new LatLng(46.4534, 2.2404);
-					gameControllerSP = new GameControllerSP(5.7,latlng, "France", rounds);
-				}
-				else if(cmbChooseMap.getSelectedItem() == "Sweden") {
+					gameControllerSP = new GameControllerSP(5.9, latlng, "France", rounds);
+				} else if (cmbChooseMap.getSelectedItem() == "Sweden") {
 					frame.dispose();
-					
-					LatLng latlng = new LatLng(62.00, 15.00);
-					gameControllerSP = new GameControllerSP(4.7,latlng, "Sweden", rounds);
-				}
-				else if(cmbChooseMap.getSelectedItem() == "Italy") {
+
+					LatLng latlng = new LatLng(64.00, 20.00);
+					gameControllerSP = new GameControllerSP(4.9, latlng, "Sweden", rounds);
+				} else if (cmbChooseMap.getSelectedItem() == "Italy") {
 					frame.dispose();
-					
-					LatLng latlng = new LatLng(42.50, 12.50);
-					gameControllerSP = new GameControllerSP(5.4,latlng, "Italy", rounds);
-				}
-				else if(cmbChooseMap.getSelectedItem() == "Germany") {
+
+					LatLng latlng = new LatLng(41.50, 12.50);
+					gameControllerSP = new GameControllerSP(6.1, latlng, "Italy", rounds);
+				} else if (cmbChooseMap.getSelectedItem() == "Germany") {
 					frame.dispose();
-					
+
 					LatLng latlng = new LatLng(51.133481, 10.018343);
-					gameControllerSP = new GameControllerSP(5.5,latlng, "Germany", rounds);
-				}
-				else if(cmbChooseMap.getSelectedItem() == "Greece") {
+					gameControllerSP = new GameControllerSP(5.5, latlng, "Germany", rounds);
+				} else if (cmbChooseMap.getSelectedItem() == "Greece") {
 					frame.dispose();
-					
+
 					LatLng latlng = new LatLng(37.983810, 23.727539);
-					gameControllerSP = new GameControllerSP(5.5,latlng, "Greece", rounds);
-				}
-				else if(cmbChooseContinent.getSelectedItem() == "Africa") {
+					gameControllerSP = new GameControllerSP(6.0, latlng, "Greece", rounds);
+				} else if (cmbChooseContinent.getSelectedItem() == "Africa") {
 					frame.dispose();
 					/**
 					 * Center of Africa
 					 */
-					LatLng latlng = new LatLng(5.65, 26.17); 
-					gameControllerSP = new GameControllerSP(3.0,latlng, "Africa", rounds);
-				}
-				else if(cmbChooseContinent.getSelectedItem() == "Europe") {
+					LatLng latlng = new LatLng(6.0, 18.0);
+					gameControllerSP = new GameControllerSP(3.5, latlng, "Africa", rounds);
+				} else if (cmbChooseContinent.getSelectedItem() == "Europe") {
 					frame.dispose();
-					
+
 					LatLng latlng = new LatLng(53.5775, 23.106111);
-					gameControllerSP = new GameControllerSP(3.5, latlng, "Europe", rounds);
+					gameControllerSP = new GameControllerSP(4.0, latlng, "Europe", rounds);
+
+				} else if (cmbChooseContinent.getSelectedItem() == "Asia") {
+					frame.dispose();
+
+					LatLng latlng = new LatLng(42.5775, 80.0);
+					gameControllerSP = new GameControllerSP(3.1, latlng, "Asia", rounds);
+				}
+
+				else if (cmbChooseContinent.getSelectedItem() == "North America") {
+					frame.dispose();
+
+					LatLng latlng = new LatLng(49.0, -103.0);
+					gameControllerSP = new GameControllerSP(3.3, latlng, "North America", rounds);
+				}
+
+				else if (cmbChooseContinent.getSelectedItem() == "South America") {
+					frame.dispose();
+
+					LatLng latlng = new LatLng(-22.0, -59.0);
+					gameControllerSP = new GameControllerSP(3.5, latlng, "South America", rounds);
+				}
+
+				else if (cmbChooseContinent.getSelectedItem() == "Oceania") {
+					frame.dispose();
+
+					LatLng latlng = new LatLng(-24.0, 134.0);
+					gameControllerSP = new GameControllerSP(4.0, latlng, "Oceania", rounds);
 				}
 			}
-			
-		}
-		else if(e.getSource() == goBackBtn) {
+		} else if (e.getSource() == goBackBtn) {
 			frame.dispose();
 		}
 	}
-	
+
 	private boolean checkRounds(String str) {
 		int val;
-		try {  
-		    val = Integer.parseInt(str); 
-		    
-		    if (val > 20 || val <= 0){
-				JOptionPane.showMessageDialog(null,"Error: Please enter number from 1 to 20", "Error Message", JOptionPane.ERROR_MESSAGE);
+		try {
+			val = Integer.parseInt(str);
+
+			if (val > 20 || val <= 0) {
+				JOptionPane.showMessageDialog(null, "Error: Please enter number from 1 to 20", "Error Message",
+						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
-		    
+
 			rounds = val;
 			return true;
-		    
-		} 
-		catch(NumberFormatException e){
-		    JOptionPane.showMessageDialog(null,"Error: Please enter a integer", "Error Message", JOptionPane.ERROR_MESSAGE);
+
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Error: Please enter a integer", "Error Message",
+					JOptionPane.ERROR_MESSAGE);
 		}
+
 		return false;
-		
 	}
-	
+
 	public static void main(String[] args) {
 		GameMenu test = new GameMenu();
 		test.showUI();
@@ -198,7 +221,6 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -209,32 +231,25 @@ public class GameMenu extends JPanel implements ActionListener, WindowListener {
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-
-	
 }
