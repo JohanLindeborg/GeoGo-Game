@@ -15,33 +15,42 @@ import javax.swing.*;
 //import shared.*;
 
 public class ClientGUI extends JPanel implements ActionListener {
+	
 	private Controller controller;
-	private Image image;
+	
 	private JButton bnStart = new JButton("Start Game");
 	private JButton bnExit = new JButton("Exit Game");
 	private StartMenu startMenu = new StartMenu(); // This is one of my JPanels
 	private JPanel cards; // Parent for cardlayout
-	private CardLayout cl;
 	private JLabel geoGo;
-	
 	private JFrame frame;
+	private CardLayout cl;
+	
+	private Image image;
+	private GraphicsEnvironment ge;
+	
 //	To add a component to a container that a CardLayout object manages, specify a string that identifies the component being added. 
 	final static String STARTGAMEPANEL = "Start Game";
-	private GraphicsEnvironment ge;
 
 
 	public ClientGUI() {
+		
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = ge.getMaximumWindowBounds();
 		
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
-		// Adding button
-		bnStart.addActionListener(this);
-		bnExit.addActionListener(this);
-		this.add(bnStart);
-		this.add(bnExit);
+		
+		// Setting position 
 		bnStart.setBounds((bounds.width/2)-70, (bounds.height/2)-20, 140, 40);
 		bnExit.setBounds((bounds.width/2)-70, (bounds.height/2)+40, 140, 40);
+		
+		// Adding actionlisteners
+		bnStart.addActionListener(this);
+		bnExit.addActionListener(this);
+		
+		// Adding button
+		this.add(bnStart);
+		this.add(bnExit);
 
 		// Add header(JLabel)
 		geoGo = new JLabel("GeoGo");
@@ -56,9 +65,9 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 		// Create the panel that contains the "cards":
 		this.setLayout(cl); // Put the cardlayout on the panel
-		cards = new JPanel(new CardLayout()); // Create the panel(parent?) that contains the "cards".
-		cl = (CardLayout) (cards.getLayout());// Nödvändig? Ja annars nullpointer, måste ha getlayout
-		cards.add(startMenu, STARTGAMEPANEL); // lägger denna till startmenu med namnet startgamepanel? VIKTIG??!!
+//		cards = new JPanel(new CardLayout()); // Create the panel(parent?) that contains the "cards".
+//		cl = (CardLayout) (cards.getLayout());// Nödvändig? Ja annars nullpointer, måste ha getlayout
+//		cards.add(startMenu, STARTGAMEPANEL); // lägger denna till startmenu med namnet startgamepanel? VIKTIG??!!
 		
 		// How to set JPanel to class StartMenu
 
@@ -79,7 +88,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 	}
 
 	void showUI() {
-		frame = new JFrame("GeoGo-mapLocator");
+		frame = new JFrame("ClientGUI");
 //		setUserMenu();
 //      setUserList();
 		frame.setLayout(new BorderLayout());
@@ -129,9 +138,9 @@ public class ClientGUI extends JPanel implements ActionListener {
 //			cl.show(startMenu, "hej"); // Add our JPanel to the cardlayout.
 //			 set the currently visible component.
 //		     cl = (CardLayout)(cards.getLayout());
-			cl.show(cards, STARTGAMEPANEL); // Error: wrong parent, why?
-			StartMenu start = new StartMenu();
-			start.showUI();
+//			cl.show(cards, STARTGAMEPANEL); // Error: wrong parent, why?
+			new StartMenu().showUI();
+		
 			frame.dispose();
 //			"deck" you want to use as the first parameter, then a "card" from that deck as the second parameter.
 		} // Vad händer här?
