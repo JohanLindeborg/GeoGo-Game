@@ -34,12 +34,32 @@ public class CitiesData {
 		return mapCities.remove(index);
 	}
 	
-	private void getCitiesForMap(String mapName) {
+	private void getCitiesForMap(String mapName){
 		
 		if(mapName.equals("France")) {
 			readCitiesFileAndStore("citiesList/citiesFr.txt");
 		}
+		else if (mapName.equals("Sweden")) {
+			readCitiesFileAndStore("citiesList/citiesSW.txt");
+		}
+		else if(mapName.contentEquals("Italy")) {
+			readCitiesFileAndStore("citiesList/citiesIt.txt");
+		}
+		else if(mapName.contentEquals("Germany")) {
+			readCitiesFileAndStore("citiesList/citiesGe.txt");
+		}
+		else if(mapName.contentEquals("Greece")) {
+			readCitiesFileAndStore("citiesList/citiesGr.txt");
+		}
+		//Lagt in huvudstäder fram till Somalien i den här listan
+		else if (mapName.equals("Africa")) {
+			readCitiesFileAndStore("citiesList/capitolsAfrica.txt");
+		}
+		else if(mapName.equals("Europe")) {
+			readCitiesFileAndStore("citiesList/capitolsEurope.txt");
+		}	
 	}
+	
 	
 	private void readCitiesFileAndStore(String filePath) {
 		try {
