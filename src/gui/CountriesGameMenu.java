@@ -41,7 +41,6 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 	private JButton goBackBtn = new JButton("Go Back");
 
-
 	private JFrame frame;
 
 	MapHolder createMap;
@@ -82,6 +81,8 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	public void showUI() {
 		frame = new JFrame("GeoGo-mapLocator");
+		Image image = new ImageIcon("images/globe.16x16.png").getImage();
+		frame.setIconImage(image);
 		frame.addWindowListener(this);
 //		setUserMenu();
 //      setUserList();
@@ -98,7 +99,6 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 		if (e.getSource() == btnStart) {
 
 			if (checkRounds(roundsTxtFld.getText())) {
-				
 				
 				if (cmbChooseMap.getSelectedItem() == "Choose country") {
 					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",JOptionPane.ERROR_MESSAGE);
@@ -131,6 +131,7 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 					gameControllerSP = new GameControllerSP(6.0, latlng, "Greece", rounds);
 				} 
 			}
+			
 		} else if (e.getSource() == goBackBtn) {
 			frame.dispose();
 		}
@@ -158,7 +159,6 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 		return false;
 	}
 
-
 	@Override
 	public void windowClosing(WindowEvent e) {
 		frame.dispose();
@@ -166,38 +166,31 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-
 }
