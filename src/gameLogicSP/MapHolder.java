@@ -59,6 +59,7 @@ public class MapHolder{
 	
 	private void placeMarker(LatLng latlong) {
 		
+		// Ändrar marker för player, finns ett par olika i images
 		Icon icon = new Icon();
 		File file = new File("images/blackPin32.png");
 		icon.loadFromFile(file);
@@ -72,7 +73,7 @@ public class MapHolder{
 	}
 	private void placeCityPos(LatLng latlong,String cityName) {
 		
-
+// ändrar marker för korrekt position
 		Icon icon = new Icon();
 		File file = new File("images/greenPin32.png");
 		icon.loadFromFile(file);
@@ -81,9 +82,6 @@ public class MapHolder{
 
 		cityMarker = new Marker(gameMapView.getMap());
 		
-//		markeropt.setIcon(icon);
-		
-
 		markerOpt.setLabelString(cityName);
 		cityMarker.setOptions(markerOpt);
 		cityMarker.setPosition(latlong);
