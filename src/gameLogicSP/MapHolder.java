@@ -1,9 +1,12 @@
 package gameLogicSP;
 
+import java.io.File;
+
 import com.teamdev.jxmaps.GeocoderCallback;
 import com.teamdev.jxmaps.GeocoderRequest;
 import com.teamdev.jxmaps.GeocoderResult;
 import com.teamdev.jxmaps.GeocoderStatus;
+import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
@@ -16,6 +19,7 @@ import com.teamdev.jxmaps.MapTypeId;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.MarkerOptions;
+import com.teamdev.jxmaps.MarkerShape;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
@@ -54,15 +58,34 @@ public class MapHolder{
 	}
 	
 	private void placeMarker(LatLng latlong) {
+		
+		Icon icon = new Icon();
+		File file = new File("images/blackPin32.png");
+		icon.loadFromFile(file);
+		MarkerOptions markerOpt = new MarkerOptions();
+		markerOpt.setIcon(icon);
+		
 		clickMarker = new Marker(gameMapView.getMap());
+		clickMarker.setOptions(markerOpt);
 		clickMarker.setPosition(latlong);
 		
 	}
 	private void placeCityPos(LatLng latlong,String cityName) {
+		
+
+		Icon icon = new Icon();
+		File file = new File("images/greenPin32.png");
+		icon.loadFromFile(file);
+		MarkerOptions markerOpt = new MarkerOptions();
+		markerOpt.setIcon(icon);
+
 		cityMarker = new Marker(gameMapView.getMap());
-		MarkerOptions markeropt = new MarkerOptions();
-		markeropt.setLabelString(cityName);
-		cityMarker.setOptions(markeropt);
+		
+//		markeropt.setIcon(icon);
+		
+
+		markerOpt.setLabelString(cityName);
+		cityMarker.setOptions(markerOpt);
 		cityMarker.setPosition(latlong);
 		
 	}
