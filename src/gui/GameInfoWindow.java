@@ -162,12 +162,13 @@ public class GameInfoWindow extends JPanel {
 	}
 
 	public void setTimerLbl(int cntDown) {
+		timerLbl.setForeground(Color.GREEN.darker());
 		timerLbl.setText(cntDown + " seconds");
 
-		if (cntDown == 3) {
+		if (cntDown <= 3) {
 			timerLbl.setForeground(Color.RED);
 
-		} else if (cntDown == 0) {
+		} if (cntDown == 0) {
 			timerLbl.setText("Times up!");
 		}
 	}
