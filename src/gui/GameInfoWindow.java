@@ -133,7 +133,7 @@ public class GameInfoWindow extends JPanel {
 		windowFrame.setSize(new Dimension(width - 100, 200));
 
 		windowFrame.setUndecorated(true);
-		windowFrame.setLocation(0, (height / 4) * 3);
+		windowFrame.setLocation(0, ((height / 4) * 3)+15);
 		windowFrame.setLayout(new BorderLayout());
 		windowFrame.add(this, BorderLayout.CENTER);
 		windowFrame.pack();
