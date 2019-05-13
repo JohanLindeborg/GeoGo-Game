@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,44 +22,43 @@ import javax.swing.JTextField;
 
 import com.teamdev.jxmaps.LatLng;
 
-import gameLogicSP.MapHolder;
 import gameLogicSP.GameControllerSP;
+import gameLogicSP.MapHolder;
 
 //import shared.User;
 
 public class ContinentsGameMenu extends JPanel implements ActionListener, WindowListener {
+	
 	private JButton btnStart = new JButton("Start");// Start game
 	private Image image;
+	
 	// Alternatives for choosing map and gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	
 	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "South America", "Oceania" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
-	private JButton goBackBtn = new JButton("Go Back");
-//	private JComboBox cmbGameType; // Choose game type combo box
+	private JButton btnGoBack = new JButton("Go Back");
+	
+	//	private JComboBox cmbGameType; // Choose game type combo box
 	// private LinkedList<User> usersOnline = new LinkedList<User>();
 	// private JComboBox<User> cmbChooseUser = new JComboBox<User>();
 
 	private JFrame frame;
-
 	MapHolder createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
 
 	public ContinentsGameMenu() {
 
-		add(goBackBtn);
+		add(btnGoBack);
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
 		add(cmbChooseMap);
+		
 		// used for choosing between continents
-
 		add(roundsLbl);
-
 		roundsTxtFld.setColumns(3);
 		add(roundsTxtFld);
-
 		btnStart.setBounds(380, 300, 120, 23);
 		add(btnStart);
 
@@ -67,7 +67,8 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 		btnStart.addActionListener(this);
 		cmbChooseMap.addActionListener(this);
-		goBackBtn.addActionListener(this);
+		btnGoBack.addActionListener(this);
+		
 		// cmbChooseUser.addActionListener(this);
 		try {
 			image = ImageIO.read(new File("images/worldmap2.jpg"));
@@ -80,22 +81,25 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	}
 
 	public void showUI() {
+		
 		frame = new JFrame("GeoGo-mapLocator");
+		Image image = new ImageIcon("images/globe.16x16.png").getImage();
+		frame.setIconImage(image);
 		frame.addWindowListener(this);
 //		setUserMenu();
 //      setUserList();
 		frame.setLayout(new BorderLayout());
-
 		frame.add(this, BorderLayout.CENTER);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
+		this.setBackground(Color.WHITE);
 		frame.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		if (e.getSource() == btnStart) {
-
 			if (checkRounds(roundsTxtFld.getText())) {
 				
 				if (cmbChooseMap.getSelectedItem() == "Choose continent") {
@@ -138,27 +142,22 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 					LatLng latlng = new LatLng(-24.0, 134.0);
 					gameControllerSP = new GameControllerSP(4.0, latlng, "Oceania", rounds);
-					
 				}
-				
-				
 			}
-		
 		}
 		 
-		else if (e.getSource() == goBackBtn) {
+		else if (e.getSource() == btnGoBack) {
 			frame.dispose();
 		}
-		
 	}
 
 	private boolean checkRounds(String str) {
+		
 		int val;
 		try {
 			val = Integer.parseInt(str);
-
 			if (val > 20 || val <= 0) {
-				JOptionPane.showMessageDialog(null, "Error: Please enter number from 1 to 20", "Error Message",
+				JOptionPane.showMessageDialog(null, "Error: Please enter a number from 1 to 20", "Error Message",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -167,7 +166,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 			return true;
 
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Error: Please enter a integer", "Error Message",
+			JOptionPane.showMessageDialog(null, "Error: Please enter an integer", "Error Message",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -182,40 +181,30 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-
-	
-}
-	
-	
+}	
