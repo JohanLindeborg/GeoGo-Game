@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Rectangle;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -29,12 +31,12 @@ public class GameWindow extends JFrame{
 		this.setTitle("GameWindow");
 		
         this.add(map, BorderLayout.CENTER);
+        Image image = new ImageIcon("images/globe.16x16.png").getImage();
+		this.setIconImage(image);
         this.setVisible(true);
 	}
 	
 	public Rectangle getWindowBounds() {
 		return windowBounds;
 	}
-	
-
 }

@@ -25,10 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class StartMenu extends JPanel implements ActionListener {
-	private JButton bnSingle = new JButton("Singleplayer");
-	private JButton bnMulti = new JButton("Multiplayer");
-	private JButton bnRules = new JButton("Game Instructions");
-	private JButton exitBtn = new JButton("Exit Game");
+	private JButton btnSingle = new JButton("Singleplayer");
+	private JButton btnMulti = new JButton("Multiplayer");
+	private JButton btnRules = new JButton("Game Instructions");
+	private JButton btnExit = new JButton("Exit Game");
 	private Image image;
 	private GraphicsEnvironment ge;
 	private JFrame frame;
@@ -42,28 +42,27 @@ public class StartMenu extends JPanel implements ActionListener {
 		// this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
 
-		bnSingle.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 80, 140, 40);
-		bnMulti.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 20, 140, 40);
-		bnRules.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 40, 140, 40);
-		exitBtn.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 100, 140, 40);
-		
+		btnSingle.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 100, 140, 40);
+		btnMulti.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 40, 140, 40);
+		btnRules.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 20, 140, 40);
+		btnExit.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 80, 140, 40);
+
 		// Add buttons to this panel
-		add(bnSingle);
-		add(bnMulti);
-		add(bnRules);
-		add(exitBtn); // exit button
+		add(btnSingle);
+		add(btnMulti);
+		add(btnRules);
+		add(btnExit); // exit button
 
 		// Add actionelisteners
-		bnSingle.addActionListener(this);
-		bnMulti.addActionListener(this);
-		bnRules.addActionListener(this);
-		exitBtn.addActionListener(this);
-		
+		btnSingle.addActionListener(this);
+		btnMulti.addActionListener(this);
+		btnRules.addActionListener(this);
+		btnExit.addActionListener(this);
+
 		this.setLayout(cl); // Put the cardlayout on the panel
 //		cards = new JPanel(new CardLayout()); // Create the panel(parent?) that contains the "cards".
 //		cl = (CardLayout) (cards.getLayout());// Nödvändig? Ja annars nullpointer, måste ha getlayout
 //		cards.add(startMenu, STARTGAMEPANEL); // lägger denna till startmenu med namnet start
-		
 
 		BufferedImage image = null;
 		try {
@@ -74,12 +73,10 @@ public class StartMenu extends JPanel implements ActionListener {
 
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
-
 		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
-
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		this.add(imageLbl);
-		
+
 		/*
 		 * try { image = ImageIO.read(new File("images/worldmap2.jpg"));
 		 * 
@@ -91,9 +88,12 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	void showUI() {
+
 		frame = new JFrame("StartMenu");
-//			setUserMenu();
-//	      setUserList();
+//		setUserMenu();
+//	    setUserList();
+		Image image = new ImageIcon("images/globe.16x16.png").getImage();
+		frame.setIconImage(image);
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,13 +103,13 @@ public class StartMenu extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		Object input = e.getSource();
-		if (input.equals(bnSingle)) {
+		if (input.equals(btnSingle)) {
 			singlePlayer();
-		} else if (input.equals(bnMulti)) {
+		} else if (input.equals(btnMulti)) {
 //				multiPlayer();
-		} else if (input.equals(bnRules)) {
+		} else if (input.equals(btnRules)) {
 			gameRules();
-		} else if (input.equals(exitBtn)) {
+		} else if (input.equals(btnExit)) {
 			frame.dispose();
 		}
 	}
@@ -119,13 +119,12 @@ public class StartMenu extends JPanel implements ActionListener {
 //			// har lagt till enny användare
 //			gui.addNewUser(name);
 //			// ska uppdatera listan nånstans och sen göra om den till toArray(new User[0]); (dvs User array)
-	//
 //			list.toArray(new User[0]);
 //			return list;
 //		}
 
 	public void singlePlayer() {
-		//String name = JOptionPane.showInputDialog(null, "Create a user");
+		// String name = JOptionPane.showInputDialog(null, "Create a user");
 		new GameSetup();
 //			gui.addNewUser(name);
 //			gui.showUI();
