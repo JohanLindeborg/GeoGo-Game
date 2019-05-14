@@ -107,6 +107,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 				}
 				
 				else if(cmbChooseMap.getSelectedItem() == "Africa") {
+					frame.dispose();
 					LatLng latlng = new LatLng(6.0, 18.0);
 					gameControllerSP = new GameControllerSP(3.5, latlng, "Africa", rounds);
 					

@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +29,8 @@ import com.teamdev.jxmaps.swing.MapView;
 import gameLogicSP.GameControllerSP;
 
 public class GameInfoWindow extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	private GameControllerSP gameController;
 
@@ -43,6 +46,11 @@ public class GameInfoWindow extends JPanel {
 	private JLabel distanceLbl;
 	private JLabel clickToContinueLbl;
 	private JPanel southPnl;
+	private JButton btnStartGame;
+	private JLabel markerLabel;
+
+	private Font fontText = new Font(Font.DIALOG, Font.BOLD, 30);
+	private Font fontCountdown = new Font(Font.DIALOG, Font.BOLD, 80);
 
 	private BufferedImage bfImage;
 	private JLabel imageLbl;
@@ -56,6 +64,7 @@ public class GameInfoWindow extends JPanel {
 
 		this.gameController = gameController;
 		this.totalRounds = totalRounds;
+		//btnStartGame = new JButton("Press to start game");
 
 		roundsLbl = new JLabel("Round 1 of " + totalRounds);
 
@@ -94,38 +103,53 @@ public class GameInfoWindow extends JPanel {
 	private void initWindow() {
 		// this.setLayout(new BorderLayout());
 		imageLbl.setLayout(new GridLayout(2, 3));
+		markerLabel = new JLabel();
 
 		southPnl = new JPanel();
 		southPnl.setLayout(new FlowLayout());
 
-		timerLbl = new JLabel("15 seconds");
+		timerLbl = new JLabel();
 		clickOnCityLbl = new JLabel("Click on: ");
 		distanceLbl = new JLabel("");
 		clickToContinueLbl = new JLabel("Click on the map to continue");
 
 		// Label Alignment
 		timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		clickOnCityLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		roundsLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		roundsLbl.setVerticalAlignment(SwingConstants.TOP);
 		clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		markerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+		// Sets label font
+		timerLbl.setFont(fontCountdown);
+		timerLbl.setForeground(Color.GREEN.darker());
+		clickOnCityLbl.setFont(fontText);
+		roundsLbl.setForeground(Color.RED.brighter());
+		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
+		distanceLbl.setFont(fontText);
+		clickToContinueLbl.setFont(fontText);
+		
 
 		
-		// Sets label font
-		timerLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
-		timerLbl.setForeground(Color.GREEN.darker());
-		clickOnCityLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
-		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
-		distanceLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
-		clickToContinueLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+//		btnStartGame.addActionListener(e -> {
+//			btnStartGame.setVisible(false);
+//			btnStartGame.setEnabled(false);
+//			gameController.startNewRound();
+//			clickOnCityLbl.setHorizontalAlignment(SwingConstants.CENTER);
+//			imageLbl.add(clickOnCityLbl);
+//		});
 
+		
+		
 		// Add labels
 		imageLbl.add(timerLbl);
+//		imageLbl.add(btnStartGame);
 		imageLbl.add(clickOnCityLbl);
 		imageLbl.add(roundsLbl);
 		imageLbl.add(clickToContinueLbl);
 		imageLbl.add(distanceLbl);
+		imageLbl.add(markerLabel);
 	}
 
 	private void showUI() {
@@ -133,7 +157,7 @@ public class GameInfoWindow extends JPanel {
 		windowFrame.setSize(new Dimension(width - 100, 200));
 
 		windowFrame.setUndecorated(true);
-		windowFrame.setLocation(0, ((height / 4) * 3)+15);
+		windowFrame.setLocation(0, ((height / 4) * 3) + 15);
 		windowFrame.setLayout(new BorderLayout());
 		windowFrame.add(this, BorderLayout.CENTER);
 		windowFrame.pack();
@@ -162,13 +186,17 @@ public class GameInfoWindow extends JPanel {
 	}
 
 	public void setTimerLbl(int cntDown) {
+
+		timerLbl.setFont(fontCountdown);
 		timerLbl.setForeground(Color.GREEN.darker());
-		timerLbl.setText(cntDown + " seconds");
+		timerLbl.setText(cntDown + "");
 
 		if (cntDown <= 3) {
 			timerLbl.setForeground(Color.RED);
-
-		} if (cntDown == 0) {
+		}
+		
+		if (cntDown == 0) {
+			timerLbl.setFont(fontText);
 			timerLbl.setText("Times up!");
 		}
 	}
