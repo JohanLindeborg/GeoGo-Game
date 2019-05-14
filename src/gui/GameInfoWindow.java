@@ -64,7 +64,7 @@ public class GameInfoWindow extends JPanel {
 
 		this.gameController = gameController;
 		this.totalRounds = totalRounds;
-		//btnStartGame = new JButton("Press to start game");
+		// btnStartGame = new JButton("Press to start game");
 
 		roundsLbl = new JLabel("Round 1 of " + totalRounds);
 
@@ -129,8 +129,7 @@ public class GameInfoWindow extends JPanel {
 		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
 		distanceLbl.setFont(fontText);
 		clickToContinueLbl.setFont(fontText);
-		
-		
+
 //		btnStartGame.addActionListener(e -> {
 //			btnStartGame.setVisible(false);
 //			btnStartGame.setEnabled(false);
@@ -139,7 +138,6 @@ public class GameInfoWindow extends JPanel {
 //			imageLbl.add(clickOnCityLbl);
 //		});
 
-		
 		// Add labels
 		imageLbl.add(timerLbl);
 //		imageLbl.add(btnStartGame);
@@ -192,7 +190,7 @@ public class GameInfoWindow extends JPanel {
 		if (cntDown <= 3) {
 			timerLbl.setForeground(Color.RED);
 		}
-		
+
 		if (cntDown == 0) {
 			timerLbl.setFont(fontText);
 			timerLbl.setText("Times up!");

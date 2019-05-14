@@ -28,18 +28,19 @@ import gameLogicSP.MapHolder;
 //import shared.User;
 
 public class ContinentsGameMenu extends JPanel implements ActionListener, WindowListener {
-	
+
 	private JButton btnStart = new JButton("Start");// Start game
 	private Image image;
-	
+
 	// Alternatives for choosing map and gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "South America", "Oceania" };
+	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "South America",
+			"Oceania" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 	private JButton btnGoBack = new JButton("Go Back");
-	
-	//	private JComboBox cmbGameType; // Choose game type combo box
+
+	// private JComboBox cmbGameType; // Choose game type combo box
 	// private LinkedList<User> usersOnline = new LinkedList<User>();
 	// private JComboBox<User> cmbChooseUser = new JComboBox<User>();
 
@@ -54,7 +55,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
 		add(cmbChooseMap);
-		
+
 		// used for choosing between continents
 		add(roundsLbl);
 		roundsTxtFld.setColumns(3);
@@ -68,7 +69,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 		btnStart.addActionListener(this);
 		cmbChooseMap.addActionListener(this);
 		btnGoBack.addActionListener(this);
-		
+
 		// cmbChooseUser.addActionListener(this);
 		try {
 			image = ImageIO.read(new File("images/worldmap2.jpg"));
@@ -81,7 +82,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	}
 
 	public void showUI() {
-		
+
 		frame = new JFrame("GeoGo-mapLocator");
 		Image image = new ImageIcon("images/globe.16x16.png").getImage();
 		frame.setIconImage(image);
@@ -98,19 +99,20 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if (e.getSource() == btnStart) {
 			if (checkRounds(roundsTxtFld.getText())) {
-				
+
 				if (cmbChooseMap.getSelectedItem() == "Choose continent") {
-					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				
-				else if(cmbChooseMap.getSelectedItem() == "Africa") {
+
+				else if (cmbChooseMap.getSelectedItem() == "Africa") {
 					frame.dispose();
 					LatLng latlng = new LatLng(6.0, 18.0);
 					gameControllerSP = new GameControllerSP(3.5, latlng, "Africa", rounds);
-					
+
 				} else if (cmbChooseMap.getSelectedItem() == "Europe") {
 					frame.dispose();
 
@@ -146,14 +148,14 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 				}
 			}
 		}
-		 
+
 		else if (e.getSource() == btnGoBack) {
 			frame.dispose();
 		}
 	}
 
 	private boolean checkRounds(String str) {
-		
+
 		int val;
 		try {
 			val = Integer.parseInt(str);
@@ -201,11 +203,11 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 	}
-}	
+}

@@ -12,38 +12,37 @@ import javax.swing.*;
 
 //import client.StartMenu2;
 
-
 public class ClientGUI extends JPanel implements ActionListener {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JButton btnStart = new JButton("Start Game");
 	private JButton btnExit = new JButton("Exit Game");
 
 	private JFrame frame;
 	private CardLayout cl;
-	
+
 	private Image image;
 	private GraphicsEnvironment ge;
-	
+
 //	To add a component to a container that a CardLayout object manages, specify a string that identifies the component being added. 
 	final static String STARTGAMEPANEL = "Start Game";
 
 	public ClientGUI() {
-		
+
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = ge.getMaximumWindowBounds();
-		
+
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
-		
-		// Setting position 
-		btnStart.setBounds((bounds.width/2)-70, (bounds.height/2)-20, 140, 40);
-		btnExit.setBounds((bounds.width/2)-70, (bounds.height/2)+40, 140, 40);
-		
+
+		// Setting position
+		btnStart.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 20, 140, 40);
+		btnExit.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 40, 140, 40);
+
 		// Adding actionlisteners
 		btnStart.addActionListener(this);
 		btnExit.addActionListener(this);
-		
+
 		// Adding button
 		this.add(btnStart);
 		this.add(btnExit);
@@ -53,20 +52,20 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 		BufferedImage image = null;
 		try {
-		    image = ImageIO.read(new File("images/world.jpg"));
+			image = ImageIO.read(new File("images/world.jpg"));
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-		
+
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
-		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(),Image.SCALE_SMOOTH);
+		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		this.add(imageLbl);
 	}
 
 	void showUI() {
-		
+
 		frame = new JFrame("ClientGUI");
 		Image image = new ImageIcon("images/globe.16x16.png").getImage();
 		frame.setIconImage(image);
@@ -103,14 +102,14 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if (e.getSource() == btnStart) {
 
 			new StartMenu().showUI();
 			frame.dispose();
-		} 
-		
-		else if(e.getSource() == btnExit) {
+		}
+
+		else if (e.getSource() == btnExit) {
 			frame.dispose();
 		}
 	}

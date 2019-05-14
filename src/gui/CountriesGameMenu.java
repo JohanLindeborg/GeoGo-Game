@@ -37,7 +37,7 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
 	private String[] options = { "Choose country", "France", "Sweden", "Italy", "Germany", "Greece" };
-	
+
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 	private JButton goBackBtn = new JButton("Go Back");
 
@@ -52,7 +52,7 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 		add(goBackBtn);
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
-		add(cmbChooseMap);		
+		add(cmbChooseMap);
 
 		add(roundsLbl);
 
@@ -99,11 +99,12 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 		if (e.getSource() == btnStart) {
 
 			if (checkRounds(roundsTxtFld.getText())) {
-				
+
 				if (cmbChooseMap.getSelectedItem() == "Choose country") {
-					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 				else if (cmbChooseMap.getSelectedItem() == "France") {
 					frame.dispose();
 
@@ -129,9 +130,9 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 					LatLng latlng = new LatLng(37.983810, 23.727539);
 					gameControllerSP = new GameControllerSP(6.0, latlng, "Greece", rounds);
-				} 
+				}
 			}
-			
+
 		} else if (e.getSource() == goBackBtn) {
 			frame.dispose();
 		}
@@ -166,7 +167,7 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -176,17 +177,17 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override

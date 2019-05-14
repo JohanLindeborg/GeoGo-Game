@@ -7,9 +7,9 @@ package jxMaps_Demo;
 import javax.swing.*;
 
 public interface ControlPanel {
-    JComponent getControlPanel();
+	JComponent getControlPanel();
 
-    void configureControlPanel();
+	void configureControlPanel();
 
-    int getPreferredHeight();
+	int getPreferredHeight();
 }

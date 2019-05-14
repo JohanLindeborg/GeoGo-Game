@@ -4,7 +4,7 @@ Algeriet: Algiers
 Angola: Luanda
 -8.833333333
 13.216667
-Porto Novo
+Benin: Porto Novo
 6.483333333
 2.616667
 Botswana: Gaborone
@@ -106,7 +106,7 @@ Niger: Niamey
 Nigeria: Abuja	
 9.083333333
 7.533333
-Republiken Kongo: Brazzaville
+Rep Kongo: Brazzaville
 -4.25
 15.283333
 Rwanda: Kigali
@@ -115,7 +115,7 @@ Rwanda: Kigali
 Saint Helena: Jamestown	
 -15.93333333
 -5.716667
-Sao Tome & Principe: Sao Tome'
+Sao Tome & Principe: Sao Tome
 0.333333333
 6.733333
 Senegal: Dakar

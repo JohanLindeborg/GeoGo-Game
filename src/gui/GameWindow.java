@@ -11,31 +11,31 @@ import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
 
-public class GameWindow extends JFrame{
-	
+public class GameWindow extends JFrame {
+
 	private GraphicsEnvironment ge;
 	private int width;
 	private int height;
 	private Rectangle windowBounds;
-	
+
 	public GameWindow(MapView map) {
-		
+
 		// sets the size according to screen size
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		windowBounds = ge.getMaximumWindowBounds();
-        width = (int) windowBounds.getWidth();
-        height = (int) windowBounds.getHeight();
-        this.setSize(width-100, (height/4)*3);
-        this.setLocation(0, 0);
-        
+		width = (int) windowBounds.getWidth();
+		height = (int) windowBounds.getHeight();
+		this.setSize(width - 100, (height / 4) * 3);
+		this.setLocation(0, 0);
+
 		this.setTitle("GameWindow");
-		
-        this.add(map, BorderLayout.CENTER);
-        Image image = new ImageIcon("images/globe.16x16.png").getImage();
+
+		this.add(map, BorderLayout.CENTER);
+		Image image = new ImageIcon("images/globe.16x16.png").getImage();
 		this.setIconImage(image);
-        this.setVisible(true);
+		this.setVisible(true);
 	}
-	
+
 	public Rectangle getWindowBounds() {
 		return windowBounds;
 	}
