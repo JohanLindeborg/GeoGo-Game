@@ -130,7 +130,6 @@ public class GameInfoWindow extends JPanel {
 		distanceLbl.setFont(fontText);
 		clickToContinueLbl.setFont(fontText);
 		
-
 		
 //		btnStartGame.addActionListener(e -> {
 //			btnStartGame.setVisible(false);
@@ -140,7 +139,6 @@ public class GameInfoWindow extends JPanel {
 //			imageLbl.add(clickOnCityLbl);
 //		});
 
-		
 		
 		// Add labels
 		imageLbl.add(timerLbl);

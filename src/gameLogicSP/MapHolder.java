@@ -45,8 +45,7 @@ public class MapHolder{
     	options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
     	
     	gameMapView = new GameMapView(options, mapCenter, zoomLevel);
-    	this.mapName = mapName;
-		
+    	this.mapName = mapName;		
 	}
 	
 	public MapView getMapView() {
@@ -68,12 +67,12 @@ public class MapHolder{
 		
 		clickMarker = new Marker(gameMapView.getMap());
 		clickMarker.setOptions(markerOpt);
-		clickMarker.setPosition(latlong);
-		
+		clickMarker.setPosition(latlong);		
 	}
+	
 	private void placeCityPos(LatLng latlong,String cityName) {
 		
-// ändrar marker för korrekt position
+		// ändrar marker för korrekt position
 		Icon icon = new Icon();
 		File file = new File("images/greenPin32.png");
 		icon.loadFromFile(file);
@@ -82,12 +81,10 @@ public class MapHolder{
 
 		cityMarker = new Marker(gameMapView.getMap());
 		
-		markerOpt.setLabelString(cityName);
+//		markerOpt.setLabelString(cityName);
 		cityMarker.setOptions(markerOpt);
 		cityMarker.setPosition(latlong);
-		
 	}
-
 	
 	private class GameMapView extends MapView{
 		
@@ -100,47 +97,39 @@ public class MapHolder{
 	                   final com.teamdev.jxmaps.Map map = getMap();
 	                   
 	                   MapTypeControlOptions controllOptions = new MapTypeControlOptions();
-	                   
 	                   MapOptions mapOptions = new MapOptions();
 	                   
 	                   map.setMapTypeId(MapTypeId.SATELLITE);
 	                   
-	                   
-	                   
 	                   mapOptions.setDraggable(false);
 	                   mapOptions.setDisableDoubleClickZoom(true);
-	                   mapOptions.setDisableDefaultUI(true);
-	                   
+	                   mapOptions.setDisableDefaultUI(true);	                   
 	                  
 	                   map.setOptions(mapOptions);
 	                   map.setCenter(mapCenter);
-	                   map.setZoom(zoomLevel);
-	                   	                   
+	                   map.setZoom(zoomLevel);	                   	                   
 	                   map.addEventListener("click", new MapMouseEvent(){
 
 						@Override
 						public void onEvent(MouseEvent mouseEvent) {
 							
-
 							if(clickedThisRound == false && countDown > 0) {
 								clickedThisRound = true;
 								
-								LatLng clickLatLng = mouseEvent.latLng();
-							
+								LatLng clickLatLng = mouseEvent.latLng();							
 								placeMarker(clickLatLng);
-							
 								City city = gameController.onMapClickInTime(clickLatLng);
-								placeCityPos(city.getLatLng(),city.getName());
-								
+								placeCityPos(city.getLatLng(),city.getName());								
 							}
+							
 							else if(clickedThisRound == false && countDown <= 0) {
 								clickedThisRound = true;
 								
 								City city = gameController.onMapClickOutOfTime();
 								placeCityPos(city.getLatLng(),city.getName());
 							}
+							
 							else {
-
 								clickedThisRound = false;
 
 								cityMarker.remove();
@@ -152,21 +141,13 @@ public class MapHolder{
 								
 								if(round < totalRounds) {
 									gameController.startNewRound();
-								}
-								
-								
+								}																
 							}
 						}
-	                   });
-	                   
+	                   });	                   
 	                }
 	            }
 	        });
-	    }
-		
-		
+	    }				
 	}
-
-	
-
 }
