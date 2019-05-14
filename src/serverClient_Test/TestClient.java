@@ -80,16 +80,17 @@ public class TestClient extends Thread{
 				currentGame = (GameData) obj;
 				System.out.println("Client "+userName+" received GameData");
 				
-				if( !inGame) {
-					Point point = currentGame.getMapCenter();
-					LatLng latlng = new LatLng(point.getX(),point.getY());
+				//Game is active
+				if(currentGame.getGameStarted()) {
 					
-					//					map = new MapHolder(currentGame.getZoomLevel(), latlng, "test");
-					System.out.println("Client "+userName+" created map");
-					//displayMap(map.getMapView());
-					
-					inGame = true;
 				}
+				//Client has not acceptedGame
+				else{
+					//TODO: what happens on Game request goes here.
+					//Auto accepts
+					currentGame.acceptGame();
+				}
+				
 			}
 		}
 	}
@@ -106,27 +107,17 @@ public class TestClient extends Thread{
 		}
 	}
 	
-	public void startNewGame(Point mapCenter, double zoomLevel, String otherplayer) {
-		RequestGameMessage msg = new RequestGameMessage( mapCenter,  zoomLevel, otherplayer);
+	public void startNewGame(Point mapCenter, double zoomLevel, String otherPlayer, int rounds) {
+		GameData gameData = new GameData(userName, otherPlayer,rounds, mapCenter, zoomLevel);
 		
 		try {
-			oos.writeObject(msg);
+			oos.writeObject(gameData);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void sendMapMessage(Point mapCenter, double zoomLevel) {
-		MapMessage mapMessage = new MapMessage(mapCenter, zoomLevel);
-		
-		try {
-			oos.writeObject(mapMessage);
-		} catch (IOException e) {
-			System.out.println("IO Exception:");
-			e.printStackTrace();
-		}
-	}
 	
 	public void displayMap(MapView map) {
 		JFrame frame = new JFrame("ClientMap");
