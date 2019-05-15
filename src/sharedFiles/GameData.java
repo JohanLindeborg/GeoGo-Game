@@ -71,8 +71,17 @@ public class GameData implements Serializable {
 		return mapCenter;
 	}
 	
+	public Round getRoundInfo() {
+		return rounds.get(currentRound);
+	}
+	
+	public int getCurrentRound() {
+		return currentRound;
+	}
+	
 	public void acceptGame() {
 		gameStarted = true;
+		currentRound = 1;
 	}
 	
 	public boolean getGameStarted() {
@@ -89,8 +98,12 @@ public class GameData implements Serializable {
 
 	
 	
-	private class Round{
+	private class Round implements Serializable{
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int round;
 		private boolean plyr1HasClicked = false;
 		private boolean plyr2HasClicked = false;
@@ -98,10 +111,6 @@ public class GameData implements Serializable {
 		private Round(int round) {
 			this.round = round;
 			
-		}
-		
-		private int getRound() {
-			return round;
 		}
 		
 		private void setPlyr1HasClicked() {

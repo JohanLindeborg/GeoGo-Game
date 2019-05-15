@@ -65,7 +65,6 @@ public class TestClient extends Thread{
 		while(true) {
 			try {
 				obj = ois.readObject();
-				System.out.println("Client "+userName+" received object");
 				
 			}catch(ClassNotFoundException e) {
 				System.out.println("Class Not Found Exception:");
@@ -82,6 +81,9 @@ public class TestClient extends Thread{
 				
 				//Game is active
 				if(currentGame.getGameStarted()) {
+					if(currentGame.getCurrentRound() == 1) {
+						System.out.println(userName +" received new game: "+currentGame.toString());
+					}
 					
 				}
 				//Client has not acceptedGame
@@ -89,6 +91,8 @@ public class TestClient extends Thread{
 					//TODO: what happens on Game request goes here.
 					//Auto accepts
 					currentGame.acceptGame();
+					System.out.println(userName+ " accepted new game");
+					sendGameData(currentGame);
 				}
 				
 			}
@@ -107,9 +111,18 @@ public class TestClient extends Thread{
 		}
 	}
 	
+	public void sendGameData(GameData gameData) {
+		try {
+			oos.writeObject(gameData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void startNewGame(Point mapCenter, double zoomLevel, String otherPlayer, int rounds) {
 		GameData gameData = new GameData(userName, otherPlayer,rounds, mapCenter, zoomLevel);
-		
+		System.out.println(gameData.getPlayer1()+"player1"+gameData.getPlayer2()+"player2");
 		try {
 			oos.writeObject(gameData);
 		} catch (IOException e) {
@@ -127,6 +140,18 @@ public class TestClient extends Thread{
         frame.setSize(700, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		
+		TestClient johan = new TestClient("Johan");
+		TestClient adam = new TestClient("Adam");
+		
+		
+		johan.connectToServer();
+		adam.connectToServer();
+		
+		johan.startNewGame(new Point(64, 20), 4.9, "Adam", 10);
 	}
 	
 }

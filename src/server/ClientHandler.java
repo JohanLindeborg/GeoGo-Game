@@ -16,7 +16,7 @@ public class ClientHandler extends Thread {
 	/**
 	 * 
 	 */
-
+	
 	private Socket clientSocket;
 
 	private ObjectInputStream ois;
@@ -26,6 +26,7 @@ public class ClientHandler extends Thread {
 	private Boolean listeningForMessages = true;
 
 	private GameServer server;
+	private String userName;
 
 	/*
 	 * ObjectOutputStream for communication with the other player (client).
@@ -50,12 +51,12 @@ public class ClientHandler extends Thread {
 	 * 
 	 */
 	public void run() {
-		Message message = null;
-
+		Object obj = null;
+		
 		while (listeningForMessages) {
 			try {
-				message = (Message) ois.readObject();
-				System.out.println("Clienthandler read object ( " + message + " ).");
+				obj = ois.readObject();
+				System.out.println("Clienthandler read object ( " + obj + " ).");
 
 			} catch (ClassNotFoundException e) {
 				System.out.println("Class not found exception");
@@ -64,7 +65,7 @@ public class ClientHandler extends Thread {
 				System.out.println("IO exception");
 				e.printStackTrace();
 			}
-			server.processDataFromClient(message, this);
+			server.processDataFromClient(obj, this);
 		}
 	}
 
@@ -92,6 +93,14 @@ public class ClientHandler extends Thread {
 
 	public void SetIsInGame(boolean inGame) {
 		isInGame = inGame;
+	}
+	
+	public void setUserName(String name) {
+		userName = name;
+	}
+	
+	public String getUserName() {
+		return userName;
 	}
 
 }
