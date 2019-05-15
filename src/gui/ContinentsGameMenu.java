@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import com.teamdev.jxmaps.LatLng;
 
 import gameLogicSP.GameControllerSP;
-import gameLogicSP.MapHolder;
+import gameLogicSP.MapHolderSP;
 
 //import shared.User;
 
@@ -45,7 +45,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	// private JComboBox<User> cmbChooseUser = new JComboBox<User>();
 
 	private JFrame frame;
-	MapHolder createMap;
+	MapHolderSP createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
 

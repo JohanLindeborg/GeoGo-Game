@@ -17,10 +17,12 @@ import com.teamdev.jxmaps.swing.MapView;
 import gui.GameInfoWindow;
 import gui.GameWindow;
 import gui.WindowListenerSP;
+import sharedFiles.CitiesData;
+import sharedFiles.City;
 
 public class GameControllerSP {
 
-	private MapHolder createMap;
+	private MapHolderSP mapHolder;
 
 	private GameWindow gameWindow;
 	private GameInfoWindow gameInfoWindow;
@@ -46,8 +48,8 @@ public class GameControllerSP {
 
 		this.totalRounds = totalRounds;
 		this.currentMap = currentMap;
-		this.createMap = new MapHolder(totalRounds, zoomLvl, latlng, currentMap, this);
-		gameMapView = createMap.getMapView();
+		this.mapHolder = new MapHolderSP(totalRounds, zoomLvl, latlng, currentMap, this);
+		gameMapView = mapHolder.getMapView();
 		map = gameMapView.getMap();
 
 		citiesData = new CitiesData(currentMap);
@@ -69,7 +71,7 @@ public class GameControllerSP {
 	public City onMapClickInTime(LatLng clickLatLng) {
 		countDownTimer.stopTimer();
 
-		double distance = getDistance(clickLatLng, currentCity.getLatLng());
+		double distance = getDistance(clickLatLng, currentCity.getPoint());
 		gameInfoWindow.setDistanceLbl(Double.toString(distance));
 
 		if (currentRound < totalRounds) {
@@ -122,7 +124,7 @@ public class GameControllerSP {
 
 	public void updateCountDown(int cntDown) {
 		gameInfoWindow.setTimerLbl(cntDown);
-		createMap.updateTimer(cntDown);
+		mapHolder.updateTimer(cntDown);
 
 	}
 

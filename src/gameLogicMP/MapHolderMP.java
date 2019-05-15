@@ -1,5 +1,6 @@
-package gameLogicSP;
+package gameLogicMP;
 
+import java.awt.geom.Point2D;
 import java.io.File;
 
 import com.teamdev.jxmaps.GeocoderCallback;
@@ -23,8 +24,10 @@ import com.teamdev.jxmaps.MarkerShape;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
-public class MapHolder {
-	private GameControllerSP gameController;
+import sharedFiles.City;
+
+public class MapHolderMP {
+	private GameControllerMP gameController;
 
 	private MapViewOptions options;
 	private GameMapView gameMapView;
@@ -37,7 +40,7 @@ public class MapHolder {
 	private int totalRounds;
 	private int countDown;
 
-	public MapHolder(int totalRounds, double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
+	public MapHolderMP(int totalRounds, double zoomLevel, LatLng mapCenter, String mapName, GameControllerMP gc) {
 
 		this.totalRounds = totalRounds;
 		gameController = gc;
@@ -58,7 +61,7 @@ public class MapHolder {
 
 	private void placeMarker(LatLng latlong) {
 
-		// Ändrar marker för player, finns ett par olika i images
+		// ï¿½ndrar marker fï¿½r player, finns ett par olika i images
 		Icon icon = new Icon();
 		File file = new File("images/blackPin32.png");
 		icon.loadFromFile(file);
@@ -70,9 +73,9 @@ public class MapHolder {
 		clickMarker.setPosition(latlong);
 	}
 
-	private void placeCityPos(LatLng latlong, String cityName) {
+	private void placeCityPos(Point2D.Double point, String cityName) {
 
-		// ändrar marker för korrekt position
+		// ï¿½ndrar marker fï¿½r korrekt position
 		Icon icon = new Icon();
 		File file = new File("images/greenPin32.png");
 		icon.loadFromFile(file);
@@ -83,7 +86,9 @@ public class MapHolder {
 
 //		markerOpt.setLabelString(cityName);
 		cityMarker.setOptions(markerOpt);
-		cityMarker.setPosition(latlong);
+		
+		
+		cityMarker.setPosition(new LatLng(point.getX(), point.getY()));
 	}
 
 	private class GameMapView extends MapView {
@@ -119,14 +124,14 @@ public class MapHolder {
 									LatLng clickLatLng = mouseEvent.latLng();
 									placeMarker(clickLatLng);
 									City city = gameController.onMapClickInTime(clickLatLng);
-									placeCityPos(city.getLatLng(), city.getName());
+									placeCityPos(city.getPoint(), city.getName());
 								}
 
 								else if (clickedThisRound == false && countDown <= 0) {
 									clickedThisRound = true;
 
 									City city = gameController.onMapClickOutOfTime();
-									placeCityPos(city.getLatLng(), city.getName());
+									placeCityPos(city.getPoint(), city.getName());
 								}
 
 								else {

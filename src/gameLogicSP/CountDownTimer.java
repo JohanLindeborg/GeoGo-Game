@@ -5,16 +5,26 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import gameLogicMP.GameControllerMP;
+
 public class CountDownTimer {
 
-	private GameControllerSP controller;
+	private GameControllerSP controllerSP;
+	private GameControllerMP controllerMP;
 
 	private Timer countDownTimer;
 	private TimerListener timerListener;
 	private int countdown;
 
 	public CountDownTimer(GameControllerSP controller) {
-		this.controller = controller;
+		this.controllerSP = controller;
+
+		timerListener = new TimerListener();
+		countDownTimer = new Timer(1000, timerListener);
+		countdown = 15;
+	}
+	public CountDownTimer(GameControllerMP controller) {
+		this.controllerMP = controller;
 
 		timerListener = new TimerListener();
 		countDownTimer = new Timer(1000, timerListener);
@@ -41,7 +51,13 @@ public class CountDownTimer {
 				stopTimer();
 			} else {
 				countdown -= 1;
-				controller.updateCountDown(countdown);
+				
+				if(controllerSP == null) {
+					controllerMP.updateCountDown(countdown);
+				}
+				else {
+					controllerSP.updateCountDown(countdown);
+				}
 			}
 		}
 	}

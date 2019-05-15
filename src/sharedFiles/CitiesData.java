@@ -1,6 +1,7 @@
-package gameLogicSP;
+package sharedFiles;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,11 +71,11 @@ public class CitiesData {
 			double lat = Double.parseDouble(scanner.nextLine());
 			double lng = Double.parseDouble(scanner.nextLine());
 
-			LatLng cityLatLng = new LatLng(lat, lng);
+			Point2D.Double cityPoint = new Point2D.Double (lat, lng);
 
-			City city = new City(cityName, cityLatLng);
+			City city = new City(cityName, cityPoint);
 			mapCities.add(city);
-			System.out.println("added: " + city.getName() + ", " + city.getLatLng().toString());
+			System.out.println("added: " + city.getName() + ", " + city.getPoint().toString());
 		}
 		System.out.println("-----------------------------------------------");
 

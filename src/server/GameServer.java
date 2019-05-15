@@ -6,11 +6,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sharedFiles.AddToServerListMessage;
+import sharedFiles.AddToServerListMsg;
 import sharedFiles.GameData;
-import sharedFiles.LocationMessage;
 import sharedFiles.Message;
-import sharedFiles.RequestGameMessage;
+import sharedFiles.RequestGameMsg;
+import sharedFiles.MapClickMsg;
 
 public class GameServer extends Thread {
 	
@@ -52,62 +52,40 @@ public class GameServer extends Thread {
 	            throw new RuntimeException(
 	                "Error accepting client connection", e);
 	        }
-	        new ClientHandler(clientSocket, this).start();
+	        new ClientHandler(clientSocket, this);
 		      System.out.println("connection accepted new clienthandler started.");
 
 	    }
 	}
 	
+	
 	// Synkroniserad? / eller 1 tråd per aktivt spel? 
-	public void processDataFromClient(Object msg, ClientHandler senderHandler) {
+	public void processDataFromClient(Object obj, ClientHandler senderHandler) {
 		
-		if(msg instanceof AddToServerListMessage) {
-			AddToServerListMessage listMessage = ((AddToServerListMessage) msg);
+		if(obj instanceof AddToServerListMsg) {
+			AddToServerListMsg msg = ((AddToServerListMsg) obj);
 			
-			senderHandler.setUserName(listMessage.getUsername());
-			clientMap.put(listMessage.getUsername(), senderHandler);
-		    System.out.println("Added "+listMessage.getUsername()+" to clientlist");
+			senderHandler.setUserName(msg.getSender());
+			clientMap.put(msg.getSender(), senderHandler);
+		    System.out.println("Added "+msg.getSender()+" to clientlist");
 
 		}
 		
-		else if(msg instanceof GameData) {
-			GameData gameData = (GameData) msg;
-			ClientHandler receiverHandler = null;
-			System.out.println("Sender: "+senderHandler.getUserName());
-			System.out.println("player2: "+gameData.getPlayer2());
-			//Makes sure the right receiver is used, since both players can be the sender
-			if(senderHandler.getUserName().equals(gameData.getPlayer2())) {
-				System.out.println("in if sats");
-				receiverHandler = clientMap.get(gameData.getPlayer1());
-			}
-			else {
-				receiverHandler = clientMap.get(gameData.getPlayer2());
-			}
+		else if (obj instanceof RequestGameMsg) {
+			RequestGameMsg msg = (RequestGameMsg) obj;
 			
-			// game started
-			if(gameData.getGameStarted()) {
-				
-				// Game Finished
-				if(gameData.getGameFinished()) {
-					
-				}
-				
-				// game ongoing
-				//Updates ongoing games with current information
-				else {
-					
-					
-					
-					receiverHandler.sendToClient(gameData);    
-					senderHandler.sendToClient(gameData);
-				}
-				
-			}
-			//Game not started
-			else {
-				receiverHandler.sendToClient(gameData);
-			}
+			ClientHandler plyr2 = clientMap.get(msg.getOtherPlayer());
+			GameData2 gameData = new GameData2(senderHandler,plyr2, msg.getTotalRounds(), msg.getMapCenter(),msg.getZoomLevel(),msg.getMapName());
+
+			plyr2.setGameData(gameData);
+			senderHandler.setGameData(gameData);
+			
+			gameData.setupGame();
+			
+			//senderHandler.newGame(msg, clientMap.get(msg.getOtherPlayer()));
+			
 		}
+		
 	}
 	
 }

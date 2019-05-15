@@ -14,12 +14,12 @@ import javax.swing.WindowConstants;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
-import gameLogicSP.MapHolder;
-import sharedFiles.AddToServerListMessage;
+import gameLogicSP.MapHolderSP;
+import sharedFiles.AddToServerListMsg;
 import sharedFiles.GameData;
-import sharedFiles.MapMessage;
+import sharedFiles.MapMsg;
 import sharedFiles.Message;
-import sharedFiles.RequestGameMessage;
+import sharedFiles.RequestGameMsg;
 
 public class TestClient extends Thread{
 	
@@ -31,7 +31,7 @@ public class TestClient extends Thread{
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
 	
-	private MapHolder map;
+	private MapHolderSP map;
 	
 	private GameData currentGame;
 	private boolean inGame = false;
@@ -104,7 +104,7 @@ public class TestClient extends Thread{
 	public void connectToServer() {
 		
 		try {
-			oos.writeObject(new AddToServerListMessage(userName));
+			oos.writeObject(new AddToServerListMsg(userName));
 		} catch (IOException e) {
 			System.out.println("IO Exception:");
 			e.printStackTrace();

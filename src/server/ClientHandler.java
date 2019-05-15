@@ -5,7 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import sharedFiles.AddToServerListMsg;
 import sharedFiles.Message;
+import sharedFiles.RequestGameMsg;
+import sharedFiles.StartGameMsg;
 
 /*
  * This class represents the connection between a client and the server
@@ -26,6 +29,7 @@ public class ClientHandler extends Thread {
 	private Boolean listeningForMessages = true;
 
 	private GameServer server;
+	private GameData2 gameData;
 	private String userName;
 
 	/*
@@ -44,6 +48,7 @@ public class ClientHandler extends Thread {
 			System.out.println("IO Exception:");
 			e.printStackTrace();
 		}
+		start();
 	}
 
 	/*
@@ -56,7 +61,7 @@ public class ClientHandler extends Thread {
 		while (listeningForMessages) {
 			try {
 				obj = ois.readObject();
-				System.out.println("Clienthandler read object ( " + obj + " ).");
+				System.out.println("Clienthandler for "+userName+" read object ( " + obj + " ).");
 
 			} catch (ClassNotFoundException e) {
 				System.out.println("Class not found exception");
@@ -65,7 +70,21 @@ public class ClientHandler extends Thread {
 				System.out.println("IO exception");
 				e.printStackTrace();
 			}
-			server.processDataFromClient(obj, this);
+			
+			//Messages concerning the server
+			if(obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg) {
+				server.processDataFromClient(obj, this);
+			}
+			//Messages concerning a specific game
+			else {
+				
+				if(obj instanceof StartGameMsg) {
+					gameData.setPlayerReady(this, true);
+					System.out.println("Clienthandler for "+userName+" sets ready for game.");
+
+				}
+				
+			}
 		}
 	}
 
@@ -102,5 +121,27 @@ public class ClientHandler extends Thread {
 	public String getUserName() {
 		return userName;
 	}
+	
+	public void setGameData(GameData2 gameData) {
+		if(this.gameData == null) {
+			this.gameData = gameData;
+			System.out.println("ClientHandler for " +userName+": Received new GameData");
+		}
+		else {
+			System.out.println("ClientHandler for " +userName+": Already in game");
+		}
+	}
+	
+	/*public void newGame(RequestGameMsg msg, ClientHandler otherplayer) {
+		if(this.gameData == null) {
+			gameData = new GameData2(this, otherplayer, msg.getTotalRounds(), msg.getMapCenter(),msg.getZoomLevel(),msg.getMapName());
+			System.out.println("ClientHandler for " +userName+": created new GameData");
+			
+			otherplayer.setGameData(gameData);
+		}
+		else {
+			System.out.println("ClientHandler for " +userName+": Already in game");
+		}
+	} */
 
 }

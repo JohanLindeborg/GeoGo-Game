@@ -25,7 +25,7 @@ import javax.swing.event.DocumentListener;
 
 import com.teamdev.jxmaps.LatLng;
 
-import gameLogicSP.MapHolder;
+import gameLogicSP.MapHolderSP;
 import gameLogicSP.GameControllerSP;
 
 //import shared.User;
@@ -43,7 +43,7 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	private JFrame frame;
 
-	MapHolder createMap;
+	MapHolderSP createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
 
