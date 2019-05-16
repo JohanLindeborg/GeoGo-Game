@@ -65,6 +65,9 @@ public class GameControllerMP extends Thread{
 			
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
+			
+			addToServerList(userName);
+			start();
 		
 		} catch (UnknownHostException e) {
 			System.out.println("Unknown Host Exception:");
@@ -74,8 +77,6 @@ public class GameControllerMP extends Thread{
 			e.printStackTrace();
 		}
 		
-		addToServerList(userName);
-		start();
 		
 	}
 	
