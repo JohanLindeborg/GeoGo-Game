@@ -58,7 +58,7 @@ public class ClientHandler extends Thread{
 		while(listeningForMessages) {
 			try {
 				message = (Message) ois.readObject();
-			    System.out.println("Clienthandler read object ( "+message+" ).");
+			    System.out.println("Clienthandler read object ( "+ message +" ).");
 
 	            
 	        	

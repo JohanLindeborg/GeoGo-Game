@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.teamdev.jxmaps.LatLng;
+
 import sharedFiles.AddToServerListMessage;
 import sharedFiles.GameData;
 import sharedFiles.LocationMessage;
@@ -54,6 +56,12 @@ public class GameServer extends Thread {
 	    }
 	}
 	
+	
+	/**
+	 * Kollar om 
+	 * @param msg
+	 * @param player1Handler
+	 */
 	public void processDataFromClient(Message msg, ClientHandler player1Handler) {
 		
 		if(msg instanceof AddToServerListMessage) {
