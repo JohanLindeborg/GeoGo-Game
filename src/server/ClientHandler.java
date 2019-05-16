@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import sharedFiles.AddToServerListMsg;
+import sharedFiles.MapClickMsg;
 import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.StartGameMsg;
@@ -82,6 +83,12 @@ public class ClientHandler extends Thread {
 					gameData.setPlayerReady(this, true);
 					System.out.println("Clienthandler for "+userName+" sets ready for game.");
 
+				}
+				else if(obj instanceof MapClickMsg) {
+					MapClickMsg msg = (MapClickMsg) obj;
+					System.out.println("Clienthandler for "+userName+" received mapClickMsg");
+					
+					gameData.updateMapClick(msg);
 				}
 				
 			}

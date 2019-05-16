@@ -4,6 +4,7 @@ public class NewRoundMsg extends Message {
 	
 	private City city;
 	private int round;
+	private boolean isFirstRound = false;
 	
 	public NewRoundMsg(int round, City city) {
 		super("server");
@@ -18,6 +19,14 @@ public class NewRoundMsg extends Message {
 	
 	public City getCity() {
 		return city;
+	}
+	
+	public void setIsFirstRound(boolean isFirstRound) {
+		this.isFirstRound = isFirstRound;
+	}
+	
+	public boolean getIsFirstRound() {
+		return isFirstRound;
 	}
 
 }

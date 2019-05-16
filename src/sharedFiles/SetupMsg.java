@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
-public class MapMsg extends Message {
+public class SetupMsg extends Message {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,13 +14,17 @@ public class MapMsg extends Message {
 	private double zoomLevel;
 	private String mapName;
 	private int totalRounds;
+	private String pl1;
+	private String pl2;
 
-	public MapMsg(String mapName,int totalRounds, Point2D mapCenter, double zoomLevel) {
+	public SetupMsg(String mapName,int totalRounds, Point2D mapCenter, double zoomLevel, String pl1, String pl2) {
 		super("server");
 		this.mapCenter = mapCenter;
 		this.zoomLevel = zoomLevel;
 		this.mapName = mapName;
 		this.totalRounds = totalRounds;
+		this.pl1 = pl1;
+		this.pl2 = pl2;
 
 	}
 
@@ -38,5 +42,13 @@ public class MapMsg extends Message {
 	
 	public int getTotalRounds() {
 		return totalRounds;
+	}
+	
+	public String getPl1() {
+		return pl1;
+	}
+	
+	public String getPl2() {
+		return pl2;
 	}
 }

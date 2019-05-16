@@ -15,24 +15,32 @@ public class CountDownTimer {
 	private Timer countDownTimer;
 	private TimerListener timerListener;
 	private int countdown;
+	private int timeSec;
+	private boolean isGameTimer;
 
-	public CountDownTimer(GameControllerSP controller) {
+	//time = 16
+	public CountDownTimer(GameControllerSP controller, int time) {
 		this.controllerSP = controller;
+		
 
 		timerListener = new TimerListener();
 		countDownTimer = new Timer(1000, timerListener);
-		countdown = 15;
+		countdown = time;
+		timeSec = time;
 	}
-	public CountDownTimer(GameControllerMP controller) {
+	//game: time 16, Results: time 11
+	public CountDownTimer(GameControllerMP controller, int time, boolean isGameTimer) {
 		this.controllerMP = controller;
+		this.isGameTimer = isGameTimer;
 
 		timerListener = new TimerListener();
 		countDownTimer = new Timer(1000, timerListener);
-		countdown = 15;
+		countdown = time;
+		timeSec = time;
 	}
 
 	public void startTimer() {
-		countdown = 16;
+		countdown = timeSec;
 		countDownTimer.restart();
 	}
 
@@ -53,10 +61,15 @@ public class CountDownTimer {
 				countdown -= 1;
 				
 				if(controllerSP == null) {
-					controllerMP.updateCountDown(countdown);
+					if(isGameTimer) {
+						controllerMP.updateGameTimer(countdown);
+					}
+					else {
+						controllerMP.updateResultsTimer(countdown);
+					}
 				}
 				else {
-					controllerSP.updateCountDown(countdown);
+					controllerSP.updateGameTimer(countdown);
 				}
 			}
 		}

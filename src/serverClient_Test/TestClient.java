@@ -17,7 +17,7 @@ import com.teamdev.jxmaps.swing.MapView;
 import gameLogicSP.MapHolderSP;
 import sharedFiles.AddToServerListMsg;
 import sharedFiles.GameData;
-import sharedFiles.MapMsg;
+import sharedFiles.SetupMsg;
 import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
 

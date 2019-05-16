@@ -32,7 +32,6 @@ public class GameInfoWindowMP extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private GameControllerMP gameController;
 
 	private JFrame windowFrame;
 
@@ -40,29 +39,33 @@ public class GameInfoWindowMP extends JPanel {
 	private int width;
 	private int height;
 
+	
+	
 	private JLabel roundsLbl;
 	private JLabel clickOnCityLbl;
 	private JLabel timerLbl;
-	private JLabel distanceLbl;
-	private JLabel clickToContinueLbl;
-	private JPanel southPnl;
-	private JButton btnStartGame;
-	private JLabel markerLabel;
+	private JLabel infoLbl;
+	
+	private JLabel pl1Lbl;
+	private JLabel pl2Lbl;
+	private JLabel scorePl1Lbl;
+	private JLabel scorePl2Lbl;
+	private JLabel distPl1Lbl;
+	private JLabel distPl2Lbl;
+	private JLabel markerLbl;
 
 	private Font fontText = new Font(Font.DIALOG, Font.BOLD, 30);
-	private Font fontCountdown = new Font(Font.DIALOG, Font.BOLD, 80);
+	private Font fontCountdown = new Font(Font.DIALOG, Font.BOLD, 64);
+	private Font playerInfoFont = new Font(Font.DIALOG, Font.BOLD, 26);
 
-	private BufferedImage bfImage;
 	private JLabel imageLbl;
 
 	private String currentCity;
 
 	private int totalRounds;
-	private int currentRound;
 
-	public GameInfoWindowMP(int totalRounds, GameControllerMP gameController) {
+	public GameInfoWindowMP(int totalRounds) {
 
-		this.gameController = gameController;
 		this.totalRounds = totalRounds;
 		// btnStartGame = new JButton("Press to start game");
 
@@ -102,33 +105,49 @@ public class GameInfoWindowMP extends JPanel {
 
 	private void initWindow() {
 		// this.setLayout(new BorderLayout());
-		imageLbl.setLayout(new GridLayout(2, 3));
-		markerLabel = new JLabel();
+		imageLbl.setLayout(new GridLayout(4, 3));
+		
+		
+		
+		pl1Lbl = new JLabel("TEST");
+		pl2Lbl = new JLabel("TEST");
+		scorePl1Lbl = new JLabel("Score: 0");
+		scorePl2Lbl = new JLabel("Score: 0");
+		distPl1Lbl = new JLabel("Distance: 0 km");
+		distPl2Lbl = new JLabel("Distance: 0 km");
+		markerLbl = new JLabel();
 
-		southPnl = new JPanel();
-		southPnl.setLayout(new FlowLayout());
+		
 
 		timerLbl = new JLabel();
 		clickOnCityLbl = new JLabel("Click on: ");
-		distanceLbl = new JLabel("");
-		clickToContinueLbl = new JLabel("Click on the map to continue");
+		infoLbl = new JLabel("Click on the map to continue");
 
 		// Label Alignment
 		timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		roundsLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		roundsLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		roundsLbl.setVerticalAlignment(SwingConstants.TOP);
-		clickToContinueLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		distanceLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		markerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		infoLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		clickOnCityLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		pl2Lbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		scorePl2Lbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		distPl2Lbl.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		// Sets label font
 		timerLbl.setFont(fontCountdown);
 		timerLbl.setForeground(Color.GREEN.darker());
 		clickOnCityLbl.setFont(fontText);
 		roundsLbl.setForeground(Color.RED.brighter());
-		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
-		distanceLbl.setFont(fontText);
-		clickToContinueLbl.setFont(fontText);
+		roundsLbl.setFont(new Font(Font.DIALOG, Font.BOLD, 34));
+		infoLbl.setFont(fontText);
+		
+		pl1Lbl.setFont(playerInfoFont);
+		pl2Lbl.setFont(playerInfoFont);
+		scorePl1Lbl.setFont(playerInfoFont);
+		scorePl2Lbl.setFont(playerInfoFont);
+		distPl1Lbl.setFont(playerInfoFont);
+		distPl2Lbl.setFont(playerInfoFont);
 
 //		btnStartGame.addActionListener(e -> {
 //			btnStartGame.setVisible(false);
@@ -139,13 +158,27 @@ public class GameInfoWindowMP extends JPanel {
 //		});
 
 		// Add labels
-		imageLbl.add(timerLbl);
-//		imageLbl.add(btnStartGame);
+		
+		//Row 1
+		imageLbl.add(pl1Lbl);
 		imageLbl.add(clickOnCityLbl);
+		imageLbl.add(pl2Lbl);
+		
+		//Row2
+		imageLbl.add(scorePl1Lbl);
+		imageLbl.add(timerLbl);
+		imageLbl.add(scorePl2Lbl);
+		
+		//Row3
+		imageLbl.add(distPl1Lbl);
+		imageLbl.add(infoLbl);
+		imageLbl.add(distPl2Lbl);
+		
+		//Row4
+		imageLbl.add(markerLbl);
 		imageLbl.add(roundsLbl);
-		imageLbl.add(clickToContinueLbl);
-		imageLbl.add(distanceLbl);
-		imageLbl.add(markerLabel);
+
+
 	}
 
 	private void showUI() {
@@ -169,16 +202,28 @@ public class GameInfoWindowMP extends JPanel {
 		clickOnCityLbl.setText("Click on: " + cityName);
 	}
 
-	public void setDistanceLbl(String distance) {
-		distanceLbl.setText(distance + " km from " + currentCity);
+	public void setDistanceLbls(String distpl1, String distpl2) {
+		distPl1Lbl.setText(distpl1 + " km from " + currentCity);
+		distPl2Lbl.setText(distpl2 + " km from " + currentCity);
+	}
+	
+	public void removeDistanceLbls() {
+		distPl1Lbl.setText("");
+		distPl2Lbl.setText("");
 	}
 
 	public void setCurrentRound(int round) {
 		roundsLbl.setText("Round " + round + " of " + totalRounds);
 	}
 
-	public void removeDistanceLbl() {
-		distanceLbl.setText("");
+	public void setScoreLbls(String scorePl1, String scorePl2) {
+		scorePl1Lbl.setText(scorePl1);
+		scorePl2Lbl.setText(scorePl2);
+	}
+	
+	public void setPlayers(String pl1, String pl2) {
+		pl1Lbl.setText(pl1);
+		pl2Lbl.setText(pl2);
 	}
 
 	public void setTimerLbl(int cntDown) {
@@ -197,11 +242,15 @@ public class GameInfoWindowMP extends JPanel {
 		}
 	}
 
-	public void showContinueLbl(String txt) {
-		clickToContinueLbl.setText(txt);
+	public void setInfoLbl(String txt) {
+		infoLbl.setText(txt);
 	}
 
-	public void removeContinueLbl() {
-		clickToContinueLbl.setText("");
+	public void removeInfoLbl() {
+		infoLbl.setText("");
+	}
+	
+	public static void main(String[] args) {
+		GameInfoWindowMP test = new GameInfoWindowMP(10);
 	}
 }

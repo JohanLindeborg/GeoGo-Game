@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
@@ -44,7 +45,7 @@ public class GameControllerSP {
 		windowListener = new WindowListenerSP(this);
 
 		currentRound = 0;
-		this.countDownTimer = new CountDownTimer(this);
+		this.countDownTimer = new CountDownTimer(this, 16);
 
 		this.totalRounds = totalRounds;
 		this.currentMap = currentMap;
@@ -122,7 +123,7 @@ public class GameControllerSP {
 		gameInfoWindow.removeContinueLbl();
 	}
 
-	public void updateCountDown(int cntDown) {
+	public void updateGameTimer(int cntDown) {
 		gameInfoWindow.setTimerLbl(cntDown);
 		mapHolder.updateTimer(cntDown);
 
@@ -133,12 +134,12 @@ public class GameControllerSP {
 	}
 
 	// Returns distance in km between two coordinates
-	private double getDistance(LatLng latlong1, LatLng latlong2) {
+	private double getDistance(LatLng latlong1, Point2D latlong2) {
 		double lat1 = latlong1.getLat();
 		double lng1 = latlong1.getLng();
 
-		double lat2 = latlong2.getLat();
-		double lng2 = latlong2.getLng();
+		double lat2 = latlong2.getX();
+		double lng2 = latlong2.getY();
 
 		double theta = lng1 - lng2;
 		double dist = Math.sin(degToRad(lat1)) * Math.sin(degToRad(lat2))

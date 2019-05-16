@@ -11,7 +11,7 @@ import server.ClientHandler;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
 import sharedFiles.MapClickMsg;
-import sharedFiles.MapMsg;
+import sharedFiles.SetupMsg;
 import sharedFiles.NewRoundMsg;
 import sharedFiles.ResultMsg;
 
@@ -35,13 +35,16 @@ public class GameData2 {
 	private String mapName;
 	
 	private int totalRounds;
-	private int currentRound = 1;
+	private int currentRound = 0;
 	
 	private ClientHandler player1;
 	private ClientHandler player2;
 	
-	private boolean plyr1HasClicked;
-	private boolean plyr2HasClicked;
+	private String player1Str;
+	private String player2Str;
+	
+	private boolean pl1HasClicked;
+	private boolean pl2HasClicked;
 	
 	private MapClickMsg pl1MapClick = null;
 	private MapClickMsg pl2MapClick = null;
@@ -52,6 +55,9 @@ public class GameData2 {
 	public GameData2(ClientHandler player1, ClientHandler player2, int totalRounds, Point2D mapCenter, double zoomLevel, String mapName) {
 		this.player1 = player1;
 		this.player2 = player2;
+		
+		player1Str = player1.getUserName();
+		player2Str = player2.getUserName();
 		
 		this.mapCenter = mapCenter;
 		this.zoomLevel = zoomLevel;
@@ -64,10 +70,10 @@ public class GameData2 {
 	
 	//player2 accepted the game, gameSetup starts.
 	public void setupGame() {
-		player1.sendToClient(new MapMsg(mapName,totalRounds, mapCenter, zoomLevel));
-		player2.sendToClient(new MapMsg(mapName,totalRounds, mapCenter, zoomLevel));
+		player1.sendToClient(new SetupMsg(mapName,totalRounds, mapCenter, zoomLevel, player1Str, player2Str));
+		player2.sendToClient(new SetupMsg(mapName,totalRounds, mapCenter, zoomLevel, player2Str, player1Str));
 		//startGame();
-		runGame();
+		startRound();
 	}
 	
 	private void startGame() {
@@ -75,39 +81,74 @@ public class GameData2 {
 			
 		}
 		
-		runGame();
+		startRound();
 	}
 	
-	public void runGame() {
-		double dist;
+	public void startRound() {
 		
-		for(currentRound = 1; currentRound <= totalRounds; currentRound++) {
-			plyr1HasClicked = false;
-			plyr2HasClicked = false;
+		//for(currentRound = 1; currentRound <= totalRounds; currentRound++) {
+			pl1HasClicked = false;
+			pl2HasClicked = false;
+			currentRound++;
 			
 			currentCity = cities.getRandomCity();
 			
-			player1.sendToClient(new NewRoundMsg(currentRound,currentCity ));
-			player2.sendToClient(new NewRoundMsg(currentRound,currentCity));
+			if(currentRound == 1) {
+				NewRoundMsg msg = new NewRoundMsg(currentRound,currentCity);
+				msg.setIsFirstRound(true);
+				
+				player1.sendToClient(msg);
+				player2.sendToClient(msg);
+			}
+			else {
+				player1.sendToClient(new NewRoundMsg(currentRound,currentCity ));
+				player2.sendToClient(new NewRoundMsg(currentRound,currentCity));
+			}
+			
 			System.out.print("GameData: Sent NewRoundMsg to players");
 			
-			while(!(plyr1HasClicked || plyr2HasClicked)) {
-				
-			}
-			System.out.println("GameData: Both players clicked on map");
+		//}
+	}
+	
+	public void processRoundInput() {
+		double distPl1 = 0;
+		double distPl2 = 0;
+		
+		int scorePl1 = 0;
+		int scorePl2 = 0;
+		
+		Point2D pointPl1 = null;
+		Point2D pointPl2 = null;
+		
+		if(pl1MapClick.getInTime()) {
+			distPl1 = calcResults(pl1MapClick.getClickPoint(), currentCity.getPoint());
+			pointPl1 = pl1MapClick.getClickPoint();
 			
-			//calcResults
-			if(pl1MapClick.getInTime()) {
-				dist = calcResults(pl1MapClick.getClickPoint(), currentCity.getPoint());
-				player1.sendToClient(new ResultMsg(dist));
-			}
-			if(pl2MapClick.getInTime()) {
-				dist = calcResults(pl2MapClick.getClickPoint(), currentCity.getPoint());
-				player2.sendToClient(new ResultMsg(dist));
-			}
-			
-			//Wait to let players see results
+			System.out.println("GameData: sent ResultMsg to "+player1.getUserName());
 		}
+		
+		if(pl2MapClick.getInTime()) {
+			distPl2 = calcResults(pl2MapClick.getClickPoint(), currentCity.getPoint());
+			pointPl2 = pl2MapClick.getClickPoint();
+			
+		}
+		ResultMsg msgPl1 = new ResultMsg(distPl1, scorePl1, distPl2, scorePl2, pointPl2);
+		ResultMsg msgPl2 = new ResultMsg(distPl2, scorePl2, distPl1, scorePl1, pointPl1);
+		
+		player1.sendToClient(msgPl1);
+		player2.sendToClient(msgPl2);
+		System.out.println("GameData: sent ResultMsg to "+player2.getUserName()+", "+player1.getUserName());
+
+		
+		//starts a new Round 
+		if(currentRound < totalRounds) {
+			startRound();
+		}
+		//Game finished
+		else {
+			System.out.println("--------------GameData: Game Finished----------------");
+		}
+		
 	}
 	
 	public void updateMapClick(MapClickMsg mapClick) {
@@ -115,12 +156,16 @@ public class GameData2 {
 		if(mapClick.getSender().equals(player1.getUserName())) {
 			pl1MapClick = mapClick;
 			
-			plyr1HasClicked = true;
+			pl1HasClicked = true;
 		}
-		else {
+		else if(mapClick.getSender().equals(player2.getUserName())) {
 			pl2MapClick = mapClick;
 			
-			plyr2HasClicked = true;
+			pl2HasClicked = true;
+		}
+		if(pl1HasClicked && pl2HasClicked) {
+			
+			processRoundInput();
 		}
 	}
 	
@@ -166,6 +211,5 @@ public class GameData2 {
 	}
 	
 
-	
 
 }
