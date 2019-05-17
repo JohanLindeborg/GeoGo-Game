@@ -72,7 +72,6 @@ public class ClientGUI extends JPanel implements ActionListener {
 		lblGeoGo.setBounds((int) ((bounds.getWidth() / 2) - 450),  130, 900, 200);
 	
 		i = new ImageIcon("images/world1337.jpg").getImage();
-		
 
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
