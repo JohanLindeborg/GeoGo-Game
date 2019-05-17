@@ -40,10 +40,10 @@ public class TestClient extends Thread{
 	public TestClient(String userName) {
 		
 		this.userName = userName;
-		this.port = 4242;
+		this.port = 8888;
 		
 		try {
-			this.socket = new Socket("localhost", 4242);
+			this.socket = new Socket("192.168.0.12", port);
 			
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());

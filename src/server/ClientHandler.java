@@ -20,7 +20,7 @@ public class ClientHandler extends Thread {
 	/**
 	 * 
 	 */
-	
+
 	private Socket clientSocket;
 
 	private ObjectInputStream ois;
@@ -58,11 +58,11 @@ public class ClientHandler extends Thread {
 	 */
 	public void run() {
 		Object obj = null;
-		
+
 		while (listeningForMessages) {
 			try {
 				obj = ois.readObject();
-				System.out.println("Clienthandler for "+userName+" read object ( " + obj + " ).");
+				System.out.println("Clienthandler for " + userName + " read object ( " + obj + " ).");
 
 			} catch (ClassNotFoundException e) {
 				System.out.println("Class not found exception");
@@ -71,26 +71,25 @@ public class ClientHandler extends Thread {
 				System.out.println("IO exception");
 				e.printStackTrace();
 			}
-			
-			//Messages concerning the server
-			if(obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg) {
+
+			// Messages concerning the server
+			if (obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg) {
 				server.processDataFromClient(obj, this);
 			}
-			//Messages concerning a specific game
+			// Messages concerning a specific game
 			else {
-				
-				if(obj instanceof StartGameMsg) {
-					gameData.setPlayerReady(this, true);
-					System.out.println("Clienthandler for "+userName+" sets ready for game.");
 
-				}
-				else if(obj instanceof MapClickMsg) {
+				if (obj instanceof StartGameMsg) {
+					gameData.setPlayerReady(this, true);
+					System.out.println("Clienthandler for " + userName + " sets ready for game.");
+
+				} else if (obj instanceof MapClickMsg) {
 					MapClickMsg msg = (MapClickMsg) obj;
-					System.out.println("Clienthandler for "+userName+" received mapClickMsg");
-					
+					System.out.println("Clienthandler for " + userName + " received mapClickMsg");
+
 					gameData.updateMapClick(msg);
 				}
-				
+
 			}
 		}
 	}
@@ -120,35 +119,32 @@ public class ClientHandler extends Thread {
 	public void SetIsInGame(boolean inGame) {
 		isInGame = inGame;
 	}
-	
+
 	public void setUserName(String name) {
 		userName = name;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	public void setGameData(GameData2 gameData) {
-		if(this.gameData == null) {
+		if (this.gameData == null) {
 			this.gameData = gameData;
-			System.out.println("ClientHandler for " +userName+": Received new GameData");
-		}
-		else {
-			System.out.println("ClientHandler for " +userName+": Already in game");
+			System.out.println("ClientHandler for " + userName + ": Received new GameData");
+		} else {
+			System.out.println("ClientHandler for " + userName + ": Already in game");
 		}
 	}
-	
-	/*public void newGame(RequestGameMsg msg, ClientHandler otherplayer) {
-		if(this.gameData == null) {
-			gameData = new GameData2(this, otherplayer, msg.getTotalRounds(), msg.getMapCenter(),msg.getZoomLevel(),msg.getMapName());
-			System.out.println("ClientHandler for " +userName+": created new GameData");
-			
-			otherplayer.setGameData(gameData);
-		}
-		else {
-			System.out.println("ClientHandler for " +userName+": Already in game");
-		}
-	} */
 
+	/*
+	 * public void newGame(RequestGameMsg msg, ClientHandler otherplayer) {
+	 * if(this.gameData == null) { gameData = new GameData2(this, otherplayer,
+	 * msg.getTotalRounds(),
+	 * msg.getMapCenter(),msg.getZoomLevel(),msg.getMapName());
+	 * System.out.println("ClientHandler for " +userName+": created new GameData");
+	 * 
+	 * otherplayer.setGameData(gameData); } else {
+	 * System.out.println("ClientHandler for " +userName+": Already in game"); } }
+	 */
 }

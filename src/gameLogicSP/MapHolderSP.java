@@ -63,7 +63,7 @@ public class MapHolderSP {
 
 		// �ndrar marker f�r player, finns ett par olika i images
 		Icon icon = new Icon();
-		File file = new File("images/blackPin32.png");
+		File file = new File("images/bluePin32.png");
 		icon.loadFromFile(file);
 		MarkerOptions markerOpt = new MarkerOptions();
 		markerOpt.setIcon(icon);
@@ -77,7 +77,7 @@ public class MapHolderSP {
 
 		// �ndrar marker f�r korrekt position
 		Icon icon = new Icon();
-		File file = new File("images/greenPin32.png");
+		File file = new File("images/greenDotCorrectPos.png");
 		icon.loadFromFile(file);
 		MarkerOptions markerOpt = new MarkerOptions();
 		markerOpt.setIcon(icon);

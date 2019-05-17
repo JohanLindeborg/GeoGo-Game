@@ -56,11 +56,12 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 
 		// countryPnl.add(countryInst);
 		countryPnl.add(chooseCountry);
-		countryImg.setIcon(loadImage("images/countryImg.png"));
+//		countryImg.setIcon(loadImage("images/countryImg.png"));
+		countryImg.setIcon(loadImage("images/countryItalyImage.PNG")); // Blev för pixlig :/
 
 		// continentPnl.add(continentInst);
 		continentPnl.add(chooseContinent);
-		continentImg.setIcon(loadImage("images/continentImg.png"));
+		continentImg.setIcon(loadImage("images/continentAfricaImage.PNG"));
 
 		// Adds to gridlayout with position specified by GridLayout
 		this.add(countryPnl);
