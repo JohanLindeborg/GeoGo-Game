@@ -20,7 +20,7 @@ public class GameServer extends Thread {
 	
 	
 	private ServerSocket serverSocket;
-	private int serverPort = 4242;
+	private int serverPort = 8888;
 		
 	public GameServer() {
 		
