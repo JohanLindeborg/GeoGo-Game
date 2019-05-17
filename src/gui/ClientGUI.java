@@ -32,7 +32,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 	private ImageButton btnStartGame;
 	private JLabel lblGeoGo;
 	private int height = this.getHeight();
-	private int width= this.getWidth();
+//	private int width= this.getWidth();
 
 	private Image i;
 	private GraphicsEnvironment ge;
@@ -44,10 +44,11 @@ public class ClientGUI extends JPanel implements ActionListener {
 		lblGeoGo.setFont(new Font("Century Gothic", Font.BOLD, 200));
 		lblGeoGo.setForeground(Color.white);
 
-		lblGeoGo.setBounds(520, 130, 1000, 200);
+//		lblGeoGo.setBounds(520, 130, 1000, 200);
 		
-//		Dimension d = lblGeoGo.getSize();
+
 //		lblGeoGo.setBounds((int) ((width / 2) - (d.getWidth() / 2)),  130, 1000, 200);
+
 		
 		// Getting the size of the screen
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -67,7 +68,9 @@ public class ClientGUI extends JPanel implements ActionListener {
 		btnStartGame.addActionListener(this);
 		
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
-
+		
+		lblGeoGo.setBounds((int) ((bounds.getWidth() / 2) - 450),  130, 900, 200);
+	
 		i = new ImageIcon("images/world1337.jpg").getImage();
 		
 

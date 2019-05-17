@@ -9,11 +9,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Random;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -25,66 +21,63 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class StartMenu extends JPanel implements ActionListener {
-	private JButton btnSingle = new JButton("Singleplayer");
-	private JButton btnMulti = new JButton("Multiplayer");
-	private JButton btnRules = new JButton("Game Instructions");
-	private JButton btnExit = new JButton("Exit Game");
-	private Image image;
+
+	private Image i;
 	private GraphicsEnvironment ge;
 	private JFrame frame;
 	private CardLayout cl;
+
+	private ImageButton btnSingle;
+	private ImageButton btnMulti;
+	private ImageButton btnIntructions;
+	private ImageButton btnExitGame;
+	private String username;
 
 	public StartMenu() {
 
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = ge.getMaximumWindowBounds();
 
+		ImageIcon imagSngle = new ImageIcon("images/btnSingleplayer.png");
+		btnSingle = new ImageButton(imagSngle.getImage());
+
+		ImageIcon imageMulti = new ImageIcon("images/btnMultiplayer.png");
+		btnMulti = new ImageButton(imageMulti.getImage());
+
+		ImageIcon imageIns = new ImageIcon("images/btnInstructionsGame.png");
+		btnIntructions = new ImageButton(imageIns.getImage());
+
+		ImageIcon imageExit = new ImageIcon("images/btnExitGame.png");
+		btnExitGame = new ImageButton(imageExit.getImage());
+
 		// this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
 
-		btnSingle.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 100, 140, 40);
-		btnMulti.setBounds((bounds.width / 2) - 70, (bounds.height / 2) - 40, 140, 40);
-		btnRules.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 20, 140, 40);
-		btnExit.setBounds((bounds.width / 2) - 70, (bounds.height / 2) + 80, 140, 40);
-
-		// Add buttons to this panel
-		add(btnSingle);
-		add(btnMulti);
-		add(btnRules);
-		add(btnExit); // exit button
-
+		btnSingle.setBounds((bounds.width / 2) - 100, (bounds.height / 2) - 160, 200, 60);
+		btnMulti.setBounds((bounds.width / 2) - 100, (bounds.height / 2) - 40, 200, 60);
+		btnIntructions.setBounds((bounds.width / 2) - 100, (bounds.height / 2) + 80, 200, 60);
+		btnExitGame.setBounds((bounds.width / 2) - 100, (bounds.height / 2) + 200, 200, 60);
+		
 		// Add actionelisteners
 		btnSingle.addActionListener(this);
 		btnMulti.addActionListener(this);
-		btnRules.addActionListener(this);
-		btnExit.addActionListener(this);
+		btnIntructions.addActionListener(this);
+		btnExitGame.addActionListener(this);
 
-		this.setLayout(cl); // Put the cardlayout on the panel
-//		cards = new JPanel(new CardLayout()); // Create the panel(parent?) that contains the "cards".
-//		cl = (CardLayout) (cards.getLayout());// Nödvändig? Ja annars nullpointer, måste ha getlayout
-//		cards.add(startMenu, STARTGAMEPANEL); // lägger denna till startmenu med namnet start
-
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File("images/world.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		i = new ImageIcon("images/world1337.jpg").getImage();
 
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
-		Image dimg = image.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
+		Image dimg = i.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
 		imageLbl.setIcon((new ImageIcon(dimg)));
+		
+		// Add buttons to this label
+		imageLbl.add(btnSingle);
+		imageLbl.add(btnMulti);
+		imageLbl.add(btnIntructions);
+		imageLbl.add(btnExitGame);
+		
 		this.add(imageLbl);
-
-		/*
-		 * try { image = ImageIO.read(new File("images/worldmap2.jpg"));
-		 * 
-		 * JLabel label = new JLabel(new ImageIcon(image)); this.add(label);
-		 * label.setBounds(0, 0, bounds.width, bounds.height);
-		 * 
-		 * } catch (IOException ex) { System.out.print("Image exception" + ex); }
-		 */
 	}
 
 	void showUI() {
@@ -102,14 +95,14 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Object input = e.getSource();
-		if (input.equals(btnSingle)) {
+		
+		if (e.getSource() == btnSingle) {
 			singlePlayer();
-		} else if (input.equals(btnMulti)) {
-//				multiPlayer();
-		} else if (input.equals(btnRules)) {
+		} else if (e.getSource() == btnMulti) {
+				multiPlayer();
+		} else if (e.getSource() == btnIntructions) {
 			gameRules();
-		} else if (input.equals(btnExit)) {
+		} else if (e.getSource() == btnExitGame) {
 			frame.dispose();
 		}
 	}
@@ -129,10 +122,22 @@ public class StartMenu extends JPanel implements ActionListener {
 //			gui.addNewUser(name);
 //			gui.showUI();
 	}
+	
+	public void multiPlayer() {
+
+		username = JOptionPane.showInputDialog("Choose username: ");
+		MultiPlayerMenu.arrayL.add(username);
+		new MultiPlayerMenu();
+//		new GameSetup();
+//		frame.dispose();
+		// new MultiPlayerWindow(username);
+		
+	}
 
 	public void gameRules() {
+		// new GameMenu();
 		JOptionPane.showMessageDialog(null,
-				"The task of a player of GeoGo is to estimate the locations of different cities on a worldmap. " + "\n"
+				"The task of a player in GeoGo is to estimate the locations of different cities on a map. " + "\n"
 						+ "A score is then given the player as a result of the difference in distance between the estimated spot and the actual location."
 						+ "\n" + "Players can choose what part of the world him or her wishes to play in." + "\n" + "\n"
 						+ "Upgrade your geographical knowledge now!");

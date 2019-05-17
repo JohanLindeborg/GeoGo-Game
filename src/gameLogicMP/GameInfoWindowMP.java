@@ -190,6 +190,7 @@ public class GameInfoWindowMP extends JPanel {
 		windowFrame.setLayout(new BorderLayout());
 		windowFrame.add(this, BorderLayout.CENTER);
 		windowFrame.pack();
+//		windowFrame.setUndecorated(true);
 		windowFrame.setVisible(true);
 	}
 
