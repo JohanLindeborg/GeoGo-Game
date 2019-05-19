@@ -98,7 +98,7 @@ public class MapHolderMP {
 
 		// �ndrar marker f�r korrekt position
 		Icon icon = new Icon();
-		File file = new File("images/greenDotCorrectPos.png");
+		File file = new File("images/greenDotCorrectPos2.png");
 		icon.loadFromFile(file);
 		cityMarkerOpt = new MarkerOptions();
 		cityMarkerOpt.setIcon(icon);

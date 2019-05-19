@@ -36,6 +36,8 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 	private Image i;
 	private GraphicsEnvironment ge;
+	
+	
 
 	public ClientGUI() {
 		
