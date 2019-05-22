@@ -59,7 +59,7 @@ public class GameControllerMP extends Thread {
 		this.userName = userName;
 
 		try {
-			this.socket = new Socket("192.168.0.12", 8888); // 192.168.0.12
+			this.socket = new Socket("192.168.43.170", 8888); // 192.168.0.12
 
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());

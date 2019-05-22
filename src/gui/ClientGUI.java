@@ -23,16 +23,12 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton btnStart;
-	private JButton btnExit;
 
 	private JFrame frame;
-	private CardLayout cl;
 	private ImageButton btnExitGame;
 	private ImageButton btnStartGame;
 	private JLabel lblGeoGo;
-	private int height = this.getHeight();
-//	private int width= this.getWidth();
+
 
 	private Image i;
 	private GraphicsEnvironment ge;
@@ -43,7 +39,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 		
 		// Header
 		lblGeoGo = new JLabel("G e o G o");
-		lblGeoGo.setFont(new Font("Century Gothic", Font.BOLD, 200));
+		lblGeoGo.setFont(new Font("Century Gothic", Font.BOLD, 100));
 		lblGeoGo.setForeground(Color.white);
 
 //		lblGeoGo.setBounds(520, 130, 1000, 200);
@@ -71,7 +67,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 		
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
 		
-		lblGeoGo.setBounds((int) ((bounds.getWidth() / 2) - 450),  130, 900, 200);
+		lblGeoGo.setBounds((int) ((bounds.getWidth() / 2))-235 ,  130, 900, 200);
 	
 		i = new ImageIcon("images/world1337.jpg").getImage();
 
@@ -96,6 +92,8 @@ public class ClientGUI extends JPanel implements ActionListener {
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(this.getPreferredSize());
+		frame.setUndecorated(true);
 		frame.pack();
 		frame.setVisible(true);
 	}
