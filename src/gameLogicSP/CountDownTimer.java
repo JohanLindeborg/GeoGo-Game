@@ -64,9 +64,7 @@ public class CountDownTimer {
 					if(isGameTimer) {
 						controllerMP.updateGameTimer(countdown);
 					}
-					else {
-						controllerMP.updateResultsTimer(countdown);
-					}
+					
 				}
 				else {
 					controllerSP.updateGameTimer(countdown);

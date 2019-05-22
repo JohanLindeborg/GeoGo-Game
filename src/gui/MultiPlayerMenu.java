@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -14,38 +16,41 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
-public class MultiPlayerMenu extends JPanel implements ActionListener {
+import gameLogicMP.GameControllerMP;
+
+public class MultiPlayerMenu extends JPanel implements ActionListener, WindowListener {
 
 	private static final long serialVersionUID = 1L;
 	
-	// Lägger till username till denna ArrayList från JOptionPane som poppra upp när man väljer multiplayer
-	// från startmenu menyn. 
+	// Lï¿½gger till username till denna ArrayList frï¿½n JOptionPane som poppra upp nï¿½r man vï¿½ljer multiplayer
+	// frï¿½n startmenu menyn. 
 	// String username = JOptionPane
 	// MultiPlayerMenu.arrayL.add(username); 
 	
-	public static ArrayList<String> arrayL = new ArrayList<>();
-	String[] str = new String[arrayL.size()];
-	JList<String> list = new JList<>(arrayL.toArray(str));
+	private String[] str;
+	private JList<String> userlist = new JList<String>(new String[]{"No connected users"});
 
 	private JFrame frame;
 	private JLabel userLabel;
 
 	private ImageButton btnHostGame;
 	private Image i;
+	
+	private GameControllerMP controllerMP;
 
-	public MultiPlayerMenu() {
+	public MultiPlayerMenu(GameControllerMP controllerMP) {
 
+		this.controllerMP = controllerMP;
 		// setup list
-		list = new JList(arrayL.toArray(str));
-		list.setVisibleRowCount(arrayL.size());
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // kan bara välja en user
+		userlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // kan bara vï¿½lja en user
 //		list.setBounds(330, 90, 220, 250);
-		list.setFont(new Font("Century Gothic", Font.BOLD, 16));
-		list.setForeground(Color.WHITE);
-		list.setBackground(Color.black);
+		userlist.setFont(new Font("Century Gothic", Font.BOLD, 16));
+		userlist.setForeground(Color.WHITE);
+		userlist.setBackground(Color.black);
 
 		// setup CONEECTED USERS JLabel
 		userLabel = new JLabel("CONNECTED USERS");
@@ -69,7 +74,7 @@ public class MultiPlayerMenu extends JPanel implements ActionListener {
 		imageLbl.setBounds(0, 0, 600, 400);
 		btnHostGame.setBounds((int)(imageLbl.getWidth() / 10), (int)(imageLbl.getWidth() / 13), 200, 60);
 		userLabel.setBounds((int)(imageLbl.getWidth() / 2), (int)(imageLbl.getWidth() / 13), 240, 30);
-		list.setBounds((int)(imageLbl.getWidth() / 2), 90, 220, 250);
+		userlist.setBounds((int)(imageLbl.getWidth() / 2), 90, 220, 250);
 		
 		Image dimg = i.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
 		imageLbl.setIcon((new ImageIcon(dimg)));
@@ -77,7 +82,7 @@ public class MultiPlayerMenu extends JPanel implements ActionListener {
 		this.add(imageLbl);
 		imageLbl.add(btnHostGame);
 		imageLbl.add(userLabel);
-		imageLbl.add(list);
+		imageLbl.add(userlist);
 //		imageLbl.add(new JScrollPane(list)); // Fick inte denna att fungera
 
 		showUI();
@@ -90,16 +95,79 @@ public class MultiPlayerMenu extends JPanel implements ActionListener {
 		frame.setIconImage(imageI);
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(this);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+	
+	public void updateUsers(ArrayList<String> users) {
+
+		str = new String[users.size()];
+		str = users.toArray(str);
+
+		
+		userlist.setVisibleRowCount(users.size());
+		
+		userlist.setListData(str);
+		//userlist.setListData(str);
+		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnHostGame) {
-			new GameSetup();
+		if(e.getSource()== btnHostGame && userlist.isSelectionEmpty()) {
+			JOptionPane.showMessageDialog(this, "Please select an opposing player", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
+		else if(e.getSource() == btnHostGame && userlist.getSelectedValue().equals(controllerMP.getUserName())) {
+			JOptionPane.showMessageDialog(this, "Cant play against yourself, please select another user", "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		else if (e.getSource() == btnHostGame) {
+			new GameSetup(userlist.getSelectedValue(), controllerMP);
+		}
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		controllerMP.disconnect();
+		frame.dispose();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ import javax.swing.JTextField;
 
 import com.teamdev.jxmaps.LatLng;
 
+import gameLogicMP.GameControllerMP;
 import gameLogicSP.GameControllerSP;
 import gameLogicSP.MapHolderSP;
 
@@ -48,9 +50,21 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	MapHolderSP createMap;
 	GameControllerSP gameControllerSP;
 	private int rounds;
+	
+	private String opposingPlayer;
+	private GameControllerMP gameControllerMP;
 
 	public ContinentsGameMenu() {
-
+		initWindow();
+		
+	}
+	public ContinentsGameMenu(String opposingPlayer, GameControllerMP gameControllerMP) {
+		initWindow();
+		this.opposingPlayer = opposingPlayer;
+		this.gameControllerMP = gameControllerMP;
+	}
+	
+	private void initWindow() {
 		add(btnGoBack);
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
@@ -99,8 +113,57 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == btnStart && opposingPlayer != null) {
+			if (checkRounds(roundsTxtFld.getText())) {
 
-		if (e.getSource() == btnStart) {
+				if (cmbChooseMap.getSelectedItem() == "Choose continent") {
+					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				else if (cmbChooseMap.getSelectedItem() == "Africa") {
+					frame.dispose();
+					Point2D.Double point = new Point2D.Double(6.0, 6.0);
+					
+					gameControllerMP.requestGame(point, 3.5, opposingPlayer, rounds, "Africa");
+				} else if (cmbChooseMap.getSelectedItem() == "Europe") {
+					frame.dispose();
+
+					Point2D.Double point = new Point2D.Double(53.5775, 23.106111);
+							
+					gameControllerMP.requestGame(point, 4.0, opposingPlayer, rounds, "Europe");
+				} else if (cmbChooseMap.getSelectedItem() == "Asia") {
+					frame.dispose();
+
+					Point2D.Double point = new Point2D.Double(42.5775, 80.0);
+							
+					gameControllerMP.requestGame(point, 3.1, opposingPlayer, rounds, "Asia");				}
+
+				else if (cmbChooseMap.getSelectedItem() == "North America") {
+					frame.dispose();
+
+					Point2D.Double point = new Point2D.Double(49.0, -103.0);
+							
+					gameControllerMP.requestGame(point, 3.3, opposingPlayer, rounds, "North America");				}
+
+				else if (cmbChooseMap.getSelectedItem() == "South America") {
+					frame.dispose();
+
+					Point2D.Double point = new Point2D.Double(-22.0, -59.0);
+							
+					gameControllerMP.requestGame(point, 3.5, opposingPlayer, rounds, "South America");				}
+
+				else if (cmbChooseMap.getSelectedItem() == "Oceania") {
+					frame.dispose();
+
+					Point2D.Double point = new Point2D.Double(-24.0, 134.0);
+							
+					gameControllerMP.requestGame(point, 4.0, opposingPlayer, rounds, "Oceania");				}
+			}
+		}
+		
+		else if (e.getSource() == btnStart) {
 			if (checkRounds(roundsTxtFld.getText())) {
 
 				if (cmbChooseMap.getSelectedItem() == "Choose continent") {

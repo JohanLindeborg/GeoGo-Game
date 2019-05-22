@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import sharedFiles.AddToServerListMsg;
+import sharedFiles.DisconnectMsg;
 import sharedFiles.MapClickMsg;
 import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
@@ -73,7 +74,7 @@ public class ClientHandler extends Thread {
 			}
 
 			// Messages concerning the server
-			if (obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg) {
+			if (obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg || obj instanceof DisconnectMsg) {
 				server.processDataFromClient(obj, this);
 			}
 			// Messages concerning a specific game
@@ -112,10 +113,6 @@ public class ClientHandler extends Thread {
 		}
 	}
 
-	public void setListeningForMessages(boolean listening) {
-		listeningForMessages = listening;
-	}
-
 	public void SetIsInGame(boolean inGame) {
 		isInGame = inGame;
 	}
@@ -126,6 +123,10 @@ public class ClientHandler extends Thread {
 
 	public String getUserName() {
 		return userName;
+	}
+	
+	public void stopThread() {
+		listeningForMessages = false;
 	}
 
 	public void setGameData(GameData2 gameData) {

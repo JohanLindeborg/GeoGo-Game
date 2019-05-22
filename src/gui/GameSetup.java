@@ -23,6 +23,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import gameLogicMP.GameControllerMP;
+
 public class GameSetup extends JFrame implements ActionListener, WindowListener {
 
 	private JLabel countryInst = new JLabel("Choose this option to play on country maps");
@@ -34,8 +36,30 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 	private JPanel continentPnl = new JPanel();
 	private JLabel continentImg = new JLabel();
 	private JButton chooseContinent = new JButton("Choose map size: Continent");
+	
+	private String opposingPlayer;
+	private GameControllerMP gameControllerMP;
 
 	public GameSetup() {
+
+		this.setLayout(new GridLayout(2, 2, 10, 10));
+		Image image = new ImageIcon("images/globe.16x16.png").getImage();
+		setIconImage(image);
+		this.setTitle("Choose map size:");
+
+		initWindow();
+
+		this.addWindowListener(this);
+		this.pack();
+		this.setLocationRelativeTo(null);
+		this.setBackground(Color.BLACK);
+		this.getContentPane().setBackground(Color.BLACK);
+		this.setVisible(true);
+	}
+	
+	public GameSetup(String opposingplayer, GameControllerMP gameControllerMP) {
+		this.gameControllerMP = gameControllerMP;
+		opposingPlayer = opposingplayer;
 
 		this.setLayout(new GridLayout(2, 2, 10, 10));
 		Image image = new ImageIcon("images/globe.16x16.png").getImage();
@@ -57,7 +81,7 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 		// countryPnl.add(countryInst);
 		countryPnl.add(chooseCountry);
 //		countryImg.setIcon(loadImage("images/countryImg.png"));
-		countryImg.setIcon(loadImage("images/countryItalyImage.PNG")); // Blev för pixlig :/
+		countryImg.setIcon(loadImage("images/countryItalyImage.PNG")); // Blev fï¿½r pixlig :/
 
 		// continentPnl.add(continentInst);
 		continentPnl.add(chooseContinent);
@@ -96,10 +120,21 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == chooseCountry) {
-			new CountriesGameMenu().showUI();
+			if(opposingPlayer != null) {
+				new CountriesGameMenu(opposingPlayer,gameControllerMP ).showUI();
+			}
+			else {
+				new CountriesGameMenu().showUI();
+			}
+			
 			this.dispose();
 		} else if (e.getSource() == chooseContinent) {
-			new ContinentsGameMenu().showUI();
+			if(opposingPlayer != null) {
+				new ContinentsGameMenu(opposingPlayer, gameControllerMP).showUI();
+			}
+			else {
+				new ContinentsGameMenu().showUI();
+			}
 			this.dispose();
 		}
 	}

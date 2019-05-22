@@ -9,7 +9,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.net.InetAddress;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -19,6 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import gameLogicMP.GameControllerMP;
+import sharedFiles.UpdateConnectedUsersMsg;
 
 public class StartMenu extends JPanel implements ActionListener {
 
@@ -31,8 +36,11 @@ public class StartMenu extends JPanel implements ActionListener {
 	private ImageButton btnMulti;
 	private ImageButton btnIntructions;
 	private ImageButton btnExitGame;
-	private String username;
-
+	
+	private JTextField usernameTxtField;
+	private JTextField ipTxtField;
+	private GameControllerMP controllerMP;
+	
 	public StartMenu() {
 
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -80,7 +88,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		this.add(imageLbl);
 	}
 
-	void showUI() {
+	public void showUI() {
 
 		frame = new JFrame("StartMenu");
 //		setUserMenu();
@@ -90,6 +98,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setUndecorated(true);
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -98,7 +107,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		
 		if (e.getSource() == btnSingle) {
 			singlePlayer();
-		} else if (e.getSource() == btnMulti) {
+		} else if (e.getSource() == btnMulti && btnMulti.isEnabled()) {
 				multiPlayer();
 		} else if (e.getSource() == btnIntructions) {
 			gameRules();
@@ -124,17 +133,48 @@ public class StartMenu extends JPanel implements ActionListener {
 	}
 	
 	public void multiPlayer() {
+        enableMultiBtn(false);
 
-		username = JOptionPane.showInputDialog("Choose username: ");
-		MultiPlayerMenu.arrayL.add(username);
-		new MultiPlayerMenu();
+
+		//username = JOptionPane.showInputDialog("Choose username: ");
+		//MultiPlayerMenu.arrayL.add(username);
+		//new MultiPlayerMenu();
+		
+		JTextField usernameTxtField = new JTextField();
+		JTextField ipTxtField = new JTextField();
+		Object[] message = { "Username:", usernameTxtField, "Server IP Address:", ipTxtField };
+
+		int option = JOptionPane.showConfirmDialog(null, message, "Connect to server", JOptionPane.OK_CANCEL_OPTION);
+		if (option == JOptionPane.OK_OPTION) {
+		    if (!usernameTxtField.getText().equals("") && !ipTxtField.getText().equals("")) {
+		        System.out.println("Trying to connect to server...");
+		       
+		        controllerMP = new GameControllerMP(usernameTxtField.getText(),ipTxtField.getText(), this);
+		        
+		        
+		    } else {
+		        System.out.println("login failed");
+		        enableMultiBtn(true);
+
+		    }
+		} else {
+		    System.out.println("Login canceled");
+		    enableMultiBtn(true);
+		}
+		
 //		new GameSetup();
 //		frame.dispose();
 		// new MultiPlayerWindow(username);
 		
 	}
+	
+	public void enableMultiBtn(boolean bool) {
+		btnMulti.setEnabled(bool);
+		System.out.println("MultiBtn = "+bool);
+	}
+	
 
-	public void gameRules() {
+	private void gameRules() {
 		// new GameMenu();
 		JOptionPane.showMessageDialog(null,
 				"The task of a player in GeoGo is to estimate the locations of different cities on a map. " + "\n"

@@ -41,6 +41,7 @@ public class ClientGUI extends JPanel implements ActionListener {
 		lblGeoGo = new JLabel("G e o G o");
 		lblGeoGo.setFont(new Font("Century Gothic", Font.BOLD, 100));
 		lblGeoGo.setForeground(Color.white);
+		
 
 //		lblGeoGo.setBounds(520, 130, 1000, 200);
 		

@@ -19,9 +19,12 @@ import gameLogicSP.CountDownTimer;
 import gameLogicSP.MapHolderSP;
 import gui.GameInfoWindow;
 import gui.GameWindow;
+import gui.MultiPlayerMenu;
+import gui.StartMenu;
 import sharedFiles.AddToServerListMsg;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
+import sharedFiles.DisconnectMsg;
 import sharedFiles.GameData;
 import sharedFiles.MapClickMsg;
 import sharedFiles.SetupMsg;
@@ -30,9 +33,12 @@ import sharedFiles.NewRoundMsg;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.ResultMsg;
 import sharedFiles.StartGameMsg;
+import sharedFiles.UpdateConnectedUsersMsg;
 
 public class GameControllerMP extends Thread {
-
+	
+	
+	private MultiPlayerMenu menuMP;
 	private String userName;
 
 	private Socket socket;
@@ -41,12 +47,11 @@ public class GameControllerMP extends Thread {
 	private ObjectInputStream ois;
 
 	private CountDownTimer gameTimer = new CountDownTimer(this, 16, true);
-	private CountDownTimer resultsTimer = new CountDownTimer(this, 5, false);
-	private int resultsTimerCountDown;
 
 	private MapHolderMP mapHolder;
 	private String mapName;
 
+	private StartMenu startMenu;
 	private GameWindow gameWindow;
 	private GameInfoWindowMP gameInfoWindow;
 
@@ -54,12 +59,15 @@ public class GameControllerMP extends Thread {
 	private int scorePl1 = 0;
 	private int scorePl2 = 0;
 
-	public GameControllerMP(String userName) {
+	public GameControllerMP(String userName, String serverIp, StartMenu startMenu) {
 
+		this.startMenu = startMenu;
 		this.userName = userName;
+		menuMP = new MultiPlayerMenu(this);
+		startMenu.enableMultiBtn(false);
 
 		try {
-			this.socket = new Socket("192.168.43.170", 8888); // 192.168.0.12
+			this.socket = new Socket(serverIp, 8888); // 192.168.0.12
 
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
@@ -185,6 +193,15 @@ public class GameControllerMP extends Thread {
 					mapHolder.placeMarkerPl2(new LatLng(pointPl2.getX(), pointPl2.getY()));
 				}
 			}
+			else if(obj instanceof UpdateConnectedUsersMsg) {
+				UpdateConnectedUsersMsg msg = (UpdateConnectedUsersMsg) obj;
+				
+				System.out.println(userName + "Received update user msg");
+				System.out.println("Connected users "+msg.getUsers().toString());
+
+				
+				menuMP.updateUsers(msg.getUsers());
+			}
 
 		}
 	}
@@ -258,9 +275,14 @@ public class GameControllerMP extends Thread {
 			System.out.println("GameControllerMP registered mapclick out of time");
 		}
 	}
-
-	public void updateResultsTimer(int cntDown) {
-		resultsTimerCountDown = cntDown;
-
+	
+	public String getUserName() {
+		return userName;
 	}
+	
+	public void disconnect() {
+		sendMsg(new DisconnectMsg(userName));
+		startMenu.enableMultiBtn(true);
+	}
+
 }

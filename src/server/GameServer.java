@@ -1,15 +1,21 @@
 package server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import sharedFiles.AddToServerListMsg;
+import sharedFiles.DisconnectMsg;
 import sharedFiles.GameData;
 import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
+import sharedFiles.UpdateConnectedUsersMsg;
 import sharedFiles.MapClickMsg;
 
 public class GameServer extends Thread {
@@ -17,11 +23,22 @@ public class GameServer extends Thread {
 	// Hashmap to store usernames (key) and their associated threads.
 	private HashMap<String, ClientHandler> clientMap = new HashMap<String, ClientHandler>();
 	private ArrayList<GameData> gameList = new ArrayList<GameData>();
+	private ArrayList<String> users;
+
 
 	private ServerSocket serverSocket;
 	private int serverPort = 8888;
 
 	public GameServer() {
+		
+		InetAddress address;
+		try {
+			address = InetAddress.getLocalHost();
+			System.out.println(address.getHostAddress());
+
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
 
 		try {
 			serverSocket = new ServerSocket(serverPort);
@@ -65,6 +82,18 @@ public class GameServer extends Thread {
 			senderHandler.setUserName(msg.getSender());
 			clientMap.put(msg.getSender(), senderHandler);
 			System.out.println("Added " + msg.getSender() + " to clientlist");
+			
+			users = new ArrayList<String>();
+			
+			//Creates arraylist with all users
+			for(String key: clientMap.keySet()) {
+				users.add(key);
+			}
+			// sends list of all connected users to the users
+			for(ClientHandler handler: clientMap.values()) {
+				handler.sendToClient(new UpdateConnectedUsersMsg(users));
+			}
+			
 		}
 
 		else if (obj instanceof RequestGameMsg) {
@@ -81,6 +110,33 @@ public class GameServer extends Thread {
 
 			// senderHandler.newGame(msg, clientMap.get(msg.getOtherPlayer()));
 		}
+		else if (obj instanceof DisconnectMsg) {
+			DisconnectMsg msg = (DisconnectMsg) obj;
+			
+			clientMap.remove(msg.getSender()).stopThread();
+			
+			updateClientList();
+		}
+	}
+	
+	private void updateClientList() {
+		ArrayList<String> users = new ArrayList<String>();
+		
+		for ( String key : clientMap.keySet() ) {
+		    users.add(key);
+		}
+		for( ClientHandler handler : clientMap.values()) {
+			handler.sendToClient(new UpdateConnectedUsersMsg(users));
+		}
+	}
+	
+	private void newClientUpdate(ClientHandler senderHandler) {
+		ArrayList<String> users = new ArrayList<String>();
+		
+		for ( String key : clientMap.keySet() ) {
+		    users.add(key);
+		}
+		senderHandler.sendToClient(new UpdateConnectedUsersMsg(users));
 	}
 }
 
