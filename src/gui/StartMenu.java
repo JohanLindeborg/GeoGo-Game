@@ -110,7 +110,8 @@ public class StartMenu extends JPanel implements ActionListener {
 		} else if (e.getSource() == btnMulti && btnMulti.isEnabled()) {
 				multiPlayer();
 		} else if (e.getSource() == btnIntructions) {
-			gameRules();
+				Instructions ins = new Instructions();
+		ins.showUI();
 		} else if (e.getSource() == btnExitGame) {
 			frame.dispose();
 		}
