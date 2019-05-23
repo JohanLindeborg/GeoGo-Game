@@ -113,7 +113,7 @@ public class StartMenu extends JPanel implements ActionListener {
 				Instructions ins = new Instructions();
 				ins.showUI();
 		} else if (e.getSource() == btnExitGame) {
-			frame.dispose();
+			System.exit(0);
 		}
 	}
 

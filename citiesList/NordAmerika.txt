@@ -56,8 +56,8 @@ Honduras: Tegucigalpa
 14.081999
 -87.202438
 Jamaica: Kingston
-44.22976
--76.48098
+17.5817
+76.4735
 Kanada: Ottawa
 45.41117
 -75.69812

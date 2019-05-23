@@ -79,6 +79,10 @@ public class MapHolderSP {
 		Icon icon = new Icon();
 		File file = new File("images/greenDotCorrectPos2.png");
 		icon.loadFromFile(file);
+		
+		int width = (int) icon.getSize().getWidth();
+		int height = (int) icon.getSize().getHeight();
+		
 		MarkerOptions markerOpt = new MarkerOptions();
 		markerOpt.setIcon(icon);
 
@@ -88,7 +92,7 @@ public class MapHolderSP {
 		cityMarker.setOptions(markerOpt);
 		
 		
-		cityMarker.setPosition(new LatLng(point.getX(), point.getY()));
+		cityMarker.setPosition(new LatLng(point.getX()+(width/2), point.getY()+(height/2)));
 	}
 
 	private class GameMapView extends MapView {
@@ -106,7 +110,9 @@ public class MapHolderSP {
 
 						map.setMapTypeId(MapTypeId.SATELLITE);
 
-						mapOptions.setDraggable(false);
+						//mapOptions.setDraggable(false);
+						mapOptions.setMaxZoom(zoomLevel);
+						mapOptions.setMinZoom(zoomLevel);
 						mapOptions.setDisableDoubleClickZoom(true);
 						mapOptions.setDisableDefaultUI(true);
 

@@ -152,7 +152,9 @@ public class MapHolderMP {
 
 						map.setMapTypeId(MapTypeId.SATELLITE);
 
-						mapOptions.setDraggable(false);
+						//mapOptions.setDraggable(false);
+						mapOptions.setMaxZoom(zoomLevel);
+						mapOptions.setMinZoom(zoomLevel);
 						mapOptions.setDisableDoubleClickZoom(true);
 						mapOptions.setDisableDefaultUI(true);
 
@@ -171,34 +173,10 @@ public class MapHolderMP {
 									lastClick = mouseEvent.latLng();
 									
 									gameController.onMapClickInTime(lastClick);
-									//placeCityPos(city.getPoint(), city.getName());
 									
 									System.out.println("GameControllerMP registered mapclick in time");
 								}
-								/*
-								else if (clickedThisRound == false && countDown <= 0) {
-									clickedThisRound = true;
-
-									gameController.onMapClickOutOfTime();
-									System.out.println("GameControllerMP registered mapclick out of time");
-
-								}
-								*/
-
-								/*else {
-									clickedThisRound = false;
-
-									cityMarker.remove();
-
-									if (clickMarker != null) {
-										clickMarker.remove();
-									}
-									int round = gameController.getCurrentRound();
-
-									if (round < totalRounds) {
-										gameController.startNewRound();
-									}
-								}*/
+								
 							}
 							
 						});

@@ -4,7 +4,7 @@ Hamburg
 Bonn
 50.730
 7.100
-München
+Munchen
 48.140
 11.580
 Stuttgart
@@ -25,13 +25,13 @@ Wolfsburg
 Rostock
 54.090
 12.100
-Lübeck
+Lubeck
 53.870
 10.660
 Berlin
 52.520
 13.380
-Köln
+Koeln
 50.950
 6.970
 Frankfurt
@@ -64,6 +64,6 @@ Mainz
 Dresden
 51.050
 13.740
-Nürnberg
+Nurnberg
 49.450
 11.050

@@ -37,7 +37,7 @@ public class Instructions extends JPanel {
 		// Getting the image
 		i = new ImageIcon("images/instructions.png").getImage();
 		JLabel imageLbl = new JLabel();
-		setLayout(null); // Sätter min JPanel till null, overriding BouderLayout
+		setLayout(null); // Sï¿½tter min JPanel till null, overriding BouderLayout
 		imageLbl.setBounds(400, 0, bounds.width - 600, bounds.height - 200);
 		Image dimg = i.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
 		imageLbl.setIcon((new ImageIcon(dimg)));
@@ -83,15 +83,15 @@ public class Instructions extends JPanel {
 		text3 = "The winner is the person who's guess where " + "\n" + "closest to the correct position on the map.";
 
 
-		wrapArea = new JTextArea(text+ text2+ text3, bounds.width - 200, bounds.height - 200);// Sätter texten på en
+		wrapArea = new JTextArea(text+ text2+ text3, bounds.width - 200, bounds.height - 200);// Sï¿½tter texten pï¿½ en
 																							// JtextArea
-		wrapArea.setBounds(0, 0, bounds.width - 300, bounds.height - 200);// sätter position på texten
+		wrapArea.setBounds(0, 0, bounds.width - 300, bounds.height - 200);// sï¿½tter position pï¿½ texten
 		this.font = new Font(text, Font.BOLD, 14);
 		this.font2 = new Font(text2, Font.PLAIN, 8);
 		this.font3 = new Font(text3, Font.PLAIN, 14);
 
 
-		textLbl.add(wrapArea);// Sätter JTextArea på JLabel
+		textLbl.add(wrapArea);// Sï¿½tter JTextArea pï¿½ JLabel
 		textLbl.setLayout(null);
 		wrapArea.setFont(font);
 //		wrapArea.setFont(font2);
@@ -108,7 +108,6 @@ public class Instructions extends JPanel {
 		frame = new JFrame("ClientGUI");
 		frame.setLayout(new BorderLayout());
 		frame.add(BorderLayout.CENTER, this);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
 	}

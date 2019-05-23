@@ -37,8 +37,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	// Alternatives for choosing map and gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "Oceania",
-			"Oceania" };
+	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "Oceania" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 	private JButton btnGoBack = new JButton("Go Back");
 
@@ -126,26 +125,26 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 					frame.dispose();
 					Point2D.Double point = new Point2D.Double(6.0, 6.0);
 					
-					gameControllerMP.requestGame(point, 3.5, opposingPlayer, rounds, "Africa");
+					gameControllerMP.requestGame(point, 4.5, opposingPlayer, rounds, "Africa");
 				} else if (cmbChooseMap.getSelectedItem() == "Europe") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(53.5775, 23.106111);
 							
-					gameControllerMP.requestGame(point, 4.0, opposingPlayer, rounds, "Europe");
+					gameControllerMP.requestGame(point, 5.2, opposingPlayer, rounds, "Europe");
 				} else if (cmbChooseMap.getSelectedItem() == "Asia") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(42.5775, 80.0);
 							
-					gameControllerMP.requestGame(point, 3.1, opposingPlayer, rounds, "Asia");				}
+					gameControllerMP.requestGame(point, 4, opposingPlayer, rounds, "Asia");				}
 
 				else if (cmbChooseMap.getSelectedItem() == "North America") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(49.0, -103.0);
 							
-					gameControllerMP.requestGame(point, 3.3, opposingPlayer, rounds, "North America");				}
+					gameControllerMP.requestGame(point, 4.5, opposingPlayer, rounds, "North America");				}
 
 				else if (cmbChooseMap.getSelectedItem() == "South America") {
 					frame.dispose();
@@ -174,26 +173,26 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 				else if (cmbChooseMap.getSelectedItem() == "Africa") {
 					frame.dispose();
 					LatLng latlng = new LatLng(6.0, 18.0);
-					gameControllerSP = new GameControllerSP(3.5, latlng, "Africa", rounds);
+					gameControllerSP = new GameControllerSP(4.5, latlng, "Africa", rounds);
 
 				} else if (cmbChooseMap.getSelectedItem() == "Europe") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(53.5775, 23.106111);
-					gameControllerSP = new GameControllerSP(4.0, latlng, "Europe", rounds);
+					gameControllerSP = new GameControllerSP(5.2, latlng, "Europe", rounds);
 
 				} else if (cmbChooseMap.getSelectedItem() == "Asia") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(42.5775, 80.0);
-					gameControllerSP = new GameControllerSP(3.1, latlng, "Asia", rounds);
+					gameControllerSP = new GameControllerSP(4.0, latlng, "Asia", rounds);
 				}
 
 				else if (cmbChooseMap.getSelectedItem() == "North America") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(49.0, -103.0);
-					gameControllerSP = new GameControllerSP(3.3, latlng, "North America", rounds);
+					gameControllerSP = new GameControllerSP(4.5, latlng, "North America", rounds);
 				}
 
 				else if (cmbChooseMap.getSelectedItem() == "Oceania") {
