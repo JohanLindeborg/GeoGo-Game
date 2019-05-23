@@ -35,7 +35,7 @@ public class Instructions extends JPanel {
 		setPreferredSize(new Dimension(bounds.width - 200, bounds.height - 200));
 
 		// Getting the image
-		i = new ImageIcon("images/instructions.PNG").getImage();
+		i = new ImageIcon("images/instructions.png").getImage();
 		JLabel imageLbl = new JLabel();
 		setLayout(null); // Sätter min JPanel till null, overriding BouderLayout
 		imageLbl.setBounds(400, 0, bounds.width - 600, bounds.height - 200);
@@ -69,7 +69,7 @@ public class Instructions extends JPanel {
 //				+ "Play now and upgrade your geographical knowledge!"+
 //				
 		
-		text = "\n" + "\n" +"\n" + "\n" +  "GeoGo-game instructions:"  + "\n";
+		text = "\n" + "\n" +"\n" + "\n" +  "GeoGo-game instructions (for multiplayer):"  + "\n";
 
 		text2 = "\n" + "\n" + "Step one: Start a game." + "\n" + "\n"
 				+ "Step two: Guess the location of the city being given." + "\n"
