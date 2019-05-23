@@ -27,7 +27,6 @@ import sharedFiles.CitiesData;
 import sharedFiles.City;
 import sharedFiles.DisconnectMsg;
 import sharedFiles.EndGameMsg;
-import sharedFiles.GameData;
 import sharedFiles.MapClickMsg;
 import sharedFiles.SetupMsg;
 import sharedFiles.Message;
