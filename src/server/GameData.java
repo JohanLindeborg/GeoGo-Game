@@ -10,6 +10,7 @@ import com.teamdev.jxmaps.LatLng;
 import server.ClientHandler;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
+import sharedFiles.EndGameMsg;
 import sharedFiles.MapClickMsg;
 import sharedFiles.SetupMsg;
 import sharedFiles.NewRoundMsg;
@@ -23,7 +24,7 @@ import sharedFiles.ResultMsg;
  * @author johanlindeborg
  *
  */
-public class GameData2 {
+public class GameData {
 
 	// Players
 	private CitiesData cities;
@@ -41,6 +42,9 @@ public class GameData2 {
 
 	private String player1Str;
 	private String player2Str;
+	
+	private double totScorePl1;
+	private double totScorePl2;
 
 	private boolean pl1HasClicked;
 	private boolean pl2HasClicked;
@@ -51,7 +55,7 @@ public class GameData2 {
 	private boolean pl1Ready = false;
 	private boolean pl2Ready = false;
 
-	public GameData2(ClientHandler player1, ClientHandler player2, int totalRounds, Point2D mapCenter, double zoomLevel,
+	public GameData(ClientHandler player1, ClientHandler player2, int totalRounds, Point2D mapCenter, double zoomLevel,
 			String mapName) {
 		this.player1 = player1;
 		this.player2 = player2;
@@ -85,7 +89,6 @@ public class GameData2 {
 
 	public void startRound() {
 
-		// for(currentRound = 1; currentRound <= totalRounds; currentRound++) {
 		pl1HasClicked = false;
 		pl2HasClicked = false;
 		currentRound++;
@@ -123,11 +126,14 @@ public class GameData2 {
 			pointPl1 = pl1MapClick.getClickPoint();
 
 			System.out.println("GameData: sent ResultMsg to " + player1.getUserName());
+			totScorePl1 += distPl1;
 		}
 
 		if (pl2MapClick.getInTime()) {
 			distPl2 = calcResults(pl2MapClick.getClickPoint(), currentCity.getPoint());
 			pointPl2 = pl2MapClick.getClickPoint();
+			
+			totScorePl2 += distPl2;
 		}
 		
 		ResultMsg msgPl1 = new ResultMsg(distPl1, scorePl1, distPl2, scorePl2, pointPl2);
@@ -143,7 +149,21 @@ public class GameData2 {
 		}
 		// Game finished
 		else {
-			System.out.println("--------------GameData: Game Finished----------------");
+			
+			if( totScorePl1 < totScorePl2) {
+				EndGameMsg msgEnd = new EndGameMsg(player1Str, player2Str, totScorePl1, totScorePl2, player1Str );
+				
+				player1.sendToClient(msgEnd);
+				player2.sendToClient(msgEnd);
+				System.out.println("GameData sent EndGameMsg");
+			}
+			else {
+				EndGameMsg msgEnd = new EndGameMsg(player1Str, player2Str, totScorePl1, totScorePl2, player2Str );
+				
+				player1.sendToClient(msgEnd);
+				player2.sendToClient(msgEnd);
+				System.out.println("GameData sent EndGameMsg");
+			}
 		}
 	}
 
@@ -163,6 +183,7 @@ public class GameData2 {
 
 			processRoundInput();
 		}
+		
 	}
 
 	private double calcResults(Point2D.Double guess, Point2D.Double cityLatLng) {

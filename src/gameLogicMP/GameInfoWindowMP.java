@@ -193,6 +193,10 @@ public class GameInfoWindowMP extends JPanel {
 //		windowFrame.setUndecorated(true);
 		windowFrame.setVisible(true);
 	}
+	
+	public void destroy() {
+		windowFrame.dispose();
+	}
 
 	public JFrame getFrame() {
 		return windowFrame;

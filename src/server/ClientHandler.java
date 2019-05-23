@@ -31,7 +31,7 @@ public class ClientHandler extends Thread {
 	private Boolean listeningForMessages = true;
 
 	private GameServer server;
-	private GameData2 gameData;
+	private GameData gameData;
 	private String userName;
 
 	/*
@@ -129,7 +129,7 @@ public class ClientHandler extends Thread {
 		listeningForMessages = false;
 	}
 
-	public void setGameData(GameData2 gameData) {
+	public void setGameData(GameData gameData) {
 		if (this.gameData == null) {
 			this.gameData = gameData;
 			System.out.println("ClientHandler for " + userName + ": Received new GameData");

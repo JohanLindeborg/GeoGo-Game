@@ -12,7 +12,7 @@ import java.util.Map;
 
 import sharedFiles.AddToServerListMsg;
 import sharedFiles.DisconnectMsg;
-import sharedFiles.GameData;
+import server.GameData;
 import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.UpdateConnectedUsersMsg;
@@ -100,7 +100,7 @@ public class GameServer extends Thread {
 			RequestGameMsg msg = (RequestGameMsg) obj;
 
 			ClientHandler plyr2 = clientMap.get(msg.getOtherPlayer());
-			GameData2 gameData = new GameData2(senderHandler, plyr2, msg.getTotalRounds(), msg.getMapCenter(),
+			GameData gameData = new GameData(senderHandler, plyr2, msg.getTotalRounds(), msg.getMapCenter(),
 					msg.getZoomLevel(), msg.getMapName());
 
 			plyr2.setGameData(gameData);

@@ -17,6 +17,7 @@ import com.teamdev.jxmaps.swing.MapView;
 
 import gameLogicSP.CountDownTimer;
 import gameLogicSP.MapHolderSP;
+import gui.EndGameMenu;
 import gui.GameInfoWindow;
 import gui.GameWindow;
 import gui.MultiPlayerMenu;
@@ -25,6 +26,7 @@ import sharedFiles.AddToServerListMsg;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
 import sharedFiles.DisconnectMsg;
+import sharedFiles.EndGameMsg;
 import sharedFiles.GameData;
 import sharedFiles.MapClickMsg;
 import sharedFiles.SetupMsg;
@@ -202,6 +204,13 @@ public class GameControllerMP extends Thread {
 				
 				menuMP.updateUsers(msg.getUsers());
 			}
+			
+			else if(obj instanceof EndGameMsg) {
+				EndGameMsg msg = (EndGameMsg) obj;
+				
+				new EndGameMenu(msg.getPlayer1(), msg.getPlayer2(), msg.getScorePl1(), msg.getScorePl2(), msg.getWinner(), this);
+				
+			}
 
 		}
 	}
@@ -283,6 +292,11 @@ public class GameControllerMP extends Thread {
 	public void disconnect() {
 		sendMsg(new DisconnectMsg(userName));
 		startMenu.enableMultiBtn(true);
+	}
+	
+	public void closeGameWindows() {
+		gameInfoWindow.destroy();
+		gameWindow.dispose();
 	}
 
 }
