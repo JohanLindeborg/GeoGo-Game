@@ -1,0 +1,111 @@
+Amerikanska Jungfruoerna: Charlotte Amalie
+18.3419
+-64.9307
+Anguilla: The Valley
+18.2232706 
+-63.0566336
+Antigua och Barbuda: Saint John's
+17.11717
+-61.84573
+Aruba: Oranjestad
+12.510052
+-70.009354
+Bahamas: Nassau
+25.025885
+-78.035889
+Barbados: Bridgetown
+13.1
+-59.61667
+Belize: Belmopan
+17.25
+-88.76667
+Bermuda: Hamilton
+32.3191775
+-64.7670827
+Brittiska Jungfruoearna: Road Town
+18.42693
+-64.62079
+Cayman�arna: Georgetown
+33.373474
+-79.288521
+Costa Rica: San Jose
+9.934739
+-84.087502
+Dominica: Roseau
+15.30174
+-61.38808
+Dominikanska republiken: Santo Domingo
+18.50012
+-69.98857
+El Salvador: San Salvador
+13.68935
+-89.18718
+Grenada: Saint George's
+12.05644
+-61.74849
+Guadeloupe: Basse-Terre
+15.99854
+-61.72548
+Guatemala: Guatemala City
+14.628434
+-90.522713
+Haiti: Port-au-Prince
+18.53917
+-72.335
+Honduras: Tegucigalpa
+14.081999
+-87.202438
+Jamaica: Kingston
+44.22976
+-76.48098
+Kanada: Ottawa
+45.41117
+-75.69812
+Kuba: Havanna
+23.113592
+-82.366592
+Martinique: Fort-de-France
+14.60892
+-61.07334
+Mexiko: Mexico City
+19.432608
+-99.133209
+Montserrat: Plymouth
+50.376289
+-4.143841
+Nederl�ndska Antillerna: Willemstad
+12.1084
+-68.93354
+Nicaragua: Managua
+12.136389
+-86.251389
+Panama: Panama City
+8.983333
+-79.516670
+Puerto Rico: San Juan
+18.466333
+-66.105721
+Saint Kitts och Nevis: Basseterre
+17.29484
+-62.7261
+Saint Lucia: Castries
+13.9957
+-61.00614
+Saint Vincent och Grenadinerna: Kingstown
+13.15872
+-61.22475
+Saint-Pierre och Miquelon: Saint-Pierre  
+46.77914
+-56.1773
+Trinidad och Tobago: Port of Spain
+10.671067
+-61.521206
+Turks- och Caicosoearna: Cockburn town
+21.46122
+-71.14188
+USA: Washington D.C.
+38.889931
+-77.009003
+Wallis och Futunaoearna: Mata-Utu
+-13.28163
+-176.17453

@@ -37,7 +37,7 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 	// Alternatives for choosing map and gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
-	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "South America",
+	private String[] options = { "Choose continent", "Europe", "Africa", "Asia", "North America", "Oceania",
 			"Oceania" };
 	private JComboBox<String> cmbChooseMap = new JComboBox<String>(options); // Choose map combo box
 	private JButton btnGoBack = new JButton("Go Back");
@@ -194,13 +194,6 @@ public class ContinentsGameMenu extends JPanel implements ActionListener, Window
 
 					LatLng latlng = new LatLng(49.0, -103.0);
 					gameControllerSP = new GameControllerSP(3.3, latlng, "North America", rounds);
-				}
-
-				else if (cmbChooseMap.getSelectedItem() == "South America") {
-					frame.dispose();
-
-					LatLng latlng = new LatLng(-22.0, -59.0);
-					gameControllerSP = new GameControllerSP(3.5, latlng, "South America", rounds);
 				}
 
 				else if (cmbChooseMap.getSelectedItem() == "Oceania") {

@@ -137,6 +137,10 @@ public class ClientHandler extends Thread {
 			System.out.println("ClientHandler for " + userName + ": Already in game");
 		}
 	}
+	
+	public void destroyGameData() {
+		gameData = null;
+	}
 
 	/*
 	 * public void newGame(RequestGameMsg msg, ClientHandler otherplayer) {

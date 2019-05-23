@@ -102,21 +102,29 @@ public class MapHolderMP {
 		icon.loadFromFile(file);
 		cityMarkerOpt = new MarkerOptions();
 		cityMarkerOpt.setIcon(icon);
-
+		
+		int width = (int) icon.getSize().getWidth();
+		int height = (int) icon.getSize().getHeight();
+		
 		cityMarker = new Marker(gameMapView.getMap());
 
 //		markerOpt.setLabelString(cityName);
 		cityMarker.setOptions(cityMarkerOpt);
 		
-		cityMarker.setPosition(new LatLng(point.getX(), point.getY()));
+		cityMarker.setPosition(new LatLng(point.getX()+(width/2), point.getY()+(height /2)));
 	}
 	
 	public void removeMarkers() {
 		cityMarkerOpt.setVisible(false);
 		
 		cityMarker.setOptions(cityMarkerOpt);
-		clickMarkerPl1.setOptions(cityMarkerOpt);
-		clickMarkerPl2.setOptions(cityMarkerOpt);
+		
+		if(clickMarkerPl1 != null) {
+			clickMarkerPl1.setOptions(cityMarkerOpt);
+		}
+		if(clickMarkerPl2 != null) {
+			clickMarkerPl2.setOptions(cityMarkerOpt);
+		}
 	}
 	
 	public void setClickedThisRound(boolean clicked) {

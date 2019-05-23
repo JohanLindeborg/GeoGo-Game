@@ -67,6 +67,8 @@ public class GameData {
 		this.zoomLevel = zoomLevel;
 		this.totalRounds = totalRounds;
 		this.mapName = mapName;
+		System.out.print("GameData: map "+mapName+" choosen.........");
+
 
 		this.cities = new CitiesData(mapName);
 	}
@@ -94,6 +96,7 @@ public class GameData {
 		currentRound++;
 
 		currentCity = cities.getRandomCity();
+		System.out.println("GameData: new City: "+currentCity.getName());
 
 		if (currentRound == 1) {
 			NewRoundMsg msg = new NewRoundMsg(currentRound, currentCity);
@@ -142,6 +145,7 @@ public class GameData {
 		player1.sendToClient(msgPl1);
 		player2.sendToClient(msgPl2);
 		System.out.println("GameData: sent ResultMsg to " + player2.getUserName() + ", " + player1.getUserName());
+		System.out.println("GameData: currentRound: " + currentRound + ", totalRounds: " + totalRounds);
 
 		// starts a new Round
 		if (currentRound < totalRounds) {
@@ -155,6 +159,9 @@ public class GameData {
 				
 				player1.sendToClient(msgEnd);
 				player2.sendToClient(msgEnd);
+				
+				player1.destroyGameData();
+				player2.destroyGameData();
 				System.out.println("GameData sent EndGameMsg");
 			}
 			else {
@@ -162,6 +169,9 @@ public class GameData {
 				
 				player1.sendToClient(msgEnd);
 				player2.sendToClient(msgEnd);
+				
+				player1.destroyGameData();
+				player2.destroyGameData();
 				System.out.println("GameData sent EndGameMsg");
 			}
 		}

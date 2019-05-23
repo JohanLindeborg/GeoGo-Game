@@ -51,9 +51,20 @@ public class CitiesData {
 		// Lagt in huvudst�der fram till Somalien i den h�r listan
 		else if (mapName.equals("Africa")) {
 			readCitiesFileAndStore("citiesList/capitolsAfrica.txt");
-		} else if (mapName.equals("Europe")) {
+		} 
+		else if (mapName.equals("Europe")) {
 			readCitiesFileAndStore("citiesList/capitolsEurope1.txt");
 		}
+		else if (mapName.equals("Asia")) {
+			readCitiesFileAndStore("citiesList/capitolsAsia.txt");
+		}
+		else if (mapName.equals("Oceania")) {
+			readCitiesFileAndStore("citiesList/capitolsOceania.txt");
+		}
+		else if (mapName.equals("North America")) {
+			readCitiesFileAndStore("citiesList/NordAmerika.txt");
+		}
+		
 	}
 
 	private void readCitiesFileAndStore(String filePath) {

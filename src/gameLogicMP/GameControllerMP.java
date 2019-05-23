@@ -103,7 +103,7 @@ public class GameControllerMP extends Thread {
 
 			if (obj instanceof SetupMsg) {
 				SetupMsg msg = (SetupMsg) obj;
-				System.out.println(userName + "Received MapMsg");
+				System.out.println(userName + " Received SetupMsg");
 
 				mapName = msg.getMapName();
 
@@ -154,21 +154,23 @@ public class GameControllerMP extends Thread {
 				}
 
 				currentCity = msg.getCity();
-
+				
+				System.out.println("gameinfowindow Check: GmaCont 158 "+gameInfoWindow.toString());
+				
 				mapHolder.setClickedThisRound(false);
 				gameTimer.startTimer();
 
 				gameInfoWindow.setClickCityLbl(currentCity.getName());
 				gameInfoWindow.setCurrentRound(msg.getRound());
 
-				System.out.println(userName + "Received NewRoundMsg");
+				System.out.println(userName + " Received NewRoundMsg");
 
 			}
 			// Shows results and pauses the game temporarily
 			else if (obj instanceof ResultMsg) {
 				ResultMsg msg = (ResultMsg) obj;
 
-				System.out.println(userName + "Received ResultMsg");
+				System.out.println(userName + " Received ResultMsg");
 
 				scorePl1 += msg.getScorePl1();
 				scorePl2 += msg.getScorePl2();
@@ -197,7 +199,7 @@ public class GameControllerMP extends Thread {
 			else if(obj instanceof UpdateConnectedUsersMsg) {
 				UpdateConnectedUsersMsg msg = (UpdateConnectedUsersMsg) obj;
 				
-				System.out.println(userName + "Received update user msg");
+				System.out.println(userName + " Received update user msg");
 				System.out.println("Connected users "+msg.getUsers().toString());
 
 				
