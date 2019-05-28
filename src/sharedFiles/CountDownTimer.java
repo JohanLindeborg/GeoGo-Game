@@ -1,11 +1,12 @@
-package gameLogicSP;
+package sharedFiles;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import gameLogicMP.GameControllerMP;
+import multiplayer.GameControllerMP;
+import singleplayer.GameControllerSP;
 
 public class CountDownTimer {
 

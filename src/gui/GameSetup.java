@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import gameLogicMP.GameControllerMP;
+import multiplayer.GameControllerMP;
 
 public class GameSetup extends JFrame implements ActionListener, WindowListener {
 

@@ -26,7 +26,7 @@ import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
 
-import gameLogicSP.GameControllerSP;
+import singleplayer.GameControllerSP;
 
 public class GameInfoWindow extends JPanel {
 

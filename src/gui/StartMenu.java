@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import gameLogicMP.GameControllerMP;
+import multiplayer.GameControllerMP;
 import sharedFiles.UpdateConnectedUsersMsg;
 
 public class StartMenu extends JPanel implements ActionListener {

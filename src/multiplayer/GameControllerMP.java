@@ -1,4 +1,4 @@
-package gameLogicMP;
+package multiplayer;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -15,8 +15,6 @@ import javax.swing.WindowConstants;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.swing.MapView;
 
-import gameLogicSP.CountDownTimer;
-import gameLogicSP.MapHolderSP;
 import gui.EndGameMenu;
 import gui.GameInfoWindow;
 import gui.GameWindow;
@@ -25,6 +23,7 @@ import gui.StartMenu;
 import sharedFiles.AddToServerListMsg;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
+import sharedFiles.CountDownTimer;
 import sharedFiles.DisconnectMsg;
 import sharedFiles.EndGameMsg;
 import sharedFiles.MapClickMsg;
@@ -35,6 +34,7 @@ import sharedFiles.RequestGameMsg;
 import sharedFiles.ResultMsg;
 import sharedFiles.StartGameMsg;
 import sharedFiles.UpdateConnectedUsersMsg;
+import singleplayer.MapHolderSP;
 
 public class GameControllerMP extends Thread {
 	

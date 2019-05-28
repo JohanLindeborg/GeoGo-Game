@@ -23,9 +23,9 @@ import javax.swing.JTextField;
 
 import com.teamdev.jxmaps.LatLng;
 
-import gameLogicMP.GameControllerMP;
-import gameLogicSP.GameControllerSP;
-import gameLogicSP.MapHolderSP;
+import multiplayer.GameControllerMP;
+import singleplayer.GameControllerSP;
+import singleplayer.MapHolderSP;
 
 //import shared.User;
 

@@ -1,4 +1,4 @@
-package gameLogicMP;
+package singleplayer;
 
 import java.awt.geom.Point2D;
 import java.io.File;
@@ -26,28 +26,21 @@ import com.teamdev.jxmaps.swing.MapView;
 
 import sharedFiles.City;
 
-public class MapHolderMP {
-	private GameControllerMP gameController;
+public class MapHolderSP {
+	private GameControllerSP gameController;
 
 	private MapViewOptions options;
 	private GameMapView gameMapView;
 	private String mapName;
 
-	private boolean clickedThisRound;
+	private boolean clickedThisRound = false;
 	private Marker cityMarker;
-	private Marker clickMarkerPl1;
-	private Marker clickMarkerPl2;
-	
-	private MarkerOptions cityMarkerOpt;
-	private MarkerOptions pl1MarkerOpt;
-	private MarkerOptions pl2MarkerOpt;
-	
-	private LatLng lastClick;
+	private Marker clickMarker;
 
 	private int totalRounds;
 	private int countDown;
 
-	public MapHolderMP(int totalRounds, double zoomLevel, LatLng mapCenter, String mapName, GameControllerMP gc) {
+	public MapHolderSP(int totalRounds, double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
 
 		this.totalRounds = totalRounds;
 		gameController = gc;
@@ -66,80 +59,46 @@ public class MapHolderMP {
 		countDown = cntDown;
 	}
 
-	public void placeMarkerPl1(LatLng latlong) {
+	private void placeMarker(LatLng latlong) {
 
 		// �ndrar marker f�r player, finns ett par olika i images
 		Icon icon = new Icon();
 		File file = new File("images/bluePin32.png");
 		icon.loadFromFile(file);
-		pl1MarkerOpt = new MarkerOptions();
-		pl1MarkerOpt.setIcon(icon);
+		MarkerOptions markerOpt = new MarkerOptions();
+		markerOpt.setIcon(icon);
 
-		clickMarkerPl1 = new Marker(gameMapView.getMap());
-		clickMarkerPl1.setOptions(pl1MarkerOpt);
-		clickMarkerPl1.setPosition(latlong);
-	}
-	
-	public void placeMarkerPl2(LatLng latlong) {
-
-		// �ndrar marker f�r player, finns ett par olika i images
-		Icon icon = new Icon();
-		File file = new File("images/redPin32.png");
-		icon.loadFromFile(file);
-		pl2MarkerOpt = new MarkerOptions();
-		pl2MarkerOpt.setIcon(icon);
-
-		clickMarkerPl2 = new Marker(gameMapView.getMap());
-		clickMarkerPl2.setOptions(pl2MarkerOpt);
-		clickMarkerPl2.setPosition(latlong);
+		clickMarker = new Marker(gameMapView.getMap());
+		clickMarker.setOptions(markerOpt);
+		clickMarker.setPosition(latlong);
 	}
 
-	public void placeCityPos(Point2D.Double point, String cityName) {
+	private void placeCityPos(Point2D.Double point, String cityName) {
 
 		// �ndrar marker f�r korrekt position
 		Icon icon = new Icon();
 		File file = new File("images/greenDotCorrectPos2.png");
 		icon.loadFromFile(file);
-		cityMarkerOpt = new MarkerOptions();
-		cityMarkerOpt.setIcon(icon);
 		
 		int width = (int) icon.getSize().getWidth();
 		int height = (int) icon.getSize().getHeight();
 		
+		MarkerOptions markerOpt = new MarkerOptions();
+		markerOpt.setIcon(icon);
+
 		cityMarker = new Marker(gameMapView.getMap());
 
 //		markerOpt.setLabelString(cityName);
-		cityMarker.setOptions(cityMarkerOpt);
+		cityMarker.setOptions(markerOpt);
 		
-		cityMarker.setPosition(new LatLng(point.getX()+(width/2), point.getY()+(height /2)));
-	}
-	
-	public void removeMarkers() {
-		cityMarkerOpt.setVisible(false);
 		
-		cityMarker.setOptions(cityMarkerOpt);
-		
-		if(clickMarkerPl1 != null) {
-			clickMarkerPl1.setOptions(cityMarkerOpt);
-		}
-		if(clickMarkerPl2 != null) {
-			clickMarkerPl2.setOptions(cityMarkerOpt);
-		}
-	}
-	
-	public void setClickedThisRound(boolean clicked) {
-		clickedThisRound = clicked;
-	}
-	
-	public boolean getClickedThisRound() {
-		return clickedThisRound;
+		cityMarker.setPosition(new LatLng(point.getX()+(width/2), point.getY()+(height/2)));
 	}
 
 	private class GameMapView extends MapView {
 
 		public GameMapView(MapViewOptions options, LatLng mapCenter, double zoomLevel) {
 			super(options);
-			
 			setOnMapReadyHandler(new MapReadyHandler() {
 				@Override
 				public void onMapReady(MapStatus status) {
@@ -148,7 +107,6 @@ public class MapHolderMP {
 
 						MapTypeControlOptions controllOptions = new MapTypeControlOptions();
 						MapOptions mapOptions = new MapOptions();
-						
 
 						map.setMapTypeId(MapTypeId.SATELLITE);
 
@@ -165,20 +123,38 @@ public class MapHolderMP {
 
 							@Override
 							public void onEvent(MouseEvent mouseEvent) {
-								System.out.println("Onevent bool: "+clickedThisRound+ ", countdown: "+countDown);
 
 								if (clickedThisRound == false && countDown > 0) {
 									clickedThisRound = true;
 
-									lastClick = mouseEvent.latLng();
-									
-									gameController.onMapClickInTime(lastClick);
-									
-									System.out.println("GameControllerMP registered mapclick in time");
+									LatLng clickLatLng = mouseEvent.latLng();
+									placeMarker(clickLatLng);
+									City city = gameController.onMapClickInTime(clickLatLng);
+									placeCityPos(city.getPoint(), city.getName());
 								}
-								
+
+								else if (clickedThisRound == false && countDown <= 0) {
+									clickedThisRound = true;
+
+									City city = gameController.onMapClickOutOfTime();
+									placeCityPos(city.getPoint(), city.getName());
+								}
+
+								else {
+									clickedThisRound = false;
+
+									cityMarker.remove();
+
+									if (clickMarker != null) {
+										clickMarker.remove();
+									}
+									int round = gameController.getCurrentRound();
+
+									if (round < totalRounds) {
+										gameController.startNewRound();
+									}
+								}
 							}
-							
 						});
 					}
 				}

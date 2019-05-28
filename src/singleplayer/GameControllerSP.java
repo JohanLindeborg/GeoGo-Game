@@ -1,4 +1,4 @@
-package gameLogicSP;
+package singleplayer;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -20,6 +20,7 @@ import gui.GameWindow;
 import gui.WindowListenerSP;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
+import sharedFiles.CountDownTimer;
 
 public class GameControllerSP {
 

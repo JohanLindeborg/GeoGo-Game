@@ -1,4 +1,4 @@
-package gameLogicMP;
+package multiplayer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
 
-import gameLogicSP.GameControllerSP;
+import singleplayer.GameControllerSP;
 
 public class GameInfoWindowMP extends JPanel {
 

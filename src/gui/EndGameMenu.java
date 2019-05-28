@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import gameLogicMP.GameControllerMP;
+import multiplayer.GameControllerMP;
 
 public class EndGameMenu extends JPanel implements WindowListener, ActionListener {
 

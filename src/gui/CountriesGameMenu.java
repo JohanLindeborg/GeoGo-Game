@@ -26,9 +26,9 @@ import javax.swing.event.DocumentListener;
 
 import com.teamdev.jxmaps.LatLng;
 
-import gameLogicMP.GameControllerMP;
-import gameLogicSP.MapHolderSP;
-import gameLogicSP.GameControllerSP;
+import multiplayer.GameControllerMP;
+import singleplayer.GameControllerSP;
+import singleplayer.MapHolderSP;
 
 //import shared.User;
 

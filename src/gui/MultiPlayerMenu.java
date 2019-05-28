@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
-import gameLogicMP.GameControllerMP;
+import multiplayer.GameControllerMP;
 
 public class MultiPlayerMenu extends JPanel implements ActionListener, WindowListener {
 
