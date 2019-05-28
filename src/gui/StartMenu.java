@@ -26,7 +26,11 @@ public class StartMenu extends JPanel implements ActionListener {
 	private ImageButton btnIntructions;
 	private ImageButton btnExitGame;
 	private GameControllerMP controllerMP;
+
 	
+	/**
+	 * Constructor, sets this window up with buttons and background picture, adds actionlisteners.
+	 */
 	public StartMenu() {
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = ge.getMaximumWindowBounds();
@@ -46,8 +50,8 @@ public class StartMenu extends JPanel implements ActionListener {
 		btnMulti.setBounds((bounds.width / 2) - 100, (bounds.height / 2) - 40, 200, 60);
 		btnIntructions.setBounds((bounds.width / 2) - 100, (bounds.height / 2) + 80, 200, 60);
 		btnExitGame.setBounds((bounds.width / 2) - 100, (bounds.height / 2) + 200, 200, 60);
-		
-		// Add actionelisteners
+
+		// Add actionListeners
 		btnSingle.addActionListener(this);
 		btnMulti.addActionListener(this);
 		btnIntructions.addActionListener(this);
@@ -59,7 +63,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
 		Image dimg = i.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
 		imageLbl.setIcon((new ImageIcon(dimg)));
-		
+
 		// Add buttons to this label
 		imageLbl.add(btnSingle);
 		imageLbl.add(btnMulti);
@@ -67,7 +71,10 @@ public class StartMenu extends JPanel implements ActionListener {
 		imageLbl.add(btnExitGame);
 		this.add(imageLbl);
 	}
-
+	
+	/**
+	 * sets up the frame
+	 */
 	public void showUI() {
 
 		frame = new JFrame("StartMenu");
@@ -80,20 +87,23 @@ public class StartMenu extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 	}
-
+	
+	/**
+	 * Puts actions when a button is pressed
+	 */
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource() == btnSingle){
+
+		if (e.getSource() == btnSingle) {
 			singlePlayer();
-			
-		} else if (e.getSource() == btnMulti && btnMulti.isEnabled()){
-				multiPlayer();
-				
-		} else if (e.getSource() == btnIntructions){
-				Instructions ins = new Instructions();
-				ins.showUI();
-				
-		} else if (e.getSource() == btnExitGame){
+
+		} else if (e.getSource() == btnMulti && btnMulti.isEnabled()) {
+			multiPlayer();
+
+		} else if (e.getSource() == btnIntructions) {
+			Instructions ins = new Instructions();
+			ins.showUI();
+
+		} else if (e.getSource() == btnExitGame) {
 			System.exit(0);
 		}
 	}
@@ -103,42 +113,40 @@ public class StartMenu extends JPanel implements ActionListener {
 
 	}
 	
+	/**
+	 * 
+	 */
 	public void multiPlayer() {
-        enableMultiBtn(false);
+		enableMultiBtn(false);
 
 		JTextField usernameTxtField = new JTextField();
 		JTextField ipTxtField = new JTextField();
 		Object[] message = { "Username:", usernameTxtField, "Server IP Address:", ipTxtField };
 
 		int option = JOptionPane.showConfirmDialog(null, message, "Connect to server", JOptionPane.OK_CANCEL_OPTION);
-		if (option == JOptionPane.OK_OPTION){
-		    
-			if (!usernameTxtField.getText().equals("") && !ipTxtField.getText().equals("")){
-		        System.out.println("Trying to connect to server...");
-		        controllerMP = new GameControllerMP(usernameTxtField.getText(),ipTxtField.getText(), this); 
-		        
-		    } else {
-		        System.out.println("login failed");
-		        enableMultiBtn(true);
-		    }
+		if (option == JOptionPane.OK_OPTION) {
+
+			if (!usernameTxtField.getText().equals("") && !ipTxtField.getText().equals("")) {
+				System.out.println("Trying to connect to server...");
+				controllerMP = new GameControllerMP(usernameTxtField.getText(), ipTxtField.getText(), this);
+
+			} else {
+				System.out.println("login failed");
+				enableMultiBtn(true);
+			}
 		} else {
-		    System.out.println("Login canceled");
-		    enableMultiBtn(true);
+			System.out.println("Login canceled");
+			enableMultiBtn(true);
 		}
-		
+
 	}
-	
+
+	/**
+	 * 
+	 * @param boolean that enables or disables the multiplayerbutton
+	 */
 	public void enableMultiBtn(boolean bool) {
 		btnMulti.setEnabled(bool);
-		System.out.println("MultiBtn = "+bool);
-	}
-	
-
-	private void gameRules() {
-		JOptionPane.showMessageDialog(null,
-				"The task of a player in GeoGo is to estimate the locations of different cities on a map. " + "\n"
-						+ "A score is then given the player as a result of the difference in distance between the estimated spot and the actual location."
-						+ "\n" + "Players can choose what part of the world him or her wishes to play in." + "\n" + "\n"
-						+ "Upgrade your geographical knowledge now!");
+		System.out.println("MultiBtn = " + bool);
 	}
 }
