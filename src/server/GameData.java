@@ -13,7 +13,8 @@ import sharedFiles.ResultMsg;
 /**
  * A class for keeping track of active games and the data needed to run them.
  * After both clients are connected and have started a game together, this class
- * should be used by the GameServer to determine where messages should be sent.
+ * should be used by two {@link ClientHandler} instances to send the right data to 
+ * the clients at the right time.
  * 
  * @author johanlindeborg
  *
@@ -47,6 +48,15 @@ public class GameData {
 	private boolean pl1Ready = false;
 	private boolean pl2Ready = false;
 
+	/**
+	 * The constructor method for this class, used to setup all necessary data to run a game.
+	 * @param player1 the {@link ClientHandler} for player 1.
+	 * @param player2 the {@link ClientHandler} for player 2.
+	 * @param totalRounds The number of rounds to be played.
+	 * @param mapCenter The geographical center of the map to be displayed.
+	 * @param zoomLevel The level of zoom to be used on the map.
+	 * @param mapName The name of this map.
+	 */
 	public GameData(ClientHandler player1, ClientHandler player2, int totalRounds, Point2D mapCenter, double zoomLevel,
 			String mapName) {
 		this.player1 = player1;
@@ -62,13 +72,37 @@ public class GameData {
 		this.cities = new CitiesData(mapName);
 	}
 
-	// player2 accepted the game, gameSetup starts.
+	/**
+	 * This method is used when the clienthandler sends information about the new game setup.
+	 */
 	public void setupGame() {
 		player1.sendToClient(new SetupMsg(mapName, totalRounds, mapCenter, zoomLevel, player1Str, player2Str));
 		player2.sendToClient(new SetupMsg(mapName, totalRounds, mapCenter, zoomLevel, player2Str, player1Str));
 		startRound();
 	}
+	
+	/**
+	 * This method is used by a {@link ClientHandler} to set the status of their client to
+	 * ready when a certain message is received by the ClientHandler.
+	 * @param player The ClientHandler whose client is ready to start the game.
+	 * @param ready The boolean to indicate if the player is ready or not.
+	 */
+	public void setPlayerReady(ClientHandler player, boolean ready) {
+		if (player == player1){
+			pl1Ready = ready;
 
+		} else if (player == player2){
+			pl2Ready = ready;
+		} else {
+			System.out.println("GameData ERROR: ClientHandlers dont match");
+		}
+	}
+	
+	/**
+	 * This method is called by both clienthandlers when they have received a message that their client is ready
+	 * to start the game, when this message is received the status of their clienthandler change to ready.
+	 * when this method is called and both players are ready the game starts.
+	 */
 	private void startGame() {
 		while (pl1Ready == false || pl2Ready == false) {
 
@@ -76,7 +110,10 @@ public class GameData {
 
 		startRound();
 	}
-
+	/**
+	 * This method handles the logic of one whole round and sends the relevant information to
+	 * the clients.
+	 */
 	public void startRound() {
 
 		pl1HasClicked = false;
@@ -99,8 +136,37 @@ public class GameData {
 
 		System.out.print("GameData: Sent NewRoundMsg to players");
 	}
+	
+	/**
+	 * This method is called when a {@link ClientHandler}
+	 * receives a {@link mapClickMsg}. This message contains information about a
+	 * input from a client during an active game.
+	 * @param mapClick
+	 */
+	public void updateMapClick(MapClickMsg mapClick) {
 
-	public void processRoundInput() {
+		if (mapClick.getSender().equals(player1.getUserName())) {
+			pl1MapClick = mapClick;
+
+			pl1HasClicked = true;
+			
+		} else if (mapClick.getSender().equals(player2.getUserName())) {
+			pl2MapClick = mapClick;
+
+			pl2HasClicked = true;
+		}
+		if (pl1HasClicked && pl2HasClicked) {
+
+			processRoundInput();
+		}
+		
+	}
+
+	/**
+	 * This method is used to process the input from the clients during an
+	 * active round of the game.
+	 */
+	private void processRoundInput() {
 		double distPl1 = 0;
 		double distPl2 = 0;
 
@@ -163,25 +229,7 @@ public class GameData {
 		}
 	}
 
-	public void updateMapClick(MapClickMsg mapClick) {
-
-		if (mapClick.getSender().equals(player1.getUserName())) {
-			pl1MapClick = mapClick;
-
-			pl1HasClicked = true;
-			
-		} else if (mapClick.getSender().equals(player2.getUserName())) {
-			pl2MapClick = mapClick;
-
-			pl2HasClicked = true;
-		}
-		if (pl1HasClicked && pl2HasClicked) {
-
-			processRoundInput();
-		}
-		
-	}
-
+	
 	private double calcResults(Point2D.Double guess, Point2D.Double cityLatLng) {
 		double lat1 = guess.getX();
 		double lng1 = guess.getY();
@@ -208,16 +256,5 @@ public class GameData {
 
 	private double radToDeg(double rad) {
 		return (rad * 180.0 / Math.PI);
-	}
-
-	public void setPlayerReady(ClientHandler player, boolean ready) {
-		if (player == player1){
-			pl1Ready = ready;
-
-		} else if (player == player2){
-			pl2Ready = ready;
-		} else {
-			System.out.println("GameData ERROR: ClientHandlers dont match");
-		}
 	}
 }

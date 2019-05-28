@@ -11,9 +11,14 @@ import sharedFiles.MapClickMsg;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.StartGameMsg;
 
-/*
- * This class represents the connection between a client and the server
- * it has methods for communication between this client and other clients.
+/**
+ * This class is used for handling connections established by the {@link GameServer}.
+ * With the {@link Socket} received from the server it creates streams for receiving and sending data
+ * from and to the client. It also handles ongoing games in which the associated client is participating.
+ * Informatoion of a ongoing game is stored and updated with the class {@link GameData}.
+ * To be able to continously listen for incomming data this class extends {@link Thread}.
+ * @author johanlindeborg
+ *
  */
 public class ClientHandler extends Thread {
 	private Socket clientSocket;
@@ -28,6 +33,11 @@ public class ClientHandler extends Thread {
 	private GameData gameData;
 	private String userName;
 
+	/**
+	 * The constructor method of this class.
+	 * @param clientSocket The socket used to create streams for communication.
+	 * @param server The {@link GameServer} that creates this clienthandler.
+	 */
 	public ClientHandler(Socket clientSocket, GameServer server) {
 		this.clientSocket = clientSocket;
 		this.server = server;
@@ -42,7 +52,12 @@ public class ClientHandler extends Thread {
 		}
 		start();
 	}
-
+	
+	/**
+	 * The run method for this class, this method listens for incomming messages and depending on their type, 
+	 * sends them to the {@link GameServer} or sets the data in the {@link GameData} class to update the
+	 * status of a ongoing game.
+	 */
 	public void run() {
 		Object obj = null;
 
@@ -82,7 +97,7 @@ public class ClientHandler extends Thread {
 	}
 
 	/**
-	 * This method will be used for communication to the client, to send a message
+	 * This method is used for communication to the client, to send a message
 	 * to the client connected through this ClientHandler.
 	 * 
 	 * @param message The message to be sent
@@ -112,6 +127,11 @@ public class ClientHandler extends Thread {
 		listeningForMessages = false;
 	}
 
+	/**
+	 * This method is used when a new game is started. If the gameData object is not equal to null it means that
+	 * a game is already running and that a new game cannot be created.
+	 * @param gameData
+	 */
 	public void setGameData(GameData gameData) {
 		if (this.gameData == null) {
 			this.gameData = gameData;

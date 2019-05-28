@@ -13,10 +13,19 @@ import server.GameData;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.UpdateConnectedUsersMsg;
 
+/**
+ * This class contains the main functionality for the server. This server with the use of the {@link ClientHandler}
+ * class is a multithreaded TCP server.
+ * It extends a thread with is used for listening for new connections. 
+ * When a connection is made the established socket is sent to a new {@link ClientHandler}
+ * specifically made for handling this connection. Users and their ClientHandlers
+ * are stored in a hashMap with usernames as keys.
+ * @author johanlindeborg
+ *
+ */
 public class GameServer extends Thread {
 	// Hashmap to store usernames (key) and their associated threads.
 	private HashMap<String, ClientHandler> clientMap = new HashMap<String, ClientHandler>();
-	private ArrayList<GameData> gameList = new ArrayList<GameData>();
 	private ArrayList<String> users;
 
 	private ServerSocket serverSocket;
@@ -41,7 +50,10 @@ public class GameServer extends Thread {
 	public HashMap<String, ClientHandler> getClientMap() {
 		return clientMap;
 	}
-
+	/**
+	 * The run method for the thread, this method is started when the GameServer has been instanciated.
+	 * It listens for new connections and creates a new {@link ClientHandler} for each new connection. 
+	 */
 	public void run() {
 		while (this.isAlive()){
 			System.out.println("Server listening for new connections...");
@@ -50,16 +62,20 @@ public class GameServer extends Thread {
 				clientSocket = this.serverSocket.accept();
 			} catch (IOException e) {
 				if (this.isAlive() != true) {
-					System.out.println("Server Stopped.");
-					return;
+					System.out.println("---------ERROR: Server Stopped--------");
+					e.printStackTrace();
 				}
-				throw new RuntimeException("Error accepting client connection", e);
 			}
 			new ClientHandler(clientSocket, this);
 			System.out.println("connection accepted new clienthandler started.");
 		}
 	}
-
+	/**
+	 * This method is used to handle data received by ClientHandlers which concerns the server.
+	 * This data could be a {@link AddToServerListMsg}, {@link RequestGameMsg} or a {@link DisconnectMsg}.
+	 * @param obj The message received by a ClientHandler concerning the GameServer.
+	 * @param senderHandler The ClientHandler which received the message.
+	 */
 	public void processDataFromClient(Object obj, ClientHandler senderHandler) {
 
 		if (obj instanceof AddToServerListMsg){

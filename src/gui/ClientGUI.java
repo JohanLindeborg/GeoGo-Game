@@ -88,9 +88,8 @@ public class ClientGUI extends JPanel implements ActionListener {
 		if (e.getSource() == btnStartGame){
 			new StartMenu().showUI();
 			frame.dispose();
-		}
-
-		else if (e.getSource() == btnExitGame){
+			
+		} else if (e.getSource() == btnExitGame){
 			System.exit(0);
 		}
 	}
