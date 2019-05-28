@@ -8,7 +8,6 @@ import java.net.Socket;
 import sharedFiles.AddToServerListMsg;
 import sharedFiles.DisconnectMsg;
 import sharedFiles.MapClickMsg;
-import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.StartGameMsg;
 
@@ -17,11 +16,6 @@ import sharedFiles.StartGameMsg;
  * it has methods for communication between this client and other clients.
  */
 public class ClientHandler extends Thread {
-
-	/**
-	 * 
-	 */
-
 	private Socket clientSocket;
 
 	private ObjectInputStream ois;
@@ -33,10 +27,6 @@ public class ClientHandler extends Thread {
 	private GameServer server;
 	private GameData gameData;
 	private String userName;
-
-	/*
-	 * ObjectOutputStream for communication with the other player (client).
-	 */
 
 	public ClientHandler(Socket clientSocket, GameServer server) {
 		this.clientSocket = clientSocket;
@@ -53,14 +43,10 @@ public class ClientHandler extends Thread {
 		start();
 	}
 
-	/*
-	 * Lyssnar efter inkommande meddelanden.
-	 * 
-	 */
 	public void run() {
 		Object obj = null;
 
-		while (listeningForMessages) {
+		while (listeningForMessages){
 			try {
 				obj = ois.readObject();
 				System.out.println("Clienthandler for " + userName + " read object ( " + obj + " ).");
@@ -74,13 +60,13 @@ public class ClientHandler extends Thread {
 			}
 
 			// Messages concerning the server
-			if (obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg || obj instanceof DisconnectMsg) {
+			if (obj instanceof AddToServerListMsg || obj instanceof RequestGameMsg || obj instanceof DisconnectMsg){
 				server.processDataFromClient(obj, this);
-			}
-			// Messages concerning a specific game
-			else {
+				
+				// Messages concerning a specific ongoing game
+			} else {
 
-				if (obj instanceof StartGameMsg) {
+				if (obj instanceof StartGameMsg){
 					gameData.setPlayerReady(this, true);
 					System.out.println("Clienthandler for " + userName + " sets ready for game.");
 
@@ -102,11 +88,8 @@ public class ClientHandler extends Thread {
 	 * @param message The message to be sent
 	 */
 	public void sendToClient(Object obj) {
-
 		try {
-
 			oos.writeObject(obj);
-
 		} catch (IOException e) {
 			System.out.println("IO Exception");
 			e.printStackTrace();
@@ -141,15 +124,4 @@ public class ClientHandler extends Thread {
 	public void destroyGameData() {
 		gameData = null;
 	}
-
-	/*
-	 * public void newGame(RequestGameMsg msg, ClientHandler otherplayer) {
-	 * if(this.gameData == null) { gameData = new GameData2(this, otherplayer,
-	 * msg.getTotalRounds(),
-	 * msg.getMapCenter(),msg.getZoomLevel(),msg.getMapName());
-	 * System.out.println("ClientHandler for " +userName+": created new GameData");
-	 * 
-	 * otherplayer.setGameData(gameData); } else {
-	 * System.out.println("ClientHandler for " +userName+": Already in game"); } }
-	 */
 }

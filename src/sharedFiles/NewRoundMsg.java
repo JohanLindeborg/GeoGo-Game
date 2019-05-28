@@ -1,6 +1,7 @@
 package sharedFiles;
 
 public class NewRoundMsg extends Message {
+	private static final long serialVersionUID = 1L;
 	
 	private City city;
 	private int round;

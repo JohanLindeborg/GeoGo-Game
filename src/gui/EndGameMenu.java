@@ -30,55 +30,39 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 	private JLabel dist2 = new JLabel("distance2", SwingConstants.CENTER);
 	private JPanel pnlText = new JPanel();
 	private JButton ok = new JButton("ok");
-	
 	private GameControllerMP controller;
-	
-
 	private ImageButton btnOk;
 	private Font font = new Font("Century Gothic", Font.BOLD, 25);
-
 	private JFrame frame;
 
 	public EndGameMenu(String player1, String player2, double player1Distance, double player2Distance, String winner, GameControllerMP controller) {
 		setBackground(Color.WHITE);
 		this.controller = controller;
-
 		this.setLayout(new BorderLayout());
 		this.pl1.setText(player1);
 		this.pl2.setText(player2);
 		this.dist1.setText(String.valueOf("Total distance: "+player1Distance));
 		this.dist2.setText(String.valueOf("Total distance: "+player2Distance));
 		this.winner.setText("Winner: "+winner);
-		
-		
 		this.winner.setFont(font);
+		
 		pl1.setFont(font);
 		pl2.setFont(font);
 		dist1.setFont(font);
 		dist2.setFont(font);
-		
 		pnlText.setLayout(new GridLayout(2, 2));
-		
 		pl1.setVerticalAlignment(SwingConstants.BOTTOM);
 		pl2.setVerticalAlignment(SwingConstants.BOTTOM);
 		pnlText.add(pl1);
 		pnlText.add(pl2);
 		dist1.setVerticalAlignment(SwingConstants.TOP);
 		dist2.setVerticalAlignment(SwingConstants.TOP);
-		
 		pnlText.add(dist1);
 		pnlText.add(dist2);
-		
-		
-
-		ImageIcon imageIcon = new ImageIcon("src\\images\\btnOk.png");
-		btnOk = new ImageButton(imageIcon.getImage());
 
 		setPreferredSize(new Dimension(700, 500));
-		
 		ok.setFont(font);
 		
-
 		this.add(ok, BorderLayout.NORTH);
 		this.add(pnlText, BorderLayout.CENTER);
 		this.add(this.winner, BorderLayout.SOUTH);
@@ -98,17 +82,8 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
 		frame.addWindowListener(this);
 	}
-
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		if (e.getSource() == btnOk) {
-
-//		}
-//	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

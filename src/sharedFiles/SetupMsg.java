@@ -1,13 +1,8 @@
 package sharedFiles;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
 
-import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.swing.MapView;
-
 public class SetupMsg extends Message {
-
 	private static final long serialVersionUID = 1L;
 
 	private Point2D mapCenter;

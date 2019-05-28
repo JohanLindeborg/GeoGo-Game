@@ -1,13 +1,10 @@
 package sharedFiles;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
 
-import com.teamdev.jxmaps.LatLng;
-
 public class RequestGameMsg extends Message {
-
 	private static final long serialVersionUID = 1L;
+	
 	String player2;
 	private Point2D.Double mapCenter;
 	private double zoomLevel;

@@ -11,8 +11,7 @@ import javax.swing.JPanel;
 public class CustomButton extends JPanel implements MouseListener {
 
 		private static final long serialVersionUID = 1L;
-
-		private ArrayList arry = new ArrayList();
+		private ArrayList array = new ArrayList();
 
 		public CustomButton() {
 			addMouseListener(this);
@@ -35,12 +34,12 @@ public class CustomButton extends JPanel implements MouseListener {
 		}
 
 		public void addActionListener(ActionListener listener) {
-			arry.add(listener);
+			array.add(listener);
 		}
 
 		private void fireEvent(ActionEvent event) {
-			for (int i = 0; i < arry.size(); i++) {
-				ActionListener listener = (ActionListener) arry.get(i);
+			for (int i = 0; i < array.size(); i++) {
+				ActionListener listener = (ActionListener) array.get(i);
 				listener.actionPerformed(event);
 			}
 		}

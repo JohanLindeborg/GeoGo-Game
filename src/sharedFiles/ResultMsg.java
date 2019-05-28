@@ -3,10 +3,10 @@ package sharedFiles;
 import java.awt.geom.Point2D;
 
 public class ResultMsg extends Message {
+	private static final long serialVersionUID = 1L;
 	
 	private double distancePl1;
 	private int scorePl1;
-	
 	private double distancePl2;
 	private int scorePl2;
 	private Point2D pointPl2;
@@ -16,7 +16,6 @@ public class ResultMsg extends Message {
 		super("server");
 		this.distancePl1 = distPl1;
 		this.scorePl1 = scorePl1;
-		
 		this.distancePl2 = distPl2;
 		this.scorePl2 = scorePl2;
 		this.pointPl2 = pointPl2;

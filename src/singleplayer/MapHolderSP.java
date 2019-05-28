@@ -2,15 +2,8 @@ package singleplayer;
 
 import java.awt.geom.Point2D;
 import java.io.File;
-
-import com.teamdev.jxmaps.GeocoderCallback;
-import com.teamdev.jxmaps.GeocoderRequest;
-import com.teamdev.jxmaps.GeocoderResult;
-import com.teamdev.jxmaps.GeocoderStatus;
 import com.teamdev.jxmaps.Icon;
-import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.MapMouseEvent;
 import com.teamdev.jxmaps.MapOptions;
 import com.teamdev.jxmaps.MapReadyHandler;
@@ -20,7 +13,6 @@ import com.teamdev.jxmaps.MapTypeId;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.MarkerOptions;
-import com.teamdev.jxmaps.MarkerShape;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
@@ -41,12 +33,10 @@ public class MapHolderSP {
 	private int countDown;
 
 	public MapHolderSP(int totalRounds, double zoomLevel, LatLng mapCenter, String mapName, GameControllerSP gc) {
-
 		this.totalRounds = totalRounds;
 		gameController = gc;
 		options = new MapViewOptions();
 		options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
-
 		gameMapView = new GameMapView(options, mapCenter, zoomLevel);
 		this.mapName = mapName;
 	}
@@ -60,8 +50,6 @@ public class MapHolderSP {
 	}
 
 	private void placeMarker(LatLng latlong) {
-
-		// �ndrar marker f�r player, finns ett par olika i images
 		Icon icon = new Icon();
 		File file = new File("images/bluePin32.png");
 		icon.loadFromFile(file);
@@ -74,8 +62,6 @@ public class MapHolderSP {
 	}
 
 	private void placeCityPos(Point2D.Double point, String cityName) {
-
-		// �ndrar marker f�r korrekt position
 		Icon icon = new Icon();
 		File file = new File("images/greenDotCorrectPos2.png");
 		icon.loadFromFile(file);
@@ -87,11 +73,7 @@ public class MapHolderSP {
 		markerOpt.setIcon(icon);
 
 		cityMarker = new Marker(gameMapView.getMap());
-
-//		markerOpt.setLabelString(cityName);
 		cityMarker.setOptions(markerOpt);
-		
-		
 		cityMarker.setPosition(new LatLng(point.getX()+(width/2), point.getY()+(height/2)));
 	}
 
@@ -102,7 +84,7 @@ public class MapHolderSP {
 			setOnMapReadyHandler(new MapReadyHandler() {
 				@Override
 				public void onMapReady(MapStatus status) {
-					if (status == MapStatus.MAP_STATUS_OK) {
+					if (status == MapStatus.MAP_STATUS_OK){
 						final com.teamdev.jxmaps.Map map = getMap();
 
 						MapTypeControlOptions controllOptions = new MapTypeControlOptions();
@@ -110,7 +92,6 @@ public class MapHolderSP {
 
 						map.setMapTypeId(MapTypeId.SATELLITE);
 
-						//mapOptions.setDraggable(false);
 						mapOptions.setMaxZoom(zoomLevel);
 						mapOptions.setMinZoom(zoomLevel);
 						mapOptions.setDisableDoubleClickZoom(true);
@@ -124,33 +105,31 @@ public class MapHolderSP {
 							@Override
 							public void onEvent(MouseEvent mouseEvent) {
 
-								if (clickedThisRound == false && countDown > 0) {
+								if (clickedThisRound == false && countDown > 0){
 									clickedThisRound = true;
 
 									LatLng clickLatLng = mouseEvent.latLng();
 									placeMarker(clickLatLng);
 									City city = gameController.onMapClickInTime(clickLatLng);
 									placeCityPos(city.getPoint(), city.getName());
-								}
-
-								else if (clickedThisRound == false && countDown <= 0) {
+								
+								} else if (clickedThisRound == false && countDown <= 0){
 									clickedThisRound = true;
 
 									City city = gameController.onMapClickOutOfTime();
 									placeCityPos(city.getPoint(), city.getName());
-								}
-
-								else {
+								
+								} else{
 									clickedThisRound = false;
 
 									cityMarker.remove();
 
-									if (clickMarker != null) {
+									if (clickMarker != null){
 										clickMarker.remove();
 									}
 									int round = gameController.getCurrentRound();
 
-									if (round < totalRounds) {
+									if (round < totalRounds){
 										gameController.startNewRound();
 									}
 								}

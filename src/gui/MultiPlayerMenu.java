@@ -10,44 +10,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
-
 import multiplayer.GameControllerMP;
 
 public class MultiPlayerMenu extends JPanel implements ActionListener, WindowListener {
 
 	private static final long serialVersionUID = 1L;
 	
-	// L�gger till username till denna ArrayList fr�n JOptionPane som poppra upp n�r man v�ljer multiplayer
-	// fr�n startmenu menyn. 
-	// String username = JOptionPane
-	// MultiPlayerMenu.arrayL.add(username); 
-	
 	private String[] str;
 	private JList<String> userlist = new JList<String>(new String[]{"No connected users"});
-
 	private JFrame frame;
 	private JLabel userLabel;
-
 	private ImageButton btnHostGame;
 	private Image i;
-	
 	private GameControllerMP controllerMP;
 
 	public MultiPlayerMenu(GameControllerMP controllerMP) {
 
 		this.controllerMP = controllerMP;
-		// setup list
-		userlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // kan bara v�lja en user
-//		list.setBounds(330, 90, 220, 250);
+		userlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		userlist.setFont(new Font("Century Gothic", Font.BOLD, 16));
 		userlist.setForeground(Color.WHITE);
 		userlist.setBackground(Color.black);
@@ -83,13 +70,11 @@ public class MultiPlayerMenu extends JPanel implements ActionListener, WindowLis
 		imageLbl.add(btnHostGame);
 		imageLbl.add(userLabel);
 		imageLbl.add(userlist);
-//		imageLbl.add(new JScrollPane(list)); // Fick inte denna att fungera
 
 		showUI();
 	}
 
 	void showUI() {
-
 		frame = new JFrame("MultiPlayeMenu");
 		Image imageI = new ImageIcon("images/globe.16x16.png").getImage();
 		frame.setIconImage(imageI);
@@ -102,28 +87,21 @@ public class MultiPlayerMenu extends JPanel implements ActionListener, WindowLis
 	}
 	
 	public void updateUsers(ArrayList<String> users) {
-
 		str = new String[users.size()];
 		str = users.toArray(str);
-
-		
 		userlist.setVisibleRowCount(users.size());
-		
-		userlist.setListData(str);
-		//userlist.setListData(str);
-		
+		userlist.setListData(str);		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()== btnHostGame && userlist.isSelectionEmpty()) {
+		if(e.getSource()== btnHostGame && userlist.isSelectionEmpty()){
 			JOptionPane.showMessageDialog(this, "Please select an opposing player", "ERROR", JOptionPane.ERROR_MESSAGE);
-		}
-		else if(e.getSource() == btnHostGame && userlist.getSelectedValue().equals(controllerMP.getUserName())) {
+			
+		} else if(e.getSource() == btnHostGame && userlist.getSelectedValue().equals(controllerMP.getUserName())){
 			JOptionPane.showMessageDialog(this, "Cant play against yourself, please select another user", "ERROR", JOptionPane.ERROR_MESSAGE);
-		}
-		
-		else if (e.getSource() == btnHostGame) {
+			
+		} else if (e.getSource() == btnHostGame) {
 			new GameSetup(userlist.getSelectedValue(), controllerMP);
 		}
 		

@@ -1,12 +1,6 @@
 package server;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.io.Serializable;
-import java.util.HashMap;
-
-import com.teamdev.jxmaps.LatLng;
-
 import server.ClientHandler;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
@@ -25,8 +19,6 @@ import sharedFiles.ResultMsg;
  *
  */
 public class GameData {
-
-	// Players
 	private CitiesData cities;
 	private City currentCity;
 
@@ -67,9 +59,6 @@ public class GameData {
 		this.zoomLevel = zoomLevel;
 		this.totalRounds = totalRounds;
 		this.mapName = mapName;
-		System.out.print("GameData: map "+mapName+" choosen.........");
-
-
 		this.cities = new CitiesData(mapName);
 	}
 
@@ -77,7 +66,6 @@ public class GameData {
 	public void setupGame() {
 		player1.sendToClient(new SetupMsg(mapName, totalRounds, mapCenter, zoomLevel, player1Str, player2Str));
 		player2.sendToClient(new SetupMsg(mapName, totalRounds, mapCenter, zoomLevel, player2Str, player1Str));
-		// startGame();
 		startRound();
 	}
 
@@ -98,7 +86,7 @@ public class GameData {
 		currentCity = cities.getRandomCity();
 		System.out.println("GameData: new City: "+currentCity.getName());
 
-		if (currentRound == 1) {
+		if (currentRound == 1){
 			NewRoundMsg msg = new NewRoundMsg(currentRound, currentCity);
 			msg.setIsFirstRound(true);
 
@@ -110,8 +98,6 @@ public class GameData {
 		}
 
 		System.out.print("GameData: Sent NewRoundMsg to players");
-
-		// }
 	}
 
 	public void processRoundInput() {
@@ -148,13 +134,13 @@ public class GameData {
 		System.out.println("GameData: currentRound: " + currentRound + ", totalRounds: " + totalRounds);
 
 		// starts a new Round
-		if (currentRound < totalRounds) {
+		if (currentRound < totalRounds){
 			startRound();
-		}
-		// Game finished
-		else {
 			
-			if( totScorePl1 < totScorePl2) {
+		// Game finished
+		} else {
+			
+			if( totScorePl1 < totScorePl2){
 				EndGameMsg msgEnd = new EndGameMsg(player1Str, player2Str, totScorePl1, totScorePl2, player1Str );
 				
 				player1.sendToClient(msgEnd);
@@ -163,8 +149,8 @@ public class GameData {
 				player1.destroyGameData();
 				player2.destroyGameData();
 				System.out.println("GameData sent EndGameMsg");
-			}
-			else {
+			
+			} else {
 				EndGameMsg msgEnd = new EndGameMsg(player1Str, player2Str, totScorePl1, totScorePl2, player2Str );
 				
 				player1.sendToClient(msgEnd);
@@ -183,12 +169,12 @@ public class GameData {
 			pl1MapClick = mapClick;
 
 			pl1HasClicked = true;
+			
 		} else if (mapClick.getSender().equals(player2.getUserName())) {
 			pl2MapClick = mapClick;
 
 			pl2HasClicked = true;
 		}
-		
 		if (pl1HasClicked && pl2HasClicked) {
 
 			processRoundInput();
@@ -225,10 +211,10 @@ public class GameData {
 	}
 
 	public void setPlayerReady(ClientHandler player, boolean ready) {
-		if (player == player1) {
+		if (player == player1){
 			pl1Ready = ready;
 
-		} else if (player == player2) {
+		} else if (player == player2){
 			pl2Ready = ready;
 		} else {
 			System.out.println("GameData ERROR: ClientHandlers dont match");

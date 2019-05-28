@@ -3,8 +3,6 @@ package sharedFiles;
 import java.awt.geom.Point2D;
 
 public class MapClickMsg extends Message {
-	
-	
 	private Point2D.Double mapClickPoint;
 	private boolean inTime;
 

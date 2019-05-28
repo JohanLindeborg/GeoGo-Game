@@ -7,24 +7,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import sharedFiles.AddToServerListMsg;
 import sharedFiles.DisconnectMsg;
 import server.GameData;
-import sharedFiles.Message;
 import sharedFiles.RequestGameMsg;
 import sharedFiles.UpdateConnectedUsersMsg;
-import sharedFiles.MapClickMsg;
 
 public class GameServer extends Thread {
-
 	// Hashmap to store usernames (key) and their associated threads.
 	private HashMap<String, ClientHandler> clientMap = new HashMap<String, ClientHandler>();
 	private ArrayList<GameData> gameList = new ArrayList<GameData>();
 	private ArrayList<String> users;
-
 
 	private ServerSocket serverSocket;
 	private int serverPort = 8888;
@@ -35,17 +28,13 @@ public class GameServer extends Thread {
 		try {
 			address = InetAddress.getLocalHost();
 			System.out.println(address.getHostAddress());
+			serverSocket = new ServerSocket(serverPort);
 
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
-		}
-
-		try {
-			serverSocket = new ServerSocket(serverPort);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		start();
 	}
 
@@ -54,7 +43,7 @@ public class GameServer extends Thread {
 	}
 
 	public void run() {
-		while (this.isAlive()) {
+		while (this.isAlive()){
 			System.out.println("Server listening for new connections...");
 			Socket clientSocket = null;
 			try {
@@ -64,19 +53,16 @@ public class GameServer extends Thread {
 					System.out.println("Server Stopped.");
 					return;
 				}
-
 				throw new RuntimeException("Error accepting client connection", e);
 			}
-
 			new ClientHandler(clientSocket, this);
 			System.out.println("connection accepted new clienthandler started.");
 		}
 	}
 
-	// Synkroniserad? / eller 1 tråd per aktivt spel?
 	public void processDataFromClient(Object obj, ClientHandler senderHandler) {
 
-		if (obj instanceof AddToServerListMsg) {
+		if (obj instanceof AddToServerListMsg){
 			AddToServerListMsg msg = ((AddToServerListMsg) obj);
 
 			senderHandler.setUserName(msg.getSender());
@@ -86,17 +72,16 @@ public class GameServer extends Thread {
 			users = new ArrayList<String>();
 			
 			//Creates arraylist with all users
-			for(String key: clientMap.keySet()) {
+			for(String key: clientMap.keySet()){
 				users.add(key);
 			}
 			// sends list of all connected users to the users
 			for(ClientHandler handler: clientMap.values()) {
 				handler.sendToClient(new UpdateConnectedUsersMsg(users));
 			}
-			
 		}
 
-		else if (obj instanceof RequestGameMsg) {
+		else if (obj instanceof RequestGameMsg){
 			RequestGameMsg msg = (RequestGameMsg) obj;
 
 			ClientHandler plyr2 = clientMap.get(msg.getOtherPlayer());
@@ -108,38 +93,22 @@ public class GameServer extends Thread {
 
 			gameData.setupGame();
 
-			// senderHandler.newGame(msg, clientMap.get(msg.getOtherPlayer()));
-		}
-		else if (obj instanceof DisconnectMsg) {
+		} else if (obj instanceof DisconnectMsg) {
 			DisconnectMsg msg = (DisconnectMsg) obj;
-			
 			clientMap.remove(msg.getSender()).stopThread();
 			
 			updateClientList();
 		}
 	}
-	
+
 	private void updateClientList() {
 		ArrayList<String> users = new ArrayList<String>();
 		
-		for ( String key : clientMap.keySet() ) {
+		for ( String key : clientMap.keySet() ){
 		    users.add(key);
 		}
-		for( ClientHandler handler : clientMap.values()) {
+		for( ClientHandler handler : clientMap.values()){
 			handler.sendToClient(new UpdateConnectedUsersMsg(users));
 		}
 	}
-	
-	private void newClientUpdate(ClientHandler senderHandler) {
-		ArrayList<String> users = new ArrayList<String>();
-		
-		for ( String key : clientMap.keySet() ) {
-		    users.add(key);
-		}
-		senderHandler.sendToClient(new UpdateConnectedUsersMsg(users));
-	}
 }
-
-// Behålla gameData? kolla så att användare inte kan skicka samtidigt, 
-// alt. uppdatera gamedata genom att kommandon skickas, synkronisera metoder i gameData
-//

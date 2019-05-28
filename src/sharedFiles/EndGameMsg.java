@@ -2,9 +2,6 @@ package sharedFiles;
 
 public class EndGameMsg extends Message {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String player1;
 	private String player2;

@@ -1,20 +1,10 @@
 package singleplayer;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.geom.Point2D;
-import java.util.LinkedList;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.swing.MapView;
-
 import gui.GameInfoWindow;
 import gui.GameWindow;
 import gui.WindowListenerSP;
@@ -23,26 +13,20 @@ import sharedFiles.City;
 import sharedFiles.CountDownTimer;
 
 public class GameControllerSP {
-
 	private MapHolderSP mapHolder;
-
 	private GameWindow gameWindow;
 	private GameInfoWindow gameInfoWindow;
 	private WindowListenerSP windowListener;
-
 	private MapView gameMapView;
 	private Map map;
 	private CitiesData citiesData;
 	private City currentCity;
 	private int totalRounds;
 	private int currentRound;
-
 	private String currentMap;
-
 	private CountDownTimer countDownTimer;
 
 	public GameControllerSP(double zoomLvl, LatLng latlng, String currentMap, int totalRounds) {
-
 		windowListener = new WindowListenerSP(this);
 
 		currentRound = 0;
@@ -76,9 +60,9 @@ public class GameControllerSP {
 		double distance = getDistance(clickLatLng, currentCity.getPoint());
 		gameInfoWindow.setDistanceLbl(Double.toString(distance));
 
-		if (currentRound < totalRounds) {
+		if (currentRound < totalRounds){
 			gameInfoWindow.showContinueLbl("Click on map to continue");
-		} else {
+		} else{
 			gameInfoWindow.showContinueLbl("Game Finished, close window to continue");
 		}
 		// returns the "target city" to the map
@@ -90,9 +74,9 @@ public class GameControllerSP {
 	public City onMapClickOutOfTime() {
 		countDownTimer.stopTimer();
 
-		if (currentRound < totalRounds) {
+		if (currentRound < totalRounds){
 			gameInfoWindow.showContinueLbl("Click on map to continue");
-		} else {
+		} else{
 			gameInfoWindow.showContinueLbl("Game Finished, close window to continue");
 		}
 		// returns the "target city" to the map
@@ -118,8 +102,6 @@ public class GameControllerSP {
 
 	}
 
-	// Temporary method, should be replaced, allows access to change gui from
-	// CreateMap
 	public void rmvContinueLblInInfo() {
 		gameInfoWindow.removeContinueLbl();
 	}

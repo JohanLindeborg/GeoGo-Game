@@ -2,15 +2,8 @@ package multiplayer;
 
 import java.awt.geom.Point2D;
 import java.io.File;
-
-import com.teamdev.jxmaps.GeocoderCallback;
-import com.teamdev.jxmaps.GeocoderRequest;
-import com.teamdev.jxmaps.GeocoderResult;
-import com.teamdev.jxmaps.GeocoderStatus;
 import com.teamdev.jxmaps.Icon;
-import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.MapMouseEvent;
 import com.teamdev.jxmaps.MapOptions;
 import com.teamdev.jxmaps.MapReadyHandler;
@@ -20,15 +13,11 @@ import com.teamdev.jxmaps.MapTypeId;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.MarkerOptions;
-import com.teamdev.jxmaps.MarkerShape;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
-import sharedFiles.City;
-
 public class MapHolderMP {
 	private GameControllerMP gameController;
-
 	private MapViewOptions options;
 	private GameMapView gameMapView;
 	private String mapName;
@@ -41,19 +30,16 @@ public class MapHolderMP {
 	private MarkerOptions cityMarkerOpt;
 	private MarkerOptions pl1MarkerOpt;
 	private MarkerOptions pl2MarkerOpt;
-	
 	private LatLng lastClick;
 
 	private int totalRounds;
 	private int countDown;
 
 	public MapHolderMP(int totalRounds, double zoomLevel, LatLng mapCenter, String mapName, GameControllerMP gc) {
-
 		this.totalRounds = totalRounds;
 		gameController = gc;
 		options = new MapViewOptions();
 		options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
-
 		gameMapView = new GameMapView(options, mapCenter, zoomLevel);
 		this.mapName = mapName;
 	}
@@ -67,8 +53,6 @@ public class MapHolderMP {
 	}
 
 	public void placeMarkerPl1(LatLng latlong) {
-
-		// �ndrar marker f�r player, finns ett par olika i images
 		Icon icon = new Icon();
 		File file = new File("images/bluePin32.png");
 		icon.loadFromFile(file);
@@ -81,8 +65,6 @@ public class MapHolderMP {
 	}
 	
 	public void placeMarkerPl2(LatLng latlong) {
-
-		// �ndrar marker f�r player, finns ett par olika i images
 		Icon icon = new Icon();
 		File file = new File("images/redPin32.png");
 		icon.loadFromFile(file);
@@ -95,8 +77,6 @@ public class MapHolderMP {
 	}
 
 	public void placeCityPos(Point2D.Double point, String cityName) {
-
-		// �ndrar marker f�r korrekt position
 		Icon icon = new Icon();
 		File file = new File("images/greenDotCorrectPos2.png");
 		icon.loadFromFile(file);
@@ -107,16 +87,12 @@ public class MapHolderMP {
 		int height = (int) icon.getSize().getHeight();
 		
 		cityMarker = new Marker(gameMapView.getMap());
-
-//		markerOpt.setLabelString(cityName);
 		cityMarker.setOptions(cityMarkerOpt);
-		
 		cityMarker.setPosition(new LatLng(point.getX()+(width/2), point.getY()+(height /2)));
 	}
 	
 	public void removeMarkers() {
 		cityMarkerOpt.setVisible(false);
-		
 		cityMarker.setOptions(cityMarkerOpt);
 		
 		if(clickMarkerPl1 != null) {
@@ -143,16 +119,14 @@ public class MapHolderMP {
 			setOnMapReadyHandler(new MapReadyHandler() {
 				@Override
 				public void onMapReady(MapStatus status) {
-					if (status == MapStatus.MAP_STATUS_OK) {
+					if (status == MapStatus.MAP_STATUS_OK){
 						final com.teamdev.jxmaps.Map map = getMap();
 
 						MapTypeControlOptions controllOptions = new MapTypeControlOptions();
 						MapOptions mapOptions = new MapOptions();
 						
-
 						map.setMapTypeId(MapTypeId.SATELLITE);
 
-						//mapOptions.setDraggable(false);
 						mapOptions.setMaxZoom(zoomLevel);
 						mapOptions.setMinZoom(zoomLevel);
 						mapOptions.setDisableDoubleClickZoom(true);
@@ -167,7 +141,7 @@ public class MapHolderMP {
 							public void onEvent(MouseEvent mouseEvent) {
 								System.out.println("Onevent bool: "+clickedThisRound+ ", countdown: "+countDown);
 
-								if (clickedThisRound == false && countDown > 0) {
+								if (clickedThisRound == false && countDown > 0){
 									clickedThisRound = true;
 
 									lastClick = mouseEvent.latLng();

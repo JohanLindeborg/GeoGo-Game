@@ -18,7 +18,7 @@ public class GameWindow extends JFrame {
 	private int height;
 	private Rectangle windowBounds;
 
-	public GameWindow(MapView map) {
+	public GameWindow(MapView map){
 
 		// sets the size according to screen size
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -27,16 +27,14 @@ public class GameWindow extends JFrame {
 		height = (int) windowBounds.getHeight();
 		this.setSize(width - 100, (height / 4) * 3);
 		this.setLocation(0, 0);
-
 		this.setTitle("GameWindow");
-
 		this.add(map, BorderLayout.CENTER);
 		Image image = new ImageIcon("images/globe.16x16.png").getImage();
 		this.setIconImage(image);
 		this.setVisible(true);
 	}
 
-	public Rectangle getWindowBounds() {
+	public Rectangle getWindowBounds(){
 		return windowBounds;
 	}
 }

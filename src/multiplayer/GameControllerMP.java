@@ -1,27 +1,17 @@
 package multiplayer;
 
-import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.swing.MapView;
-
 import gui.EndGameMenu;
-import gui.GameInfoWindow;
 import gui.GameWindow;
 import gui.MultiPlayerMenu;
 import gui.StartMenu;
 import sharedFiles.AddToServerListMsg;
-import sharedFiles.CitiesData;
 import sharedFiles.City;
 import sharedFiles.CountDownTimer;
 import sharedFiles.DisconnectMsg;
@@ -34,21 +24,17 @@ import sharedFiles.RequestGameMsg;
 import sharedFiles.ResultMsg;
 import sharedFiles.StartGameMsg;
 import sharedFiles.UpdateConnectedUsersMsg;
-import singleplayer.MapHolderSP;
 
 public class GameControllerMP extends Thread {
 	
-	
 	private MultiPlayerMenu menuMP;
 	private String userName;
-
+	
 	private Socket socket;
-
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
 
 	private CountDownTimer gameTimer = new CountDownTimer(this, 16, true);
-
 	private MapHolderMP mapHolder;
 	private String mapName;
 
@@ -68,12 +54,12 @@ public class GameControllerMP extends Thread {
 		startMenu.enableMultiBtn(false);
 
 		try {
-			this.socket = new Socket(serverIp, 8888); // 192.168.0.12
+			this.socket = new Socket(serverIp, 8888);
 
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
 
-			addToServerList(userName);
+			sendMsg(new AddToServerListMsg(userName));
 			start();
 
 		} catch (UnknownHostException e) {
@@ -83,13 +69,12 @@ public class GameControllerMP extends Thread {
 			System.out.println("IO Excception:");
 			e.printStackTrace();
 		}
-
 	}
 
 	public void run() {
 		Object obj = null;
 
-		while (true) {
+		while (true){
 			try {
 				obj = ois.readObject();
 
@@ -101,7 +86,7 @@ public class GameControllerMP extends Thread {
 				e.printStackTrace();
 			}
 
-			if (obj instanceof SetupMsg) {
+			if (obj instanceof SetupMsg){
 				SetupMsg msg = (SetupMsg) obj;
 				System.out.println(userName + " Received SetupMsg");
 
@@ -119,34 +104,26 @@ public class GameControllerMP extends Thread {
 
 				gameWindow.requestFocus();
 
-				// Game setup complete,
-				// sendMsg(new StartGameMsg(userName));
-				// System.out.println("Clienthandler for "+userName +" sent StartGameMsg");
-			} else if (obj instanceof NewRoundMsg) {
+
+			} else if (obj instanceof NewRoundMsg){
 				NewRoundMsg msg = (NewRoundMsg) obj;
 
-				if (msg.getIsFirstRound()) {
-					// Game starts in ...
-					// resultsTimer.startTimer();
+				if (msg.getIsFirstRound()){
 					gameInfoWindow.setInfoLbl("Game Starting...");
 
 					try {
 						this.sleep(5000);
 						gameInfoWindow.removeInfoLbl();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
 				} else {
-					// Start timer for results
 					gameInfoWindow.setInfoLbl("Round Complete");
-					// resultsTimer.startTimer();
 					try {
 						this.sleep(5000);
 						gameInfoWindow.removeInfoLbl();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					// Clean map
@@ -183,9 +160,8 @@ public class GameControllerMP extends Thread {
 					// Show own score+distance
 					gameInfoWindow.setScoreLbls(Integer.toString(scorePl1), Integer.toString(scorePl2));
 					gameInfoWindow.setDistanceLbls(distPl1, distPl2);
-				}
-				// Show
-				else {
+					
+				} else {
 					// show own score + distance
 					// Show other player score+distance+marker
 					gameInfoWindow.setScoreLbls(Integer.toString(scorePl1), Integer.toString(scorePl2));
@@ -196,23 +172,19 @@ public class GameControllerMP extends Thread {
 					mapHolder.placeMarkerPl2(new LatLng(pointPl2.getX(), pointPl2.getY()));
 				}
 			}
-			else if(obj instanceof UpdateConnectedUsersMsg) {
+			else if(obj instanceof UpdateConnectedUsersMsg){
 				UpdateConnectedUsersMsg msg = (UpdateConnectedUsersMsg) obj;
 				
 				System.out.println(userName + " Received update user msg");
 				System.out.println("Connected users "+msg.getUsers().toString());
-
 				
 				menuMP.updateUsers(msg.getUsers());
-			}
-			
-			else if(obj instanceof EndGameMsg) {
+				
+			} else if(obj instanceof EndGameMsg) {
 				EndGameMsg msg = (EndGameMsg) obj;
 				
 				new EndGameMenu(msg.getPlayer1(), msg.getPlayer2(), msg.getScorePl1(), msg.getScorePl2(), msg.getWinner(), this);
-				
 			}
-
 		}
 	}
 
@@ -231,46 +203,30 @@ public class GameControllerMP extends Thread {
 
 	public void onMapClickOutOfTime() {
 		gameTimer.stopTimer();
-
 		mapHolder.placeCityPos(currentCity.getPoint(), currentCity.getName());
 
 		Point2D.Double clickLatLng = new Point2D.Double(0, 0);
-
 		MapClickMsg msg = new MapClickMsg(userName, clickLatLng, false);
 
 		sendMsg(msg);
 		System.out.println("Controller for " + userName + " registered and sent Mapclick out of time");
-
-	}
-
-	private void addToServerList(String username) {
-
-		try {
-			oos.writeObject(new AddToServerListMsg(username));
-		} catch (IOException e) {
-			System.out.println("IO Exception:");
-			e.printStackTrace();
-		}
 	}
 
 	private void sendMsg(Message msg) {
 		try {
 			oos.writeObject(msg);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void requestGame(Point2D.Double mapCenter, double zoomLevel, String otherPlayer, int rounds,
-			String mapName) {
+	public void requestGame(Point2D.Double mapCenter, double zoomLevel, String otherPlayer, int rounds, String mapName) {
 
 		RequestGameMsg msg = new RequestGameMsg(rounds, mapName, mapCenter, zoomLevel, userName, otherPlayer);
-
 		sendMsg(msg);
 		System.out.println(userName + "Sent RequestMapMsg");
 
-		// Sets player is
+		// Sets player is ready to play
 		sendMsg(new StartGameMsg(userName));
 	}
 
@@ -279,8 +235,7 @@ public class GameControllerMP extends Thread {
 		mapHolder.updateTimer(cntDown);
 
 		// If the player never clicks during the time
-		if (cntDown <= 0 && mapHolder.getClickedThisRound() == false) {
-
+		if (cntDown <= 0 && mapHolder.getClickedThisRound() == false){
 			onMapClickOutOfTime();
 			System.out.println("GameControllerMP registered mapclick out of time");
 		}

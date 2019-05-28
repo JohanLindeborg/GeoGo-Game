@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,44 +9,30 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-//import client.StartMenu2;
 
 public class ClientGUI extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-
 
 	private JFrame frame;
 	private ImageButton btnExitGame;
 	private ImageButton btnStartGame;
 	private JLabel lblGeoGo;
 
-
 	private Image i;
 	private GraphicsEnvironment ge;
 	
-	
-
 	public ClientGUI() {
 		
 		// Header
 		lblGeoGo = new JLabel("G e o G o");
 		lblGeoGo.setFont(new Font("Century Gothic", Font.BOLD, 100));
 		lblGeoGo.setForeground(Color.white);
-		
-
-//		lblGeoGo.setBounds(520, 130, 1000, 200);
-		
-
-//		lblGeoGo.setBounds((int) ((width / 2) - (d.getWidth() / 2)),  130, 1000, 200);
-
 		
 		// Getting the size of the screen
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -88,8 +73,6 @@ public class ClientGUI extends JPanel implements ActionListener {
 		frame = new JFrame("ClientGUI");
 		Image imageI = new ImageIcon("images/globe.16x16.png").getImage();
 		frame.setIconImage(imageI);
-//		setUserMenu();
-//      setUserList();
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,17 +85,17 @@ public class ClientGUI extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == btnStartGame) {
+		if (e.getSource() == btnStartGame){
 			new StartMenu().showUI();
 			frame.dispose();
 		}
 
-		else if (e.getSource() == btnExitGame) {
+		else if (e.getSource() == btnExitGame){
 			System.exit(0);
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		ClientGUI gui = new ClientGUI();
 		gui.showUI();
 	}
