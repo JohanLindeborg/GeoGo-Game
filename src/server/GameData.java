@@ -167,8 +167,9 @@ public class GameData {
 	 * active round of the game.
 	 */
 	private void processRoundInput() {
-		double distPl1 = 0;
-		double distPl2 = 0;
+		//the default distance if players dont make a guess in time.
+		double distPl1 = 50;
+		double distPl2 = 50;
 
 		int scorePl1 = 0;
 		int scorePl2 = 0;
