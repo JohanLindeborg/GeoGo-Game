@@ -129,7 +129,7 @@ public class GameData {
 
 			player1.sendToClient(msg);
 			player2.sendToClient(msg);
-		} else {
+		} else{
 			player1.sendToClient(new NewRoundMsg(currentRound, currentCity));
 			player2.sendToClient(new NewRoundMsg(currentRound, currentCity));
 		}
@@ -145,17 +145,17 @@ public class GameData {
 	 */
 	public void updateMapClick(MapClickMsg mapClick) {
 
-		if (mapClick.getSender().equals(player1.getUserName())) {
+		if (mapClick.getSender().equals(player1.getUserName())){
 			pl1MapClick = mapClick;
 
 			pl1HasClicked = true;
 			
-		} else if (mapClick.getSender().equals(player2.getUserName())) {
+		} else if (mapClick.getSender().equals(player2.getUserName())){
 			pl2MapClick = mapClick;
 
 			pl2HasClicked = true;
 		}
-		if (pl1HasClicked && pl2HasClicked) {
+		if (pl1HasClicked && pl2HasClicked){
 
 			processRoundInput();
 		}
@@ -177,15 +177,14 @@ public class GameData {
 		Point2D pointPl1 = null;
 		Point2D pointPl2 = null;
 
-		if (pl1MapClick.getInTime()) {
+		if (pl1MapClick.getInTime()){
 			distPl1 = calcResults(pl1MapClick.getClickPoint(), currentCity.getPoint());
 			pointPl1 = pl1MapClick.getClickPoint();
 
 			System.out.println("GameData: sent ResultMsg to " + player1.getUserName());
 			totScorePl1 += distPl1;
-		}
-
-		if (pl2MapClick.getInTime()) {
+			
+		} if (pl2MapClick.getInTime()){
 			distPl2 = calcResults(pl2MapClick.getClickPoint(), currentCity.getPoint());
 			pointPl2 = pl2MapClick.getClickPoint();
 			
@@ -217,7 +216,7 @@ public class GameData {
 				player2.destroyGameData();
 				System.out.println("GameData sent EndGameMsg");
 			
-			} else {
+			} else{
 				EndGameMsg msgEnd = new EndGameMsg(player1Str, player2Str, totScorePl1, totScorePl2, player2Str );
 				
 				player1.sendToClient(msgEnd);
