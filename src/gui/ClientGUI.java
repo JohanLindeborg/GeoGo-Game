@@ -14,6 +14,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import multiplayer.GameControllerMP;
+
+/**
+ * This class creates the first window that is shown when the game is started. A
+ * START GAME button that when pressed takes a user to {@link StartMenu} and man
+ * EXT GAME button.
+ * 
+ * @author Andreas Holm
+ * @author Amanda Eriksson
+ *
+ */
 
 public class ClientGUI extends JPanel implements ActionListener {
 
@@ -26,18 +37,18 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 	private Image i;
 	private GraphicsEnvironment ge;
-	
+
 	public ClientGUI() {
-		
+
 		// Header
 		lblGeoGo = new JLabel("G e o G o");
 		lblGeoGo.setFont(new Font("Century Gothic", Font.BOLD, 100));
 		lblGeoGo.setForeground(Color.white);
-		
+
 		// Getting the size of the screen
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = ge.getMaximumWindowBounds();
-		
+
 		// Making custom imagebuttons and setting position
 		ImageIcon imageIcon = new ImageIcon("images/btnExitGame.png");
 		btnExitGame = new ImageButton(imageIcon.getImage());
@@ -46,21 +57,21 @@ public class ClientGUI extends JPanel implements ActionListener {
 
 		btnStartGame.setBounds((bounds.width / 2) - 100, (bounds.height / 2) - 70, 200, 60);
 		btnExitGame.setBounds((bounds.width / 2) - 100, (bounds.height / 2) + 50, 200, 60);
-		
+
 		// Adding actionlisteners
 		btnExitGame.addActionListener(this);
 		btnStartGame.addActionListener(this);
-		
+
 		setPreferredSize(new Dimension(bounds.width, bounds.height)); // The games outer panel
-		
-		lblGeoGo.setBounds((int) ((bounds.getWidth() / 2))-235 ,  130, 900, 200);
-	
+
+		lblGeoGo.setBounds((int) ((bounds.getWidth() / 2)) - 235, 130, 900, 200);
+
 		i = new ImageIcon("images/world1337.jpg").getImage();
 
 		JLabel imageLbl = new JLabel();
 		imageLbl.setBounds(0, 0, bounds.width, bounds.height);
 		Image dimg = i.getScaledInstance(imageLbl.getWidth(), imageLbl.getHeight(), Image.SCALE_SMOOTH);
-		
+
 		imageLbl.setIcon((new ImageIcon(dimg)));
 		imageLbl.add(btnStartGame);
 		imageLbl.add(btnExitGame);
@@ -85,16 +96,16 @@ public class ClientGUI extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == btnStartGame){
+		if (e.getSource() == btnStartGame) {
 			new StartMenu().showUI();
 			frame.dispose();
-			
-		} else if (e.getSource() == btnExitGame){
+
+		} else if (e.getSource() == btnExitGame) {
 			System.exit(0);
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		ClientGUI gui = new ClientGUI();
 		gui.showUI();
 	}

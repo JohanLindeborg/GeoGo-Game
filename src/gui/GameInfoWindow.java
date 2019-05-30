@@ -21,6 +21,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import singleplayer.GameControllerSP;
 
+/**
+ * This class is used for keeping and updating the lower frame of the two frames
+ * used for the game. This frame shows a users current information of the
+ * ongoing game. For singleplayer.
+ * 
+ * @author johanlindeborg
+ * @author Andreas Holm
+ *
+ */
 public class GameInfoWindow extends JPanel {
 	private static final long serialVersionUID = 1L;
 
@@ -151,10 +160,10 @@ public class GameInfoWindow extends JPanel {
 		timerLbl.setForeground(Color.GREEN.darker());
 		timerLbl.setText(cntDown + "");
 
-		if (cntDown <= 3){
+		if (cntDown <= 3) {
 			timerLbl.setForeground(Color.RED);
 		}
-		if (cntDown == 0){
+		if (cntDown == 0) {
 			timerLbl.setFont(fontText);
 			timerLbl.setText("Times up!");
 		}

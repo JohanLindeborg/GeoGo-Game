@@ -27,6 +27,20 @@ import multiplayer.GameControllerMP;
 import singleplayer.GameControllerSP;
 import singleplayer.MapHolderSP;
 
+/**
+ * 
+ * This class creates a window for the user to choose which continentmap they want
+ * to play. They can also choose number of rounds to play (1-20). Depending on
+ * if they play singleplayer or multiplayer a different gameController is
+ * created. For multiplayer a {@link gameControllerMP} is created and for
+ * singleplayer a {@link gameControllerSP}
+ * 
+ * @author Adam Lönn
+ * @author Andreas Holm
+ * @author Johan Lindeborg
+ *
+ */
+
 public class ContinentsGameMenu extends JPanel implements ActionListener, WindowListener {
 
 	private JButton btnStart = new JButton("Start");

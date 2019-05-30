@@ -20,14 +20,27 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import com.teamdev.jxmaps.LatLng;
 import multiplayer.GameControllerMP;
+import server.ClientHandler;
 import singleplayer.GameControllerSP;
 import singleplayer.MapHolderSP;
 
-
+/**
+ * 
+ * This class creates a window for the user to choose which countrymap they want
+ * to play. They can also choose number of rounds to play (1-20). Depending on
+ * if they play singleplayer or multiplayer a different gameController is
+ * created. For multiplayer a {@link gameControllerMP} is created and for
+ * singleplayer a {@link gameControllerSP}
+ * 
+ * @author Adam Lönn
+ * @author Andreas Holm
+ * @author Johan Lindeborg
+ *
+ */
 public class CountriesGameMenu extends JPanel implements ActionListener, WindowListener {
 	private JButton btnStart = new JButton("Start");
 	private Image image;
-	
+
 	// Alternatives for choosing map and gametype
 	private JTextField roundsTxtFld = new JTextField();
 	private JLabel roundsLbl = new JLabel("Rounds (1-20):");
@@ -44,21 +57,21 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 	public CountriesGameMenu() {
 		initWindow();
 	}
-	
+
 	public CountriesGameMenu(String opposingPlayer, GameControllerMP gameControllerMP) {
 		this.opposingPlayer = opposingPlayer;
 		this.gameControllerMP = gameControllerMP;
 		initWindow();
-		
+
 	}
-	
+
 	private void initWindow() {
 		add(goBackBtn);
-		
+
 		// used for choosing between countries
 		cmbChooseMap.setBounds(110, 100, 120, 23);
 		add(cmbChooseMap);
-		
+
 		add(roundsLbl);
 		roundsTxtFld.setColumns(3);
 		add(roundsTxtFld);
@@ -91,41 +104,41 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource() == btnStart && opposingPlayer != null){
 
-			if (checkRounds(roundsTxtFld.getText())){
+		if (e.getSource() == btnStart && opposingPlayer != null) {
 
-				if (cmbChooseMap.getSelectedItem() == "Choose country"){
+			if (checkRounds(roundsTxtFld.getText())) {
+
+				if (cmbChooseMap.getSelectedItem() == "Choose country") {
 					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
-				else if (cmbChooseMap.getSelectedItem() == "France"){
+				else if (cmbChooseMap.getSelectedItem() == "France") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(46.4534, 2.2404);
 					gameControllerMP.requestGame(point, 5.9, opposingPlayer, rounds, "France");
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Sweden"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Sweden") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(64.00, 20.00);
 					gameControllerMP.requestGame(point, 4.9, opposingPlayer, rounds, "Sweden");
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Italy"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Italy") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(41.50, 12.50);
 					gameControllerMP.requestGame(point, 6.1, opposingPlayer, rounds, "Italy");
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Germany"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Germany") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(51.133481, 10.018343);
 					gameControllerMP.requestGame(point, 5.5, opposingPlayer, rounds, "Germany");
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Greece"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Greece") {
 					frame.dispose();
 
 					Point2D.Double point = new Point2D.Double(37.983810, 23.727539);
@@ -133,39 +146,39 @@ public class CountriesGameMenu extends JPanel implements ActionListener, WindowL
 				}
 			}
 
-		} else if (e.getSource() == btnStart){
+		} else if (e.getSource() == btnStart) {
 
-			if (checkRounds(roundsTxtFld.getText())){
+			if (checkRounds(roundsTxtFld.getText())) {
 
-				if (cmbChooseMap.getSelectedItem() == "Choose country"){
+				if (cmbChooseMap.getSelectedItem() == "Choose country") {
 					JOptionPane.showMessageDialog(null, "Error: Please select a map", "Error Message",
 							JOptionPane.ERROR_MESSAGE);
-					
-				} else if (cmbChooseMap.getSelectedItem() == "France"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "France") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(46.4534, 2.2404);
 					gameControllerSP = new GameControllerSP(5.9, latlng, "France", rounds);
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Sweden"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Sweden") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(64.00, 20.00);
 					gameControllerSP = new GameControllerSP(4.9, latlng, "Sweden", rounds);
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Italy"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Italy") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(41.50, 12.50);
 					gameControllerSP = new GameControllerSP(6.1, latlng, "Italy", rounds);
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Germany"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Germany") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(51.133481, 10.018343);
 					gameControllerSP = new GameControllerSP(5.5, latlng, "Germany", rounds);
-					
-				} else if (cmbChooseMap.getSelectedItem() == "Greece"){
+
+				} else if (cmbChooseMap.getSelectedItem() == "Greece") {
 					frame.dispose();
 
 					LatLng latlng = new LatLng(37.983810, 23.727539);

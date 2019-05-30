@@ -11,6 +11,15 @@ import javax.swing.WindowConstants;
 
 import com.teamdev.jxmaps.swing.MapView;
 
+/**
+ * This class creates a full screen window for the map part of the game while playing.
+ * Receives a MapView object through the constructor which represents a map with the chosen settings
+ * and displays it on a JFrame.
+ * 
+ * @author Johan Lindeborg
+ *
+ */
+
 public class GameWindow extends JFrame {
 
 	private GraphicsEnvironment ge;

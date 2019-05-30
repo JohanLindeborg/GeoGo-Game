@@ -8,6 +8,14 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+/**
+ * This class is a helperclass for the {@link ImageButton} class.
+ * Helping to create a custombutton.
+ * 
+ * @author Andreas Holm
+ *
+ */
+
 public class CustomButton extends JPanel implements MouseListener {
 
 		private static final long serialVersionUID = 1L;
@@ -24,7 +32,7 @@ public class CustomButton extends JPanel implements MouseListener {
 		}
 
 		public void mouseClicked(MouseEvent e) {
-			fireEvent(new ActionEvent(this, 0, null));
+			pressButton(new ActionEvent(this, 0, null));
 		}
 
 		public void mouseEntered(MouseEvent e) {
@@ -37,7 +45,7 @@ public class CustomButton extends JPanel implements MouseListener {
 			array.add(listener);
 		}
 
-		private void fireEvent(ActionEvent event) {
+		private void pressButton(ActionEvent event) {
 			for (int i = 0; i < array.size(); i++) {
 				ActionListener listener = (ActionListener) array.get(i);
 				listener.actionPerformed(event);

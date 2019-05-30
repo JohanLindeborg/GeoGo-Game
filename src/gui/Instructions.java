@@ -49,16 +49,16 @@ public class Instructions extends JPanel {
 		
 		text = "\n" + "\n" +"\n" + "\n" +  "GeoGo-game instructions (for multiplayer):"  + "\n";
 
-		text2 = "\n" + "\n" + "Step one: Start a game." + "\n" + "\n"
-				+ "Step two: Guess the location of the city being given." + "\n"
+		text2 = "\n" + "\n" + "1: Start a game." + "\n" + "\n"
+				+ "2: Guess the location of the city being given." + "\n"
 				+ "Keep on eye on the time: you only have 15 seconds." + "\n"
 				+ "Your guess is displayed with a blue marker. " + "\n" + "\n"
-				+ "Step three: Wait for your opponent to make their move." + "\n"
+				+ "3: Wait for your opponent to make their move." + "\n"
 				+ "Your opponents guess is displayed with a red marker. " + "\n" + "\n"
-				+ "Step four: The correct spot of the city is displayed with " + "\n" + "a green dot on the map." + "\n"
+				+ "4: The correct spot of the city is displayed with " + "\n" + "a green dot on the map." + "\n"
 				+ "\n" + "\n";
 
-		text3 = "The winner is the person who's guess where " + "\n" + "closest to the correct position on the map.";
+		text3 = "The winner is the person who's guess is " + "\n" + "closest to the correct position on the map.";
 
 		wrapArea = new JTextArea(text+ text2+ text3, bounds.width - 200, bounds.height - 200);
 		wrapArea.setBounds(0, 0, bounds.width - 300, bounds.height - 200);

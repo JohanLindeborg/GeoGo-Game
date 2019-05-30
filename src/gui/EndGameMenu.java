@@ -20,6 +20,17 @@ import javax.swing.SwingConstants;
 
 import multiplayer.GameControllerMP;
 
+/**
+ * 
+ * This class created a window that shows the players result after a game if
+ * over. Total distance for both players is displayed and the player with the
+ * shortest total distance is shown to be the winner.
+ * 
+ * @author Andreas Holm
+ * @author johanlindeborg
+ *
+ */
+
 public class EndGameMenu extends JPanel implements WindowListener, ActionListener {
 
 	private static final long serialVersionUID = 1L;;
@@ -35,17 +46,18 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 	private Font font = new Font("Century Gothic", Font.BOLD, 25);
 	private JFrame frame;
 
-	public EndGameMenu(String player1, String player2, double player1Distance, double player2Distance, String winner, GameControllerMP controller) {
+	public EndGameMenu(String player1, String player2, double player1Distance, double player2Distance, String winner,
+			GameControllerMP controller) {
 		setBackground(Color.WHITE);
 		this.controller = controller;
 		this.setLayout(new BorderLayout());
 		this.pl1.setText(player1);
 		this.pl2.setText(player2);
-		this.dist1.setText(String.valueOf("Total distance: "+player1Distance));
-		this.dist2.setText(String.valueOf("Total distance: "+player2Distance));
-		this.winner.setText("Winner: "+winner);
+		this.dist1.setText(String.valueOf("Total distance: " + player1Distance));
+		this.dist2.setText(String.valueOf("Total distance: " + player2Distance));
+		this.winner.setText("Winner: " + winner);
 		this.winner.setFont(font);
-		
+
 		pl1.setFont(font);
 		pl2.setFont(font);
 		dist1.setFont(font);
@@ -62,11 +74,11 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 
 		setPreferredSize(new Dimension(700, 500));
 		ok.setFont(font);
-		
+
 		this.add(ok, BorderLayout.NORTH);
 		this.add(pnlText, BorderLayout.CENTER);
 		this.add(this.winner, BorderLayout.SOUTH);
-		
+
 		ok.addActionListener(this);
 
 		showUI();
@@ -87,7 +99,7 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == ok) {
+		if (e.getSource() == ok) {
 			controller.closeGameWindows();
 			frame.dispose();
 		}
@@ -95,8 +107,7 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -107,31 +118,25 @@ public class EndGameMenu extends JPanel implements WindowListener, ActionListene
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
 	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 }

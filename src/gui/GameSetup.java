@@ -20,6 +20,18 @@ import javax.swing.JPanel;
 
 import multiplayer.GameControllerMP;
 
+/**
+ * 
+ * This class creates the window for choosing mapsize for the game. A user can
+ * choose between playing country or continent size. If a user choose to play
+ * countrysize, a window for choosing which country map to play is displayed.
+ * {@link CountriesGameMenu} If they choose to play continentysize, a window for
+ * choosing which continent map to play is displayed. {@link CountriesGameMenu}
+ * 
+ * @author Andreas Holm
+ * @author Johan Lindeborg
+ */
+
 public class GameSetup extends JFrame implements ActionListener, WindowListener {
 
 	private JLabel countryInst = new JLabel("Choose this option to play on country maps");
@@ -49,7 +61,7 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 		this.getContentPane().setBackground(Color.BLACK);
 		this.setVisible(true);
 	}
-	
+
 	public GameSetup(String opposingplayer, GameControllerMP gameControllerMP) {
 		this.gameControllerMP = gameControllerMP;
 		opposingPlayer = opposingplayer;
@@ -107,19 +119,19 @@ public class GameSetup extends JFrame implements ActionListener, WindowListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == chooseCountry){
-			if(opposingPlayer != null){
-				new CountriesGameMenu(opposingPlayer,gameControllerMP ).showUI();
-				
+		if (e.getSource() == chooseCountry) {
+			if (opposingPlayer != null) {
+				new CountriesGameMenu(opposingPlayer, gameControllerMP).showUI();
+
 			} else {
 				new CountriesGameMenu().showUI();
 			}
 			this.dispose();
-			
-		} else if (e.getSource() == chooseContinent){
-			if(opposingPlayer != null){
+
+		} else if (e.getSource() == chooseContinent) {
+			if (opposingPlayer != null) {
 				new ContinentsGameMenu(opposingPlayer, gameControllerMP).showUI();
-				
+
 			} else {
 				new ContinentsGameMenu().showUI();
 			}

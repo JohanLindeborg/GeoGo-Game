@@ -15,6 +15,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import multiplayer.GameControllerMP;
+import multiplayer.MapHolderMP;
+
+/**
+ * This class creates the StartGame menu frame with the single, multiplayer,
+ * instruction and exit game buttons. If a user choose multiplayer they are
+ * asked to enter a username, and the IP-adress for the server. A
+ * {@link GameControllerMP} is then created to connect to the server.
+ * 
+ * @author Andreas Holm
+ */
 
 public class StartMenu extends JPanel implements ActionListener {
 
@@ -27,9 +37,9 @@ public class StartMenu extends JPanel implements ActionListener {
 	private ImageButton btnExitGame;
 	private GameControllerMP controllerMP;
 
-	
 	/**
-	 * Constructor, sets this window up with buttons and background picture, adds actionlisteners.
+	 * Constructor, sets this window up with buttons and background picture, adds
+	 * actionlisteners.
 	 */
 	public StartMenu() {
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -71,7 +81,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		imageLbl.add(btnExitGame);
 		this.add(imageLbl);
 	}
-	
+
 	/**
 	 * sets up the frame
 	 */
@@ -87,7 +97,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * Puts actions when a button is pressed
 	 */
@@ -112,10 +122,7 @@ public class StartMenu extends JPanel implements ActionListener {
 		new GameSetup();
 
 	}
-	
-	/**
-	 * 
-	 */
+
 	public void multiPlayer() {
 		enableMultiBtn(false);
 
