@@ -111,7 +111,7 @@ public class ClientHandler extends Thread {
 		}
 	}
 
-	public void SetIsInGame(boolean inGame) {
+	public void setIsInGame(boolean inGame) {
 		isInGame = inGame;
 	}
 

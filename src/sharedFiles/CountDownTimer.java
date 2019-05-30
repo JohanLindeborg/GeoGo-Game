@@ -6,6 +6,13 @@ import javax.swing.Timer;
 import multiplayer.GameControllerMP;
 import singleplayer.GameControllerSP;
 
+/**
+ * This class used for the timer used in the {@link GameControllerSP} and the {@link GameControllerMP} classes.
+ * It is set to a default countdown value of 16 seconds and updates the countdown value in used classes by calling
+ * their updateGameTimer() methods.
+ * @author johanlindeborg
+ *
+ */
 public class CountDownTimer {
 	private GameControllerSP controllerSP;
 	private GameControllerMP controllerMP;

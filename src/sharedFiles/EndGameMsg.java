@@ -1,5 +1,11 @@
 package sharedFiles;
 
+/**
+ * This message is sent from the server to client when an ongoing game has ended. It contains 
+ * data regarding the result to be displayed.
+ * @author johanlindeborg
+ *
+ */
 public class EndGameMsg extends Message {
 	
 	private static final long serialVersionUID = 1L;

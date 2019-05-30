@@ -2,6 +2,12 @@ package sharedFiles;
 
 import java.awt.geom.Point2D;
 
+/**
+ * This message is sent from a client to the server when the client wishes to start a game with another client.
+ * It contains information about which user to play against and also the map and number of rounds to play.
+ * @author johanlindeborg
+ *
+ */
 public class RequestGameMsg extends Message {
 	private static final long serialVersionUID = 1L;
 	

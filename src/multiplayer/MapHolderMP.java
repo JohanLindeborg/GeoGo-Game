@@ -16,6 +16,16 @@ import com.teamdev.jxmaps.MarkerOptions;
 import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
+/**
+ * This class is used for creating a map for the game to be played on. Note that 
+ * much of this code is from the JxMaps library, which is the API used to use and modify 
+ * the Google Maps map displayed. The majority of the methods used in this class are used to modify
+ * an existing map. The map is initiated by instanciating the private class {@link GameMapView}, which
+ * extends a class from JxMaps, modified in this code.
+ * @author johan lindeborg
+ * @author Andreas Holm
+ *
+ */
 public class MapHolderMP {
 	private GameControllerMP gameController;
 	private MapViewOptions options;
@@ -111,6 +121,12 @@ public class MapHolderMP {
 		return clickedThisRound;
 	}
 
+	/**
+	 * This class is used for creating a map and adding a listener for registering map clicks done by the user.
+	 * It extends {@link MapView} which is a class from the JxMaps library.
+	 * @author johanlindeborg
+	 *
+	 */
 	private class GameMapView extends MapView {
 
 		public GameMapView(MapViewOptions options, LatLng mapCenter, double zoomLevel) {

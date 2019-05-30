@@ -18,6 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * This class is used for keeping and updating the lower frame of the two frames used for the game. This frame 
+ * shows users current information of the ongoing game.
+ * @author johanlindeborg
+ *
+ */
 public class GameInfoWindowMP extends JPanel {
 
 	private static final long serialVersionUID = 1L;

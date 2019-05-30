@@ -2,6 +2,13 @@ package sharedFiles;
 
 import java.awt.geom.Point2D;
 
+/**
+ * This message is sent from the server to clients when a new game is about to start. 
+ * When clients receive this message they will initiate a game with the data stored in this
+ * message.
+ * @author johanlindeborg
+ *
+ */
 public class SetupMsg extends Message {
 	private static final long serialVersionUID = 1L;
 

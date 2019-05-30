@@ -7,6 +7,14 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class used for reading in cities and their coordinates from files.
+ * The cities which has been read are stored in a Linkedlist and is then used by either the {@link GameControllerSP}
+ * or the {@link GameData} in the server when running a game. This class can read from a number of diferent files, it
+ * reads from a file depending on which map has been selected by the user.
+ * @author johanlindeborg
+ * @author Adam Lönn
+ */
 public class CitiesData {
 	private LinkedList<City> mapCities = new LinkedList<City>();
 	private Scanner scanner;

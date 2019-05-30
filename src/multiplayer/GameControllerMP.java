@@ -25,6 +25,15 @@ import sharedFiles.ResultMsg;
 import sharedFiles.StartGameMsg;
 import sharedFiles.UpdateConnectedUsersMsg;
 
+
+/**
+ * This class is used for maintaining the connection to the server on the clientside, depending
+ * on the type of {@link Message} it receives it updates the current game to that state. When the game is active it
+ * waits for the class {@link MapHolderMP} to give input on a mapclick. Thereafter it forwards this data to the server.
+ * It also uses a timer {@link CountDownTimer} to limit the time in which the user has to make a guess.
+ * @author johanlindeborg
+ *
+ */
 public class GameControllerMP extends Thread {
 	
 	private MultiPlayerMenu menuMP;

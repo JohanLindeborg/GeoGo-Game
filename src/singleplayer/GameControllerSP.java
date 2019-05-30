@@ -11,7 +11,13 @@ import gui.WindowListenerSP;
 import sharedFiles.CitiesData;
 import sharedFiles.City;
 import sharedFiles.CountDownTimer;
-
+/**
+ * This class is created upon the user starting a new singleplayer game, it keeps all information about
+ * the game and uses a {@link MapHolderSP} to run and display the game. It also uses a timer {@link CountDownTimer}
+ * to limit the availible time in which to make a guess.
+ *  @author johanlindeborg
+ *
+ */
 public class GameControllerSP {
 	private MapHolderSP mapHolder;
 	private GameWindow gameWindow;

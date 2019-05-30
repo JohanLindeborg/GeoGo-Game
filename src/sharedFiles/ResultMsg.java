@@ -2,6 +2,12 @@ package sharedFiles;
 
 import java.awt.geom.Point2D;
 
+/**
+ * This message is sent from the server to clients when one game round has ended. It contains
+ * information about the results of the last round, not to be confused with {@link EndGameMsg}.
+ * @author johanlindeborg
+ *
+ */
 public class ResultMsg extends Message {
 	private static final long serialVersionUID = 1L;
 	
