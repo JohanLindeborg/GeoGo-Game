@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 public class RequestGameMsg extends Message {
 	private static final long serialVersionUID = 1L;
 	
-	String player2;
+	private String player2;
 	private Point2D.Double mapCenter;
 	private double zoomLevel;
 	private String mapName;
