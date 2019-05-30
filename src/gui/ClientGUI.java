@@ -18,8 +18,8 @@ import multiplayer.GameControllerMP;
 
 /**
  * This class creates the first window that is shown when the game is started. A
- * START GAME button that when pressed takes a user to {@link StartMenu} and man
- * EXT GAME button.
+ * START GAME button that when pressed takes a user to {@link StartMenu} and an
+ * EXIT GAME button.
  * 
  * @author Andreas Holm
  * @author Amanda Eriksson
