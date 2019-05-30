@@ -16,7 +16,7 @@ import sharedFiles.CountDownTimer;
  * the game and uses a {@link MapHolderSP} to run and display the game. It also uses a timer {@link CountDownTimer}
  * to limit the availible time in which to make a guess.
  *  @author johanlindeborg
- *
+ *  @author Adam
  */
 public class GameControllerSP {
 	private MapHolderSP mapHolder;

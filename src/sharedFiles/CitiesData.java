@@ -13,7 +13,7 @@ import java.util.Scanner;
  * or the {@link GameData} in the server when running a game. This class can read from a number of diferent files, it
  * reads from a file depending on which map has been selected by the user.
  * @author johanlindeborg
- * @author Adam Lönn
+ * @author Adam
  */
 public class CitiesData {
 	private LinkedList<City> mapCities = new LinkedList<City>();

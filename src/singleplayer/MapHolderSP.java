@@ -25,6 +25,7 @@ import sharedFiles.City;
  * extends a class from JxMaps, modified in this code.
  * @author johan lindeborg
  * @author Andreas Holm
+ * @author Adam
  *
  */
 public class MapHolderSP {

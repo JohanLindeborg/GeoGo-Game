@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
  * This class is used for keeping and updating the lower frame of the two frames used for the game. This frame 
  * shows users current information of the ongoing game.
  * @author johanlindeborg
+ * @author Adam
  *
  */
 public class GameInfoWindowMP extends JPanel {

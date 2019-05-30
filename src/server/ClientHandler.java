@@ -18,6 +18,7 @@ import sharedFiles.StartGameMsg;
  * Informatoion of a ongoing game is stored and updated with the class {@link GameData}.
  * To be able to continously listen for incomming data this class extends {@link Thread}.
  * @author johanlindeborg
+ * @author Adam
  *
  */
 public class ClientHandler extends Thread {
