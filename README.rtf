@@ -1,0 +1,113 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\froman\fcharset0 Times-Roman;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c0\c1\c1;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28300\viewh16280\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+
+\fs48 GeoGo V.2\
+
+\fs36 \
+Licens:\
+
+\fs24 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs28 \cf0 MIT License\
+\
+Copyright (c) 2019 Johan Lindeborg\
+\
+Permission is hereby granted, free of charge, to any person obtaining a copy\
+of this software and associated documentation files (the "Software"), to deal\
+in the Software without restriction, including without limitation the rights\
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\
+copies of the Software, and to permit persons to whom the Software is\
+furnished to do so, subject to the following conditions:\
+\
+The above copyright notice and this permission notice shall be included in all\
+copies or substantial portions of the Software.\
+\
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\
+SOFTWARE.
+\f0\fs24 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+
+\fs36 OBSERVERA:\
+
+\fs24 \
+\
+Detta projektet anv\'e4nder sig av Java 8, detta beror p\'e5 begr\'e4nsningar i API:et som anv\'e4nds f\'f6r projektet. \
+F\'f6r att koden ska kunna k\'f6ras kr\'e4vs det att Java 8 \'e4r installerat i eclipse. OBS! Detta betyder inte att hela eclipse p\'e5verkas, guiden nedan visar\
+specifikt hur detta projektet st\'e4lls in att k\'f6ras med java 8. Resterande eclipse p\'e5verkas allts\'e5 inte.\
+\
+Om det \'e4r n\'e5gra konstigheter, kontakta mig g\'e4rna, mail eller sms anv\'e4nds med f\'f6rdel.    johanlindeborg248@gmail.com / 076 82 74 180\
+\
+\
+
+\fs36 Uppstartnings-guide:\
+\
+
+\fs24 L\'e4gg in filerna som ett eclipse projekt som vanligt.
+\fs28 \
+\
+
+\fs24 Om java 8 inte redan finns tillg\'e4ngligt beh\'f6ver detta installeras, det \'e4r allts\'e5 \'94JDK 8\'94 som ska installeras och sedan l\'e4ggas till i eclipse ({\field{\*\fldinst{HYPERLINK "https://techiedan.com/set-up-jdk-in-eclipse/"}}{\fldrslt 
+\f2 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 https://techiedan.com/set-up-jdk-in-eclipse/}}
+\f2 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2  en guide om detta \'e4r oklart)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0 \cf0 \kerning1\expnd0\expndtw0 \ulnone Om java 8 inte ska anv\'e4ndas som standard f\'f6r eclipse, l\'e5t det vara avmarkerat, dvs. Ej standard JDK f\'f6r eclipse.\
+\
+G\'e5 in p\'e5 {\field{\*\fldinst{HYPERLINK "https://www.teamdev.com/jxmaps"}}{\fldrslt 
+\f2 \cf2 \expnd0\expndtw0\kerning0
+\ul https://www.teamdev.com/jxmaps}}
+\f2 \cf2 \expnd0\expndtw0\kerning0
+\ul  \cf3 \ulnone Klicka p\'e5 download uppe till h\'f6ger. \'d6ppna den nedladdade filen och g\'e5 in p\'e5 libraries, kopiera alla .Jar filer i datorn och spara dem i mappen \'94API_Filer\'94 i projektmappen. \
+Resterande filer i nedladdningen kan raderas.
+\f0\fs28 \cf0 \kerning1\expnd0\expndtw0 \
+\
+
+\fs24 \
+F\'f6r att kunna k\'f6ra koden beh\'f6ver f\'f6ljande inst\'e4llningar i eclipse projektet g\'f6ras:\
+\
+1. H\'f6gerklicka p\'e5 projektet, g\'e5 in p\'e5 \'94build path\'94, klicka p\'e5 \'94configure build path\'94.\
+\
+2. Om filen \'94JRE system library\'94 INTE \'e4r java 8, ta bort denna.\
+	(Om java 8 redan anv\'e4nds, hoppa \'f6ver steg 3.)\
+\
+3.klicka \'94add library\'94, v\'e4lj \'94JRE systems library\'94 -> next, v\'e4lj \'94alternate JRE\'94, v\'e4lj \'94java 8\'94 I listan. \'94Finish\'94\
+\
+4. N\'e4r java 8 finns I \'94build path\'94, klicka p\'e5 \'94add external jar\'94, navigera till projektmappen, \'f6ppna mappen API_FILER, markera alla filer i denna mappen, klicka p\'e5 \'94open\'94. \
+\
+5. I panelen till v\'e4nster, klicka p\'e5 \'94java compiler\'94 kontrollera att \'94compiler compliance level\'94 \'e4r p\'e5 1.8, om inte, s\'e4tt den till 1.8.\
+\
+Nu ska allt fungera, det som ska finnas i build path \'e4r allts\'e5 6 st. .JAR filer samt JRE systems library java 8. \
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs36 \cf0 Att k\'f6ra koden:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs24 \cf0 F\'f6r att k\'f6ra programmet, k\'f6r klassen ClientGUI i paketet \'94gui\'94.\
+Vid multiplayer spel kr\'e4vs det att servern \'e4r ig\'e5ng, servern startas genom klassen \'94Main\'94 i paketet \'94Server\'94. N\'e4r servern \'e4r startad skrivs serverns IP-address ut i konsolf\'f6nstret.\
+Denna Ip adressen anv\'e4nds sedan i programmet f\'f6r att koppla upp till servern.\
+\
+\
+GeoGo Development Team - 19/06/01\
+\
+\
+}
