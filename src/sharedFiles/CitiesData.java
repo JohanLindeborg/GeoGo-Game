@@ -14,6 +14,7 @@ import java.util.Scanner;
  * reads from a file depending on which map has been selected by the user.
  * @author johanlindeborg
  * @author Adam
+ * @author Amanda Eriksson
  */
 public class CitiesData {
 	private LinkedList<City> mapCities = new LinkedList<City>();
