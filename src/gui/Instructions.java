@@ -12,6 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/**
+* A class for creating a window with instructions in text and a picture on how to play GeoGo.
+* @author Amanda Eriksson
+*/
+
 public class Instructions extends JPanel {
 	private static final long serialVersionUID = 1L;
 
