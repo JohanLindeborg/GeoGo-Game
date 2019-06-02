@@ -17,6 +17,7 @@ import sharedFiles.CountDownTimer;
  * to limit the availible time in which to make a guess.
  *  @author johanlindeborg
  *  @author Adam
+ * @author Amanda Eriksson
  */
 public class GameControllerSP {
 	private MapHolderSP mapHolder;
