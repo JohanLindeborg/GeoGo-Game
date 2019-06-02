@@ -26,7 +26,7 @@ import sharedFiles.City;
  * @author johan lindeborg
  * @author Andreas Holm
  * @author Adam
- *
+ * @author Amanda Eriksson
  */
 public class MapHolderSP {
 	private GameControllerSP gameController;
