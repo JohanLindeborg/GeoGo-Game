@@ -32,10 +32,10 @@ import singleplayer.MapHolderSP;
  * created. For multiplayer a {@link gameControllerMP} is created and for
  * singleplayer a {@link gameControllerSP}
  * 
- * @author Adam Lönn
+ * @author Adam LÃ¶nn
  * @author Andreas Holm
  * @author Johan Lindeborg
- *
+ * @author Amanda Eriksson
  */
 public class CountriesGameMenu extends JPanel implements ActionListener, WindowListener {
 	private JButton btnStart = new JButton("Start");
