@@ -28,7 +28,7 @@ import multiplayer.GameControllerMP;
  * 
  * @author Andreas Holm
  * @author johanlindeborg
- *
+ * @author Amanda Eriksson
  */
 
 public class EndGameMenu extends JPanel implements WindowListener, ActionListener {
