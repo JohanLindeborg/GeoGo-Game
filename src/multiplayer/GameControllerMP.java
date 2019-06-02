@@ -112,8 +112,7 @@ public class GameControllerMP extends Thread {
 				gameInfoWindow.setPlayers(msg.getPl1(), msg.getPl2());
 
 				gameWindow.requestFocus();
-
-
+				
 			} else if (obj instanceof NewRoundMsg){
 				NewRoundMsg msg = (NewRoundMsg) obj;
 
