@@ -46,7 +46,11 @@ public class MapHolderSP {
 		this.totalRounds = totalRounds;
 		gameController = gc;
 		options = new MapViewOptions();
-		options.setApiKey("AIzaSyBtefj5xL2e6j-qt65FaXdevjKB3oErQjo");
+		
+		//Google API key goes below.
+		//options.setApiKey("");
+		
+		
 		gameMapView = new GameMapView(options, mapCenter, zoomLevel);
 		this.mapName = mapName;
 	}
