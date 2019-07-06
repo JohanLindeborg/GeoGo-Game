@@ -1,0 +1,81 @@
+American Samoa: Pago Pago
+-14.26666667
+-170.7
+Australia: Canberra
+-35.26666667
+149.133333
+Christmas Island: The Settlement
+-10.41666667
+105.716667
+Cocos Islands: West Island
+-12.16666667
+96.833333
+Cook Islands: Avarua
+-21.2
+-159.766667
+Federated States of Micronesia: Palikir
+6.916666667
+158.15
+Fiji: Suva
+-18.13333333
+178.416667
+French Polynesia: Papeete
+-17.53333333
+-149.566667
+Guam: Hagatna
+13.46666667
+144.733333
+Kiribati: Tarawa
+-0.883333333
+169.533333
+Marshall Islands: Majuro 
+7.1
+171.383333
+Nauru: Yaren
+-0.5477
+166.920867
+New Caledonia: Noumea
+-22.26666667
+166.45
+New Zealand: Wellington
+-41.3
+174.783333
+Niue: Alofi
+-19.01666667
+-169.916667
+Norfolk Island: Kingston
+-29.05
+-167.966667
+Northern Mariana Islands: Saipan
+15.2
+145.75
+Palau: Melekeok
+7.483333333
+134.633333
+Papua New Guinea: Port Moresby
+-9.45
+147.183333
+Pitcairn Islands: Adamstown
+-25.06666667
+-130.083333
+Samoa: Apia
+-13.81666667
+-171.766667
+Solomon Islands: Honiara
+-9.433333333
+159.95
+Tokelau: Atafu
+-9.166667
+-171.833333
+Tonga: Nukualofa
+-21.13333333
+-175.2
+Tuvalu: Funafuti
+-8.516666667
+179.216667
+Vanuatu: Port-Vila
+-17.73333333
+168.316667
+Wallis and Futuna: Mata-Utu
+-13.95
+-171.933333

@@ -1,0 +1,153 @@
+Albanien: Tirana
+41.31666667	
+19.816667
+Andorra: Andorra la Vella
+42.5
+1.516667
+Armenien: Yerevan
+40.16666667
+44.5
+Austria: Vienna
+48.2
+16.366667
+Azerbajdzjan: Baku
+40.38333333
+49.866667 
+Belarus: Minsk
+53.9
+27.566667
+Belgium: Brussels
+50.83333333
+4.333333
+Bosnia and Herzegovina: Sarajevo
+43.86666667
+18.416667
+Bulgaria: Sofia
+42.68333333
+23.316667
+Croatia: Zagreb
+45.8
+16
+Cyprus: Nicosia
+35.16666667
+33.366667
+Czech Republic: Prague
+50.08333333
+14.466667
+Denmark: Copenhagen
+55.66666667
+12.583333
+Estonia: Tallin
+59.43333333
+24.716667
+Faroe Islands: Torshavn
+62
+-6.766667
+Finland: Helsinki
+60.16666667
+24.933333
+France: Paris
+48.86666667
+2.333333
+Georgia: Tbilisi
+41.68333333	
+44.833333
+Germany: Berlin
+52.51666667	
+13.4
+Guernsey: Saint Peter Port
+49.45	
+-2.533333
+Hungary: Budapest
+47.5	
+19.083333
+Iceland: Reykjavik
+64.15	
+-21.95
+Ireland: Dublin
+53.31666667	
+-6.233333
+Isle of Man: Douglas
+54.15	
+-4.483333
+Italy: Rome
+41.9	
+12.483333
+Jersey: Saint Helier
+49.18333333
+-2.1
+Kosovo: Pristina
+42.66666667	
+21.166667
+Latvia: Riga
+56.95	
+24.1
+Lichtenstein: Vaduz
+47.13333333	
+9.516667
+Lithuania: Vilnius
+54.68333333	
+25.316667
+Luxembourg: Luxembourg
+49.6	
+6.116667
+Macedonia: Skopje
+42	
+21.433333
+Malta: Valletta
+35.88333333	
+14.5
+Moldova: Chisinau
+47	
+28.85
+Monaco: Monaco	
+43.73333333
+7.416667
+Montenegro: Podgorica
+42.43333333	
+19.266667
+Norway: Oslo
+59.91666667	
+10.75
+Poland: Warsaw
+52.25	
+21
+Portugal: Lisbon
+38.71666667	
+-9.133333
+Romania: Bucharest	
+44.43333333	
+26.1
+Russia: Moscow	
+55.75	
+37.6
+San Marino: San Marino
+43.93333333	
+12.416667
+Serbia: Belgrade
+44.83333333	
+20.5
+Slovakia: Bratislava
+48.15	
+17.116667
+Slovenia: Ljubljana	
+46.05	
+14.516667
+Spain: Madrid
+40.4	
+-3.683333
+Sweden: Stockholm
+59.33333333	
+18.05
+Switzerland: Bern	
+46.91666667	
+7.466667
+Turkey: Ankara	
+39.93333333	
+32.866667
+Ukraine: Kyiv
+50.43333333	
+30.516667
+United Kingdom: London
+51.5	
+-0.083333
